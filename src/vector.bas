@@ -143,13 +143,13 @@ function VDist (a AS Vector, b AS Vector) as single
 end function
 
 ''
-sub VRot90 (v AS Vector, r as vector)
+sub VPerp (v AS Vector, r as vector)
 	v.x = -r.y
 	v.y = r.x
 end sub
 
 ''
-sub VRot90Im (r as vector)
+sub VPerpIm (r as vector)
 	dim a as vector
 	a.x = -r.y
 	a.y = r.x

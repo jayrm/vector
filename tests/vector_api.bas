@@ -516,7 +516,7 @@ SUITE( vector_api )
 
 	END_TEST
 
-	TEST( VRot90_ )
+	TEST( VPerp_ )
 
 		dim a as vector, b as vector
 		dim angle as single, ra as single
@@ -534,7 +534,7 @@ SUITE( vector_api )
 			CU_ASSERT_SINGLE_EQUAL( a.x, x, epsilon )
 			CU_ASSERT_SINGLE_EQUAL( a.y, y, epsilon )
 
-			VRot90( b, a )
+			VPerp( b, a )
 			VRotIm( a, 90 * PI / 180 )
 
 			CU_ASSERT_SINGLE_EQUAL( a.x, b.x, epsilon )
@@ -544,7 +544,7 @@ SUITE( vector_api )
 
 	END_TEST
 
-	TEST( VRot90Im_ )
+	TEST( VPerpIm_ )
 
 		dim a as vector, b as vector
 		dim angle as single, ra as single
@@ -563,7 +563,7 @@ SUITE( vector_api )
 			CU_ASSERT_SINGLE_EQUAL( a.y, y, epsilon )
 
 			b = a
-			VRot90Im( b )
+			VPerpIm( b )
 			VRotIm( a, 90 * PI / 180 )
 
 			CU_ASSERT_SINGLE_EQUAL( a.x, b.x, epsilon )

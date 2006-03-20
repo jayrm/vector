@@ -284,23 +284,25 @@ VRotIm( {r}, angle )
 	Rotates vector {r} by angle randians where positive angle is
 	counter clockwise and returns result in {r}
 
-VRot90( {r}, {a} )
+VPerp( {r}, {a} )
 ------------------
 	
 	{r} = [ 0  -1 ] * [ a.x ]
 	      [ 1   0 ]   [ a.y ]
 
+	Compute perpendicular vector to {a} and return in vector {r}
 	Rotates vector {a} 90 degress (1/4 turn) counter-clockwise and
 	returns the result in {r}
 		r.x = -a.y
 		r.y =  a.x
 
-VRot90Im( {r} )
+VPerpIm( {r} )
 ---------------
 
 	{r} = [ 0  -1 ] * [ r.x ]
 	      [ 1   0 ]   [ r.y ]
 
+	Compute perpendicular vector to {r} and return in vector {r}
 	Rotates vector {r} 90 degress (1/4 turn) counter-clockwise and
 	returns the result in {r}
 

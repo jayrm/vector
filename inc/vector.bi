@@ -34,7 +34,7 @@
 	declare function VMag (v AS Vector) as single
 	declare sub VRotIm (v AS Vector, r as single)
 
-	declare sub VRot90 (v AS Vector, r as vector)
-	declare sub VRot90Im (v AS Vector)
+	declare sub VPerp (v AS Vector, r as vector)
+	declare sub VPerpIm (v AS Vector)
 
 #endif
