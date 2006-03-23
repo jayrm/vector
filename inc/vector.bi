@@ -10,6 +10,11 @@
 	  y AS single
 	end type
 
+	type line_t
+		n as vector
+		d as single
+	end type
+
 	declare sub VZero (r as Vector)
 	declare sub VSet (r AS Vector, x as single, y as single)
 	declare sub VNeg (r AS Vector, a AS Vector)
@@ -27,6 +32,7 @@
 	declare sub VSubCompIm (r AS Vector, x as single, y as single)
 	declare sub VMulIm (r AS Vector, k as single)
 
+	declare sub VUnit(r as vector, a as vector)
 	declare sub VUnitIm(v as vector)
 	declare sub VLimitIm (v AS Vector, d as single)
 	declare function VDot(a as vector, b as vector) as single
@@ -36,5 +42,9 @@
 
 	declare sub VPerp (v AS Vector, r as vector)
 	declare sub VPerpIm (v AS Vector)
+	declare Sub VLineEqFrom2Point(r as line_t, a as vector, b as vector)
+	declare sub VLineEqFromPointNormal(r as line_t, a as vector, n as vector)
+
+	declare function VString(v as vector) as string
 
 #endif

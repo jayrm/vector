@@ -10,8 +10,17 @@
 
 SUITE( vector_api )
 
+	/'
+		We generally test for exact values because we testing
+		that the semantics of the functions are correct and
+		not the precision of the processor and/or platform.
+		In most cases our test values are exactly representable
+		in single precision float format and we should expect
+		exact results.
+	'/
+
 	const PI = 3.141592741
-	const epsilon = 0.0000001
+	const epsilon = 0.000001
 
 	TEST( header )
 		#if defined( __VECTOR_BI__ )
@@ -37,16 +46,13 @@ SUITE( vector_api )
 		check_type( v.x, single )
 		check_type( v.y, single )
 
-	END_TEST
+		dim l as line_t
 
-	/'
-		We generally test for exact values because we testing
-		that the semantics of the functions are correct and
-		not the precision of the processor and/or platform.
-		In most cases our test values are exactly representable
-		in single precision float format and we should expect
-		exact results.
-	'/
+		check_type( l, line_t )
+		check_type( l.n, vector )
+		check_type( l.d, single )
+
+	END_TEST
 
 	#macro check_exact( x1, y1, x2, y2 )
 		CU_ASSERT_SINGLE_EXACT( x1, x2 )
@@ -364,6 +370,35 @@ SUITE( vector_api )
 			
 	END_TEST
 
+	TEST( VUnit_ )
+		
+		dim a as vector, r as vector
+
+		check_exact( a.x, a.y, 0, 0 )
+		VUnitIm( a )
+		check_exact( a.x, a.y, 0, 0 )
+
+		for y as single = -2 to 2
+			for x as single = -2 to 2
+
+				VSet( a, x, y )
+				VUnit( r, a )
+
+				CU_ASSERT_SINGLE_EXACT( sgn( x ), sgn( r.x ) )
+				CU_ASSERT_SINGLE_EXACT( sgn( y ), sgn( r.y ) )
+
+				if( x = 0 and y = 0 ) then
+					CU_ASSERT_SINGLE_EXACT( r.x, 0 )
+					CU_ASSERT_SINGLE_EXACT( r.y, 0 )
+				else
+					CU_ASSERT_SINGLE_EQUAL( sqr( r.x * r.x + r.y * r.y ), 1, epsilon )
+				end if
+
+			next
+		next
+
+	END_TEST
+
 	TEST( VUnitIm_ )
 		
 		dim a as vector
@@ -385,7 +420,7 @@ SUITE( vector_api )
 					CU_ASSERT_SINGLE_EXACT( a.x, 0 )
 					CU_ASSERT_SINGLE_EXACT( a.y, 0 )
 				else
-					CU_ASSERT_SINGLE_EQUAL( sqr( a.x * a.x + a.y * a.y ), 1, 0.0000001 )
+					CU_ASSERT_SINGLE_EQUAL( sqr( a.x * a.x + a.y * a.y ), 1, epsilon )
 				end if
 
 			next
@@ -570,6 +605,68 @@ SUITE( vector_api )
 			CU_ASSERT_SINGLE_EQUAL( a.y, b.y, epsilon )
 
 		next		
+
+	END_TEST
+
+	TEST( VLineEq_ )
+
+		dim p0 as vector, p1 as vector, p2 as vector, n as vector
+		dim r1 as line_t
+		dim r2 as line_t
+
+		'' use y = m * x + b to generate points on a line
+
+		for m as single = -2 to 2
+			for b as single = -2 to 2
+
+				'' p0 = ( -5, ? )
+				VSet( p0, -5, m * -5 + b )
+
+				'' p1 = ( 0, ? )
+				VSet( p1, 0, b )
+
+				'' p2 = ( 10, ? )
+				VSet( p2, 10, m * 10 + b )
+
+				'' normal to line
+				VSet( n, -m, 1 )
+
+				VLineEqFrom2Point( r1, p1, p2 )
+				VLineEqFromPointNormal( r2, p0, n )
+
+				'' normalize signs
+				if( sgn(r1.n.x)<>sgn(r2.n.x) or sgn(r1.n.y)<>sgn(r2.n.y) or sgn(r1.d)<>sgn(r2.d) ) then
+					r1.n.x = -r1.n.x
+					r1.n.y = -r1.n.y
+					r1.d = -r1.d
+				end if
+
+				'' test that r1 and r2 are coincident (same line)
+				CU_ASSERT_SINGLE_EQUAL( r1.n.x, r2.n.x, epsilon )
+				CU_ASSERT_SINGLE_EQUAL( r1.n.y, r2.n.y, epsilon )
+				CU_ASSERT_SINGLE_EQUAL( r1.d, r2.d, epsilon )
+				
+			next
+		next
+
+	END_TEST
+
+	TEST( VString_ )
+
+		dim a as vector
+		dim s1 as string
+		dim s2 as string
+
+		for y as single = -2 to 2
+			for x as single = -2 to 2
+
+				VSet( a, x, y )
+				s1 = "(" & x & "," & y & ")"
+				s2 = VString( a )
+				CU_ASSERT_EQUAL( s1, s2 )
+
+			next
+		next
 
 	END_TEST
 

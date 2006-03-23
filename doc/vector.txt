@@ -30,12 +30,29 @@ Vector API
 type vector
 -----------
 
-	One simple type stores that components of the 2D vector
+	Simple type stores that components of the 2D vector
 
-	type Vector
-	  x AS single
-	  y AS single
-	end type
+		type Vector
+		  x AS single
+		  y AS single
+		end type
+
+
+type line_t
+-----------
+
+	Line equation of the form Ax + By + C = 0
+
+		type line_t
+			n as vector
+			d as single
+		end type
+
+	where:
+
+		n.x = A
+		n.y = B
+		d = C
 
 
 VZero( {r} )
@@ -232,6 +249,16 @@ VMulIm( {r}, k )
 		r.x *= k
 		r.y *= k
 
+
+VUnit( {r}, {a} )
+--------------
+
+	{r} = {a} / |{a}|
+
+	Returns the unit vector {a} in {r}.  if {a} is (0, 0) then the
+	zero vector is returned.
+
+
 VUnitIm( {r} )
 --------------
 
@@ -306,3 +333,21 @@ VPerpIm( {r} )
 	Rotates vector {r} 90 degress (1/4 turn) counter-clockwise and
 	returns the result in {r}
 
+
+VLineEqFrom2Point( L, {a}, {b} )
+--------------------------------
+
+	Compute the line equation L from two points {a} and {b}.
+
+
+VLineEqFromPointNormal( L. {a}, {n} )
+-------------------------------------
+
+	Compute the line equation L from point {a} and normal {n}
+
+
+VString( {a} )
+--------------
+
+	Returns a string representation of vector {a} in the form:
+	"(a.x,a.y)"

@@ -108,6 +108,16 @@ sub VMulIm (r AS Vector, k as single)
 end sub
 
 ''
+sub VUnit(r as vector, a as vector)
+	dim d as single = VMag(a)
+	if d > 0 then
+		VMul r, 1/d, a
+	else
+		VSet r, 0, 0
+	end if
+end sub
+
+''
 sub VUnitIm(r as vector)
 	dim d as single = VMag(r)
 	if d > 0 then
@@ -163,3 +173,23 @@ sub VRotIm (v AS Vector, r as single)
 	a.y = v.x * SIN(r) + v.y * COS(r)
 	v = a
 end sub
+
+sub VLineEqFrom2Point(r as line_t, a as vector, b as vector)
+	dim as vector ab
+	VSub ab, a, b
+	VUnitIm ab
+	VPerp r.n, ab
+	r.d = -VDot(a, r.n)
+end sub
+
+sub VLineEqFromPointNormal(r as line_t, a as vector, n as vector)
+	VUnit r.n, n
+	r.d = -VDot(a, r.n)
+end sub
+
+function VString(v as vector) as string
+	dim x as string
+	x = "(" & str(int(v.x*1000)/1000) & "," & str(int(v.y*1000)/1000) & ")"
+	function = x
+end function
+
