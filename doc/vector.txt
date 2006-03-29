@@ -27,14 +27,24 @@ Notation
 Vector API
 ==========
 
+type real
+---------
+	
+	The "real" type resolves to single or double precision float.
+	By default,	if not defined, real will be typed to single.
+
+	#ifndef real
+		type real as single
+	#endif
+
 type vector
 -----------
 
 	Simple type stores that components of the 2D vector
 
 		type Vector
-		  x AS single
-		  y AS single
+		  x AS real
+		  y AS real
 		end type
 
 
@@ -45,7 +55,7 @@ type line_t
 
 		type line_t
 			n as vector
-			d as single
+			d as real
 		end type
 
 	where:
@@ -351,3 +361,57 @@ VString( {a} )
 
 	Returns a string representation of vector {a} in the form:
 	"(a.x,a.y)"
+
+
+AddMinimal( x, d ) - EXPERIMENTAL
+------------------
+
+	value = x + sgn(d) * MIN( abs(d), MIN_VALUE )
+
+	If magnitude d is less than MIN_VALUE returns x + MIN_VALUE 
+	respecting the sign of d.
+
+	!!! If you think you might need this function, then you should
+	probably re-think the original algorithm as you are probably
+	at the limits of floating point precision.
+
+
+VAddImMinimal( {r}, {a} ) - EXPERIMENTAL
+-------------------------
+
+	{r} += MIN_VECTOR( {a} )
+
+	Adds vector {a} to vector {r} and returns in {r}.  If any 
+	component magnitude is less than MIN_VALUE, then add a minimal
+	component value respecting signs.
+
+	!!! If you think you might need this function, then you should
+	probably re-think the original algorithm as you are probably
+	at the limits of floating point precision.
+
+
+SubMinimal( x, d ) - EXPERIMENTAL
+------------------
+
+	value = x - sgn(d) * MIN( abs(d), MIN_VALUE )
+
+	If magnitude d is less than MIN_VALUE returns x - MIN_VALUE 
+	respecting the sign of d.
+
+	!!! If you think you might need this function, then you should
+	probably re-think the original algorithm as you are probably
+	at the limits of floating point precision.
+
+
+VSubImMinimal( {r}, {a} ) - EXPERIMENTAL
+-------------------------
+
+	{r} += MIN_VECTOR( {a} )
+
+	Subtracts vector {a} from vector {r} and returns in {r}.  If any 
+	component magnitude is less than MIN_VALUE, then subtract a minimal 
+	component value respecting signs.
+
+	!!! If you think you might need this function, then you should
+	probably re-think the original algorithm as you are probably
+	at the limits of floating point precision.

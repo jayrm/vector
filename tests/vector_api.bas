@@ -19,8 +19,26 @@ SUITE( vector_api )
 		exact results.
 	'/
 
-	const PI = 3.141592741
-	const epsilon = 0.000001
+	#if( typeof(real) = typeof(single) )
+
+		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_SINGLE_EXACT
+		#define CU_ASSERT_REAL_APPROX CU_ASSERT_SINGLE_APPROX
+		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_SINGLE_EQUAL
+		const PI = 3.1415927
+		const epsilon = 1E-7
+
+	#elseif( typeof(real) = typeof(double) )
+
+		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_DOUBLE_EXACT
+		#define CU_ASSERT_REAL_APPROX CU_ASSERT_DOUBLE_APPROX
+		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_DOUBLE_EQUAL
+		const PI = 3.141592653589793
+		const epsilon = 1D-15
+
+	#else
+		#error unrecognized float type
+	#endif
+
 
 	TEST( header )
 		#if defined( __VECTOR_BI__ )
@@ -43,25 +61,25 @@ SUITE( vector_api )
 		dim v as vector
 
 		check_type( v, vector )
-		check_type( v.x, single )
-		check_type( v.y, single )
+		check_type( v.x, real )
+		check_type( v.y, real )
 
 		dim l as line_t
 
 		check_type( l, line_t )
 		check_type( l.n, vector )
-		check_type( l.d, single )
+		check_type( l.d, real )
 
 	END_TEST
 
 	#macro check_exact( x1, y1, x2, y2 )
-		CU_ASSERT_SINGLE_EXACT( x1, x2 )
-		CU_ASSERT_SINGLE_EXACT( y1, y2 )
+		CU_ASSERT_REAL_EXACT( x1, x2 )
+		CU_ASSERT_REAL_EXACT( y1, y2 )
 	#endmacro
 
 	#macro check_approx( x1, y1, x2, y2 )
-		CU_ASSERT_SINGLE_APPROX( x1, x2, 1 )
-		CU_ASSERT_SINGLE_APPROX( y1, y2, 1 )
+		CU_ASSERT_REAL_APPROX( x1, x2, 1 )
+		CU_ASSERT_REAL_APPROX( y1, y2, 1 )
 	#endmacro
 
 	TEST( VZero_ )
@@ -87,8 +105,8 @@ SUITE( vector_api )
 		a.y = 2
 		check_exact( a.x, a.y, 1, 2 )
 
-		for y as single = -2 to 2
-			for x as single = -2 to 2	
+		for y as real = -2 to 2
+			for x as real = -2 to 2	
 				VSet( a, x, y )
 				check_exact( a.x, a.y, x, y )
 			next
@@ -101,8 +119,8 @@ SUITE( vector_api )
 		dim a as vector, b as vector
 		check_exact( a.x, a.y, 0, 0 )
 
-		for y as single = -2 to 2
-			for x as single = -2 to 2
+		for y as real = -2 to 2
+			for x as real = -2 to 2
 				VSet( a, x, y )
 				VZero( b )
 				VNeg( b, a )
@@ -116,10 +134,10 @@ SUITE( vector_api )
 
 		dim a as vector, b as vector, c as vector
 
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VSet( b, x2, y2 )
@@ -138,10 +156,10 @@ SUITE( vector_api )
 
 		dim a as vector, c as vector
 
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VZero( c )
@@ -160,10 +178,10 @@ SUITE( vector_api )
 
 		dim a as vector, b as vector, c as vector
 
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VSet( b, x2, y2 )
@@ -182,10 +200,10 @@ SUITE( vector_api )
 
 		dim a as vector, c as vector
 
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VZero( c )
@@ -203,9 +221,9 @@ SUITE( vector_api )
 
 		dim a as vector, c as vector
 
-		for k as single = -2 to 2
-			for y as single = -2 to 2
-				for x as single = -2 to 2
+		for k as real = -2 to 2
+			for y as real = -2 to 2
+				for x as real = -2 to 2
 					
 					VSet( a, x, y )
 					VZero( c )
@@ -226,8 +244,8 @@ SUITE( vector_api )
 		VSet( a, 1, 2 )
 		VSet( b, 3, 5 )
 
-		for ka as single = -2 to 2
-			for kb as single = -2 to 2
+		for ka as real = -2 to 2
+			for kb as real = -2 to 2
 
 				VAddMul( c, ka, a, kb, b )
 
@@ -246,8 +264,8 @@ SUITE( vector_api )
 		
 		dim a as vector
 		
-		for y as single = -2 to 2
-			for x as single = -2 to 2
+		for y as real = -2 to 2
+			for x as real = -2 to 2
 				VSet( a, x, y )
 				VNegIm( a )
 				check_exact( a.x, a.y, -x, -y )
@@ -260,10 +278,10 @@ SUITE( vector_api )
 
 		dim a as vector, b as vector
 		
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VSet( b, x2, y2 )
@@ -284,10 +302,10 @@ SUITE( vector_api )
 
 		dim a as vector, b as vector
 		
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VSet( b, x2, y2 )
@@ -308,10 +326,10 @@ SUITE( vector_api )
 
 		dim a as vector, b as vector
 		
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VSet( b, x2, y2 )
@@ -332,10 +350,10 @@ SUITE( vector_api )
 
 		dim a as vector, b as vector
 		
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VSet( b, x2, y2 )
@@ -356,9 +374,9 @@ SUITE( vector_api )
 
 		dim a as vector
 
-		for k as single = -2 to 2
-			for y as single = -2 to 2
-				for x as single = -2 to 2
+		for k as real = -2 to 2
+			for y as real = -2 to 2
+				for x as real = -2 to 2
 
 					VSet( a, x, y )
 					VMulIm( a, k )
@@ -378,20 +396,20 @@ SUITE( vector_api )
 		VUnitIm( a )
 		check_exact( a.x, a.y, 0, 0 )
 
-		for y as single = -2 to 2
-			for x as single = -2 to 2
+		for y as real = -2 to 2
+			for x as real = -2 to 2
 
 				VSet( a, x, y )
 				VUnit( r, a )
 
-				CU_ASSERT_SINGLE_EXACT( sgn( x ), sgn( r.x ) )
-				CU_ASSERT_SINGLE_EXACT( sgn( y ), sgn( r.y ) )
+				CU_ASSERT_REAL_EXACT( sgn( x ), sgn( r.x ) )
+				CU_ASSERT_REAL_EXACT( sgn( y ), sgn( r.y ) )
 
 				if( x = 0 and y = 0 ) then
-					CU_ASSERT_SINGLE_EXACT( r.x, 0 )
-					CU_ASSERT_SINGLE_EXACT( r.y, 0 )
+					CU_ASSERT_REAL_EXACT( r.x, 0 )
+					CU_ASSERT_REAL_EXACT( r.y, 0 )
 				else
-					CU_ASSERT_SINGLE_EQUAL( sqr( r.x * r.x + r.y * r.y ), 1, epsilon )
+					CU_ASSERT_REAL_EQUAL( sqr( r.x * r.x + r.y * r.y ), 1, epsilon )
 				end if
 
 			next
@@ -407,20 +425,20 @@ SUITE( vector_api )
 		VUnitIm( a )
 		check_exact( a.x, a.y, 0, 0 )
 
-		for y as single = -2 to 2
-			for x as single = -2 to 2
+		for y as real = -2 to 2
+			for x as real = -2 to 2
 
 				VSet( a, x, y )
 				VUnitIm( a )
 
-				CU_ASSERT_SINGLE_EXACT( sgn( x ), sgn( a.x ) )
-				CU_ASSERT_SINGLE_EXACT( sgn( y ), sgn( a.y ) )
+				CU_ASSERT_REAL_EXACT( sgn( x ), sgn( a.x ) )
+				CU_ASSERT_REAL_EXACT( sgn( y ), sgn( a.y ) )
 
 				if( x = 0 and y = 0 ) then
-					CU_ASSERT_SINGLE_EXACT( a.x, 0 )
-					CU_ASSERT_SINGLE_EXACT( a.y, 0 )
+					CU_ASSERT_REAL_EXACT( a.x, 0 )
+					CU_ASSERT_REAL_EXACT( a.y, 0 )
 				else
-					CU_ASSERT_SINGLE_EQUAL( sqr( a.x * a.x + a.y * a.y ), 1, epsilon )
+					CU_ASSERT_REAL_EQUAL( sqr( a.x * a.x + a.y * a.y ), 1, epsilon )
 				end if
 
 			next
@@ -432,9 +450,9 @@ SUITE( vector_api )
 		
 		dim a as vector
 
-		for d as single = -3 to 3
-			for y as single = -3 to 3
-				for x as single = -3 to 3
+		for d as real = -3 to 3
+			for y as real = -3 to 3
+				for x as real = -3 to 3
 
 					VSet( a, x, y )
 					VLimitIm( a, d )
@@ -451,19 +469,19 @@ SUITE( vector_api )
 	TEST( VDot_ )
 
 		dim a as vector, b as vector
-		dim d as single
+		dim d as real
 		
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VSet( b, x2, y2 )
 
 						d = VDot( a, b )
 
-						CU_ASSERT_SINGLE_EXACT( d, a.x * b.x + a.y * b.y )
+						CU_ASSERT_REAL_EXACT( d, a.x * b.x + a.y * b.y )
 
 					next
 				next
@@ -475,12 +493,12 @@ SUITE( vector_api )
 	TEST( VDist_ )
 
 		dim a as vector, b as vector
-		dim d1 as single, d2 as single
+		dim d1 as real, d2 as real
 		
-		for y1 as single = -2 to 2
-			for x1 as single = -2 to 2
-				for y2 as single = -2 to 2
-					for x2 as single = -2 to 2
+		for y1 as real = -2 to 2
+			for x1 as real = -2 to 2
+				for y2 as real = -2 to 2
+					for x2 as real = -2 to 2
 						
 						VSet( a, x1, y1 )
 						VSet( b, x2, y2 )
@@ -488,7 +506,7 @@ SUITE( vector_api )
 						d1 = VDist( a, b )
 						d2 = sqr((b.x-a.x)^2 + (b.y-a.y)^2)
 
-						CU_ASSERT_SINGLE_EXACT( d1, d2 )
+						CU_ASSERT_REAL_EXACT( d1, d2 )
 
 					next
 				next
@@ -500,17 +518,17 @@ SUITE( vector_api )
 	TEST( VMag_ )
 		
 		dim a as vector
-		dim d1 as single, d2 as single
+		dim d1 as real, d2 as real
 
-		for y as single = -3 to 3
-			for x as single = -3 to 3
+		for y as real = -3 to 3
+			for x as real = -3 to 3
 
 				VSet( a, x, y )
 
 				d1 = VMag( a )
 				d2 = sqr( x^2 + y^2 )
 
-				CU_ASSERT_SINGLE_EXACT( d1, d2 )
+				CU_ASSERT_REAL_EXACT( d1, d2 )
 
 			next
 		next
@@ -520,8 +538,8 @@ SUITE( vector_api )
 	TEST( VRotIm_ )
 
 		dim a as vector, b as vector
-		dim ra1 as single, ra2 as single
-		dim x as single, y as single
+		dim ra1 as real, ra2 as real
+		dim x as real, y as real
 
 		for angle1 = -360 to 360 step 30
 			ra1 = angle1 * PI / 180
@@ -532,8 +550,8 @@ SUITE( vector_api )
 			x = cos( ra1 )
 			y = sin( ra1 )
 
-			CU_ASSERT_SINGLE_EQUAL( a.x, x, epsilon )
-			CU_ASSERT_SINGLE_EQUAL( a.y, y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, x, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.y, y, epsilon )
 
 			for angle2 = -360 to 360 step 30
 				ra2 = angle2 * PI / 180
@@ -544,8 +562,8 @@ SUITE( vector_api )
 				x = cos( ra1 + ra2 )
 				y = sin( ra1 + ra2 )
 				
-				CU_ASSERT_SINGLE_EQUAL( b.x, x, epsilon )
-				CU_ASSERT_SINGLE_EQUAL( b.y, y, epsilon )
+				CU_ASSERT_REAL_EQUAL( b.x, x, epsilon )
+				CU_ASSERT_REAL_EQUAL( b.y, y, epsilon )
 			next
 		next
 
@@ -554,7 +572,7 @@ SUITE( vector_api )
 	TEST( VPerp_ )
 
 		dim a as vector, b as vector
-		dim angle as single, ra as single
+		dim angle as real, ra as real
 
 		for angle = -360 to 360 step 30
 
@@ -566,14 +584,14 @@ SUITE( vector_api )
 			x = cos( ra )
 			y = sin( ra )
 			
-			CU_ASSERT_SINGLE_EQUAL( a.x, x, epsilon )
-			CU_ASSERT_SINGLE_EQUAL( a.y, y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, x, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.y, y, epsilon )
 
 			VPerp( b, a )
 			VRotIm( a, 90 * PI / 180 )
 
-			CU_ASSERT_SINGLE_EQUAL( a.x, b.x, epsilon )
-			CU_ASSERT_SINGLE_EQUAL( a.y, b.y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, b.x, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.y, b.y, epsilon )
 
 		next		
 
@@ -582,7 +600,7 @@ SUITE( vector_api )
 	TEST( VPerpIm_ )
 
 		dim a as vector, b as vector
-		dim angle as single, ra as single
+		dim angle as real, ra as real
 
 		for angle = -360 to 360 step 30
 
@@ -594,15 +612,15 @@ SUITE( vector_api )
 			x = cos( ra )
 			y = sin( ra )
 			
-			CU_ASSERT_SINGLE_EQUAL( a.x, x, epsilon )
-			CU_ASSERT_SINGLE_EQUAL( a.y, y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, x, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.y, y, epsilon )
 
 			b = a
 			VPerpIm( b )
 			VRotIm( a, 90 * PI / 180 )
 
-			CU_ASSERT_SINGLE_EQUAL( a.x, b.x, epsilon )
-			CU_ASSERT_SINGLE_EQUAL( a.y, b.y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, b.x, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.y, b.y, epsilon )
 
 		next		
 
@@ -616,8 +634,8 @@ SUITE( vector_api )
 
 		'' use y = m * x + b to generate points on a line
 
-		for m as single = -2 to 2
-			for b as single = -2 to 2
+		for m as real = -2 to 2
+			for b as real = -2 to 2
 
 				'' p0 = ( -5, ? )
 				VSet( p0, -5, m * -5 + b )
@@ -642,9 +660,9 @@ SUITE( vector_api )
 				end if
 
 				'' test that r1 and r2 are coincident (same line)
-				CU_ASSERT_SINGLE_EQUAL( r1.n.x, r2.n.x, epsilon )
-				CU_ASSERT_SINGLE_EQUAL( r1.n.y, r2.n.y, epsilon )
-				CU_ASSERT_SINGLE_EQUAL( r1.d, r2.d, epsilon )
+				CU_ASSERT_REAL_EQUAL( r1.n.x, r2.n.x, epsilon )
+				CU_ASSERT_REAL_EQUAL( r1.n.y, r2.n.y, epsilon )
+				CU_ASSERT_REAL_EQUAL( r1.d, r2.d, epsilon * 2 )
 				
 			next
 		next
@@ -657,8 +675,8 @@ SUITE( vector_api )
 		dim s1 as string
 		dim s2 as string
 
-		for y as single = -2 to 2
-			for x as single = -2 to 2
+		for y as real = -2 to 2
+			for x as real = -2 to 2
 
 				VSet( a, x, y )
 				s1 = "(" & x & "," & y & ")"
@@ -667,6 +685,30 @@ SUITE( vector_api )
 
 			next
 		next
+
+	END_TEST
+
+	TEST( AddMinimal_ )
+
+		'' !!! TODO !!! - improve this test or remove from API
+	
+		for x as real = -3 to 3 step 0.1
+			dim d as real
+			d = epsilon / 1000
+			CU_ASSERT_REAL_EQUAL( AddMinimal( x, d ), x + epsilon * abs(x), epsilon )
+		next x
+
+	END_TEST
+
+	TEST( SubMinimal_ )
+
+		'' !!! TODO !!! - improve this test or remove from API
+
+		for x as real = -3 to 3 step 0.1
+			dim d as real
+			d = epsilon / 1000
+			CU_ASSERT_REAL_EQUAL( SubMinimal( x, d ), x - epsilon * abs(x), epsilon )
+		next x
 
 	END_TEST
 
