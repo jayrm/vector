@@ -42,7 +42,7 @@ type vector
 
 	Simple type stores that components of the 2D vector
 
-		type Vector
+		type vector
 		  x AS real
 		  y AS real
 		end type
@@ -364,6 +364,19 @@ VString( {a} )
 
 
 AddMinimal( x, d ) - EXPERIMENTAL
+------------------
+
+	value = x + sgn(d) * MIN( abs(d), MIN_VALUE )
+
+	If magnitude d is less than MIN_VALUE returns x + MIN_VALUE 
+	respecting the sign of d.
+
+	!!! If you think you might need this function, then you should
+	probably re-think the original algorithm as you are probably
+	at the limits of floating point precision.
+
+
+AddMinimalDbl( x, d ) - EXPERIMENTAL
 ------------------
 
 	value = x + sgn(d) * MIN( abs(d), MIN_VALUE )

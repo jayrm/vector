@@ -32,7 +32,7 @@ ifeq ($(DEBUG),1)
 	FBCFLAGS += -g -exx
 endif
 
-FBCFLAGS += -mt -g -exx -i ./inc -i ./fbcunit/inc
+FBCFLAGS += -mt -g -exx -i ./inc -i ./fbcunit/inc -w pedantic
 
 .SUFFIXES: .bas
 

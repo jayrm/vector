@@ -9,9 +9,9 @@
 		type real as single
 	#endif
 
-	type Vector
-	  x AS real
-	  y AS real
+	type vector
+	  x as real
+	  y as real
 	end type
 
 	type line_t
@@ -19,41 +19,42 @@
 		d as real
 	end type
 
-	declare sub VZero (r as Vector)
-	declare sub VSet (r AS Vector, x as real, y as real)
-	declare sub VNeg (r AS Vector, a AS Vector)
-	declare sub VAdd (r AS Vector, a AS Vector, b AS Vector)
-	declare sub VAddComp (r AS Vector, a AS Vector, x as real, y as real)
-	declare sub VSub (v AS Vector, a AS Vector, b AS Vector)
-	declare sub VSubComp (r AS Vector, a AS Vector, x as real, y as real)
-	declare sub VMul (r AS Vector, k as real, a AS Vector)
-	declare sub VAddMul (r AS Vector, k1 as real, a AS Vector, k2 as real, b AS Vector)
+	declare sub VZero ( byref r as vector )
+	declare sub VSet ( byref r as vector, byval x as const real, byval y as const real )
+	declare sub VNeg ( byref r as vector, byref a as const vector )
+	declare sub VAdd ( byref r as vector, byref a as const vector, byref b as const vector )
+	declare sub VAddComp ( byref r as vector, byref a as const vector, byval x as const real, byval y as const real )
+	declare sub VSub ( byref r as vector, byref a as const vector, byref b as const vector)
+	declare sub VSubComp ( byref r as vector, byref a as const vector, byval x as const real, byval y as const real )
+	declare sub VMul ( byref r as vector, byval k as const real, byref a as const vector )
+	declare sub VAddMul ( byref r as vector, byval k1 as const real, byref a as const vector, byval k2 as const real, byref b as const vector )
 
-	declare sub VNegIm (r AS Vector)
-	declare sub VAddIm (r AS Vector, a AS Vector)
-	declare sub VAddCompIm (r AS Vector, x as real, y as real)
-	declare sub VSubIm (r AS Vector, a AS Vector)
-	declare sub VSubCompIm (r AS Vector, x as real, y as real)
-	declare sub VMulIm (r AS Vector, k as real)
+	declare sub VNegIm ( byref r as vector )
+	declare sub VAddIm ( byref r as vector, byref a as const vector )
+	declare sub VAddCompIm ( byref r as vector, byval x as const real, byval y as const real )
+	declare sub VSubIm ( byref r as vector, byref a as const vector )
+	declare sub VSubCompIm ( byref r as vector, byval x as const real, byval y as const real )
+	declare sub VMulIm ( byref r as vector, byval k as const real )
 
-	declare sub VUnit(r as vector, a as vector)
-	declare sub VUnitIm(v as vector)
-	declare sub VLimitIm (v AS Vector, d as real)
-	declare function VDot(a as vector, b as vector) as real
-	declare function VDist (a AS Vector, b AS Vector) as real
-	declare function VMag (v AS Vector) as real
-	declare sub VRotIm (v AS Vector, r as real)
+	declare sub VUnit( byref r as vector, byref a as const vector )
+	declare sub VUnitIm( byref v as vector )
+	declare sub VLimitIm ( byref v as vector, byval d as const real )
+	declare function VDot( byref a as const vector, byref b as const vector ) as real
+	declare function VDist ( byref a as const vector, byref b as const vector ) as real
+	declare function VMag ( byref v as const vector ) as real
+	declare sub VRotIm ( byref v as vector, byval r as const real )
 
-	declare sub VPerp (v AS Vector, r as vector)
-	declare sub VPerpIm (v AS Vector)
-	declare Sub VLineEqFrom2Point(r as line_t, a as vector, b as vector)
-	declare sub VLineEqFromPointNormal(r as line_t, a as vector, n as vector)
+	declare sub VPerp ( byref v as vector, byref r as const vector )
+	declare sub VPerpIm ( byref v as vector )
+	declare Sub VLineEqFrom2Point ( byref r as line_t, byref a as const vector, byref b as const vector )
+	declare sub VLineEqFromPointNormal ( byref r as line_t, byref a as const vector, byref n as const vector )
 
-	declare function VString(v as vector) as string
+	declare function VString ( byref v as const vector ) as string
 
-	declare function AddMinimal(x as real, d as real) as real
-	declare sub VAddImMinimal(r AS Vector, a AS Vector)
-	declare function SubMinimal(x as real, d as real) as real
-	declare sub VSubImMinimal (r AS Vector, a AS Vector)
+	declare function AddMinimal ( byval x as const real, byval d as const real ) as real
+	declare sub VAddImMinimal ( byref r as vector, byref a as const vector )
+	declare function SubMinimal ( byval x as const real, byval d as const real ) as real
+	declare sub VSubImMinimal ( byref r as vector, byref a as const vector )
+	declare function AddMinimalDbl ( byval x as const double, byval d as const double ) as real
 
 #endif
