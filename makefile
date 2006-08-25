@@ -10,6 +10,10 @@ SIMPLE_VECTOR_LIBRARY := lib/libsimple_vector.a
 SIMPLE_VECTOR_SRCS    := src/simple_vector.bas
 SIMPLE_VECTOR_HDRS    := inc/simple_vector.bi
 
+SIMPLE_VECTOR3_LIBRARY := lib/libsimple_vector3.a
+SIMPLE_VECTOR3_SRCS    := src/simple_vector3.bas
+SIMPLE_VECTOR3_HDRS    := inc/simple_vector3.bi
+
 TEST_SRCS := tests/tests.bas
 TEST_SRCS += tests/simple_vector_api.bas
 
@@ -20,6 +24,7 @@ TEST_EXE  := tests/tests.exe
 EXAMPLES := examples/ex01.exe
 
 LIBRARIES := $(SIMPLE_VECTOR_LIBRARY)
+LIBRARIES += $(SIMPLE_VECTOR3_LIBRARY)
 
 ifneq ($(ARCH),)
 	FBCFLAGS += -arch $(ARCH)
@@ -71,7 +76,7 @@ fbcunit: fbcunit/makefile
 	$(MAKE) -C $(<D) -f $(<F) library
 
 .PHONY: library
-library: $(SIMPLE_VECTOR_LIBRARY)
+library: $(LIBRARIES)
 
 .PHONY: tests
 tests: fbcunit $(TEST_EXE)
@@ -81,6 +86,9 @@ examples: $(EXAMPLES)
 
 $(SIMPLE_VECTOR_LIBRARY): $(SIMPLE_VECTOR_SRCS) $(SIMPLE_VECTOR_HDRS)
 	$(FBC) $(FBCFLAGS) -lib $(SIMPLE_VECTOR_SRCS) -x $@
+
+$(SIMPLE_VECTOR3_LIBRARY): $(SIMPLE_VECTOR3_SRCS) $(SIMPLE_VECTOR3_HDRS)
+	$(FBC) $(FBCFLAGS) -lib $(SIMPLE_VECTOR3_SRCS) -x $@
 
 tests/%.o: tests/%.bas $(HDRS)
 	$(FBC) $(FBCFLAGS) -m tests -c $< -o $@

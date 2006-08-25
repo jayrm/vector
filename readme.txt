@@ -23,3 +23,16 @@ simple vector
 		inc/simple_vector.bi
 		tests/simple_vector_api.bas
 		
+
+simple vector3
+
+	Simple 3D vector API using procedures only
+
+	A very basic 3D vector api using one type (structure) and 
+	procedures only adapted from the Simple 2D vector api.
+
+	See:
+		doc/simple_vector3.txt
+		src/simple_vector3.bas
+		inc/simple_vector3.bi
+		tests/simple_vector3_api.bas
