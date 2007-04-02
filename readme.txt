@@ -10,14 +10,22 @@ Purposes for this library:
 - testing for another library: fbcunit
 
 These API's for vectors are typically as they were when they were
-first created.  However, since some are variations are others, I
-have wrapped them in a namespace to avoid naming collisions.
-
-However, each set of API's typically had a specific purpose
+first created.  Each set of API's typically had a specific purpose
 when they were made, so are not wholly consistent with each other.
 
-Originally when the code was written, the only testing/debugging done 
-was by using the code.  
+However, since some API's are variations of other API's, I have 
+wrapped them in a namespace to avoid naming collisions.  The
+coding style and features of the API's tend to follow what was
+available in the FreeBASIC language at the time.  So as work on
+this library progresses, should see the newer features of fbc
+get used.
+
+Originally when the code was written, the only testing/debugging 
+done was by using the code.  
+
+DISCLAIMER: I write this library for my own use and reseve the right
+to change it as I see fit.  If it works for you, that's great, if
+I happen to break an API, you have been warned.
 
 
 Components

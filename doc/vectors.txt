@@ -1,0 +1,147 @@
+vectors
+=======
+
+	A general purpose geometric vector library.  Started around
+	2006, and uses (at the time) overloaded operators to create
+	a data type that can be used in expressions.
+
+	Worst thing I ever done was to copy and paste this library
+	code where it was needed.  The result was dozens of copies
+	of the same source that were slightly mutated.
+
+
+Notation
+--------
+
+	The following will be used:
+
+	(x, y)     2D vector with scalar components x & y
+	{a}        vector 'a', what would normally be written in bold
+	           or with a arrow line above
+	a.x        x component of {a}, a subscript x
+	a.y        y component of {a}, a subscript y
+
+
+Vectors API
+===========
+
+vectors namespace
+-----------------
+	All vectors library functions and types exist in the
+	vectors namespace
+
+
+type REAL
+---------
+	
+	The "real" type resolves to single float if not already defined.
+
+	
+	#ifndef (real)
+		type real as single
+	#endif
+
+	See vectypes.bi
+
+
+NULL
+----
+
+	If not defined, will be defined
+
+	#define NULL 0
+
+	See vectypes.bi
+
+
+FALSE, TRUE
+-----------
+
+	The False and True values.  Will be defined if not already
+	defined by the compiler.  Usage predates the inclusion of
+	True, and False, intrinsic boolean definitions.
+
+	See vectypes.bi
+
+
+Boolean, BOOL
+-------------
+
+	If Boolean not defined, will be defined to unsigned 
+	integer type
+
+	#ifndef (boolean)
+		type boolean as unisigned integer
+	#endif
+	
+	If BOOL not defined will be defined to boolean type
+
+	#ifndef (BOOL)
+		type BOOL as boolean
+	#endif
+
+	See vectypes.bi
+
+
+FixAngle180( angle )
+--------------------
+
+	declare function FixAngle180( byval angle as real ) as real
+
+	Computes equivalent angle between -180 degrees and 180 degrees.
+
+	Uses a simple loop to clamp the angle, so expectation is that
+	the starting angle is somewhat close to the -180 to 180 range to
+	begin with.
+
+	Returns the clamped angle.
+
+	See vectypes.bi
+
+
+FixAngle360( angle )
+--------------------
+
+	declare function FixAngle360( byval angle as real ) as real
+
+	Computes equivalent angle between 0 degrees and 360 degrees.
+
+	Uses a simple loop to clamp the angle, so expectation is that
+	the starting angle is somewhat close to the 0 to 360 range to
+	begin with.
+
+	Returns the clamped angle.
+
+	See vectypes.bi
+
+
+FixAnglePI( angle )
+--------------------
+
+	declare function FixAnglePI( byval angle as real ) as real
+
+	Computes equivalent angle between -PI radians and PI radians.
+
+	Uses a simple loop to clamp the angle, so expectation is that
+	the starting angle is somewhat close to the -PI to PI range to
+	begin with.
+
+	Returns the clamped angle.
+
+	See vectypes.bi
+
+
+FixAnglePI2( angle )
+--------------------
+
+	declare function FixAnglePI2( byval angle as real ) as real
+
+	Computes equivalent angle between 0 radians and 2*PI radians
+
+	Uses a simple loop to clamp the angle, so expectation is that
+	the starting angle is somewhat close to the 0 to 2*PI range to
+	begin with.
+
+	Returns the clamped angle.
+
+	See vectypes.bi
