@@ -1,20 +1,61 @@
-#ifndef __VECTOR2_BI__
-#define __VECTOR2_BI__
+#ifndef __VECTOR2_BI
+#define __VECTOR2_BI
 
-namespace vectors2
+#include once "vectypes.bi"
 
-	type real as single
+type vector2
+	union
+		type
+			x as real
+			y as real
+		end type
+		e(0 to 1) as real
+	end union
 
-	type vector
-		x as real
-		y as real
-	end type
+	declare sub set( byval _x as real, byval _y as real )
 
-	''declare operator let ( byref lhs as vector, byval rhs as real )
-	declare operator cast ( byval lhs as vector ) as string
-	declare operator + ( byval lhs as vector, byval rhs as vector ) as vector
-	declare operator += ( byref lhs as vector, byval rhs as vector )
+	declare operator let ( byref a as vector2 )
+	
+	declare operator -= ( byref a as vector2 )
+	declare operator += ( byref a as vector2 )
 
-end namespace
+	declare operator *= ( byval k as real )
+	declare operator /= ( byval k as real )
+
+	declare function magnitude() as real
+	declare function magnitude2() as real
+	declare function distance( byref b as vector2 ) as real
+	declare function distance2( byref b as vector2 ) as real
+
+	declare function unit() as vector2
+	declare sub normalize()
+
+	declare sub selfop_neg()
+	declare sub selfop_zero()
+
+	declare operator cast() as string
+
+	declare function dot( byref b as vector2 ) as real
+
+end type
+
+'' Negative
+declare operator - ( byref a as vector2 ) as vector2
+
+'' Subtract
+declare operator - ( byref a as vector2, byref b as vector2 ) as vector2
+
+'' Add
+declare operator + ( byref a as vector2, byref b as vector2 ) as vector2
+
+'' Multiply (Scale)
+declare operator * ( byref a as vector2, byval b as real ) as vector2
+declare operator * ( byval a as real, byref b as vector2 ) as vector2
+
+'' Divide (Scale)
+declare operator / ( byref a as vector2, byval b as real ) as vector2
+
+'' Dot product
+declare operator * ( byref a as vector2, byref b as vector2 ) as real
 
 #endif
