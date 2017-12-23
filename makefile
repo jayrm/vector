@@ -1,11 +1,6 @@
 ##########################
 
-MAKEFILES := fbcunit/makefile
-MAKEFILES += src/makefile
-
-##########################
-
-MAKE := make.exe
+MAKE := make
 
 .SUFFIXES:
 
@@ -13,22 +8,23 @@ VPATH = .
 
 ##########################
 
+.PHONY: all
 all: fbcunit vector tests
 
 .PHONY: fbcunit
-fbcunit:
-	cd fbcunit && $(MAKE) -f makefile all
+fbcunit: fbcunit/makefile
+	$(MAKE) -C $(<D) -f $(<F)
 
 .PHONY: vector
 vector: src/makefile
-	cd $(<D) && $(MAKE) -f $(<F)
+	$(MAKE) -C $(<D) -f $(<F)
 
 .PHONY: tests
-tests:
-	cd tests && $(MAKE) -f makefile
+tests: tests/makefile
+	$(MAKE) -C $(<D) -f $(<F)
 
 .PHONY: clean
 clean:
-	cd src && $(MAKE) -f makefile clean
-	cd fbcunit && $(MAKE) -f makefile clean
-	cd tests && $(MAKE) -f makefile clean
+	$(MAKE) -C tests  -f makefile clean
+	$(MAKE) -C src -f makefile clean
+	$(MAKE) -C fbcunit  -f makefile clean
