@@ -1,7 +1,7 @@
 ##########################
 
-MAKEFILES := src/makefile
-MAKEFILES += fbcunit/makefile
+MAKEFILES := fbcunit/makefile
+MAKEFILES += src/makefile
 
 ##########################
 
@@ -9,25 +9,26 @@ MAKE := make.exe
 
 .SUFFIXES:
 
-VPATH = $(LIBDIR)
+VPATH = .
 
 ##########################
 
-all: vector fbcunit tests
-
-vector: src/makefile
-	$(MAKE) -C $(<D) -f $(<F)
+all: fbcunit vector tests
 
 .PHONY: fbcunit
 fbcunit:
-	$(MAKE) -C fbcunit -f makefile
+	cd fbcunit && $(MAKE) -f makefile all
+
+.PHONY: vector
+vector: src/makefile
+	cd $(<D) && $(MAKE) -f $(<F)
 
 .PHONY: tests
 tests:
-	$(MAKE) -C tests -f makefile
+	cd tests && $(MAKE) -f makefile
 
 .PHONY: clean
 clean:
-	$(MAKE) -C src -f makefile clean
-	$(MAKE) -C fbcunit -f makefile clean
-	$(MAKE) -C tests -f makefile clean
+	cd src && $(MAKE) -f makefile clean
+	cd fbcunit && $(MAKE) -f makefile clean
+	cd tests && $(MAKE) -f makefile clean

@@ -1,27 +1,44 @@
 ##########################
 
+ifndef TARGET
+$(error TARGET variable not set.  must be set to one of win32, win64)
+endif
 
-FBC := fbc.exe
+ifeq ($(TARGET), win32)
+	EXEEXT := .exe
+else
+	ifeq ($(TARGET), win64)
+		EXEEXT := .exe
+	else
+		$(error TARGET variable must be set to one of win32, win64)
+	endif
+endif
+
+##########################
+
+MAIN := tests
+
+EXE := $(MAIN)$(EXEEXT)
+
+SRCS := $(MAIN).bas
+SRCS += ../fbcunit/tests/fbcu_test.bas
+
+##########################
+
+FBC := fbc$(EXEEXT)
 FBCFLAGS := -w pedantic
 
 FBCFLAGS += -i ../inc
 FBCFLAGS += -i ../fbcunit/inc
 
-FBCFLAGS += -p ../lib/win32
-FBCFLAGS += -p ../fbcunit/lib/win32
+FBCFLAGS += -p ../lib/$(TARGET)
+FBCFLAGS += -p ../fbcunit/lib/$(TARGET)
 
 ifeq ($(DEBUG),1)
 FBCFLAGS += -exx -g
 endif
 
-LIBS := $(wildcard ../lib/win32/*.a)
-
-MAIN := tests
-
-EXE := $(MAIN).exe
-
-SRCS := $(MAIN).bas
-SRCS += ../fbcunit/tests/fbcu_test.bas
+LIBS := $(wildcard ../lib/$(TARGET)/*.a)
 
 OBJS := $(patsubst %.bas,%.o,$(SRCS))
 
@@ -42,4 +59,4 @@ $(EXE): $(OBJS) $(HDRS) $(FBCLIBS) $(LIBS)
 
 .PHONY : clean
 clean:
-	-rm -f $(OBJS)
+	-rm -f $(OBJS) $(EXE)
