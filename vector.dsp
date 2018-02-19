@@ -93,10 +93,6 @@ SOURCE=.\changelog.txt
 # End Source File
 # Begin Source File
 
-SOURCE=.\library.inc
-# End Source File
-# Begin Source File
-
 SOURCE=.\makefile
 # End Source File
 # Begin Source File
@@ -111,14 +107,6 @@ SOURCE=.\readme.txt
 # Begin Group "src"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\makefile
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mk.bat
-# End Source File
 # Begin Source File
 
 SOURCE=.\src\vector.bas
@@ -138,14 +126,6 @@ SOURCE=.\inc\vector.bi
 # Begin Source File
 
 SOURCE=.\tests\.gitignore
-# End Source File
-# Begin Source File
-
-SOURCE=.\tests\makefile
-# End Source File
-# Begin Source File
-
-SOURCE=.\tests\mk.bat
 # End Source File
 # Begin Source File
 

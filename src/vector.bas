@@ -11,6 +11,8 @@
 ''
 '' ============================================================
 
+#lang "fblite"
+
 Option Explicit
 
 #include "vector.bi"
