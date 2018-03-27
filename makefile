@@ -11,6 +11,7 @@ SRCS    := src/vector.bas
 HDRS    := inc/vector.bi
 
 TEST_SRCS := tests/tests.bas
+TEST_SRCS += tests/vector_api.bas
 
 TEST_OBJS := $(patsubst %.bas,%.o,$(TEST_SRCS))
 
@@ -26,6 +27,9 @@ ifneq ($(TARGET),)
 endif
 ifneq ($(FPU),)
 	FBCFLAGS += -fpu $(FPU)
+endif
+ifeq ($(DEBUG),1)
+	FBCFLAGS += -g -exx
 endif
 
 FBCFLAGS += -mt -g -exx -i ./inc -i ./fbcunit/inc

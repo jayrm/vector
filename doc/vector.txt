@@ -1,0 +1,306 @@
+vector
+======
+
+	A very basic 2D vector api using one type (structure) and 
+	procedures only.  This one dates from 2006 and was imported 
+	from a similar looking library written in both QB and C.  
+	Because procedures only	only are used, code was failrly
+	simple to translate between QB and C.  (note: while this
+	is the original file name used, should probably rename it
+	so it is noticably different from the overall project.)
+
+Notation
+--------
+
+	There are several ways to represent vectors, none of which
+	fully translate to plain text, so for this document, the 
+	following will be used:
+
+	(x, y)  vector with scalar components x & y
+	{a}     vector 'a', what would normally be written in bold
+	        or with a arrow line above
+	a.x     x component of {a}, a subscript x
+	a.y     y component of {b}, a subscript y
+	{a, b}  a line segment from {a} to {b}
+
+
+Vector API
+==========
+
+type vector
+-----------
+
+	One simple type stores that components of the 2D vector
+
+	type Vector
+	  x AS single
+	  y AS single
+	end type
+
+
+VZero( {r} )
+------------
+
+	{r} = {0}
+	
+	Set vector {r} to the zero vector (0, 0)
+		r.x = 0
+		r.y = 0
+
+	Example:
+		dim r as vector
+		VZero( r )
+
+
+VSet( {r}, x, y )
+-----------------
+
+	{r} = (x, y)
+
+	Set a vector {r} to component values (x, y)
+		r.x = x
+		r.y = y
+
+	Example:
+		dim r as vector
+		VSet( r, 1, 2 )
+
+
+VNeg( {r}, {a} )
+----------------
+
+	{r} = -{a}
+
+	Returns the negative of vector {a} in vector {r}
+		r.x = -x
+		r.y = -y
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2 )
+		VNeg( r, a )
+
+
+VAdd( {r}, {a}, {b} )
+---------------------
+	
+	{r} = {a} + {b}
+
+	Add vector {a} to vector {b} and return in {r}
+		r.x = a.x + b.x
+		r.y = a.y + b.y
+
+	Example:
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2 )
+		VSet( b, 3, 5 )
+		VAdd( r, a, b )
+
+
+VAddComp( {r}, {a}, x, y )
+--------------------------
+	
+	{r} = {a} + (x, y)
+
+	Add vector (x, y) to vector {a} and return in {r}
+		r.x = a.x + x
+		r.y = a.y + y
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2 )
+		VAdd( r, a, 3, 5 )
+
+
+VSub( {r}, {a}, {b} )
+---------------------
+	
+	{r} = {a} - {b}
+
+	Subtract vector {b} from {a} and return in {r}
+		r.x = a.x + b.x
+		r.y = a.y + b.y
+
+	Example:
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2 )
+		VSet( b, 3, 5 )
+		VSub( r, a, b )
+
+
+VSubComp( {r}, {a}, x, y )
+--------------------------
+	
+	{r} = {a} + (x, y)
+
+	Subtract vector (x, y) from vector {a} and return in {r}
+		r.x = a.x + x
+		r.y = a.y + y
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2 )
+		VSub( r, a, 3, 5 )
+
+
+VMul( {r}, k, {a} )
+-------------------
+
+	{r} = k * {a}
+
+	Multiply vector {a} by scalar k and return in {r}
+		r.x = k * a.x
+		r.y = k * a.y
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2 )
+		VMul( r, k, a )
+
+
+VAddMul( {r}, k1, {a}, k2, {b} )
+--------------------------------
+
+	{r} = k1 * {a} + k2 * {b}
+
+	and if {a} and {b} are represented as 2x2 matrix, equivalent to:
+
+	{r} = [ {a} ] * [ k1 ]
+	      [ {b} ]   [ k2 ]
+	             
+	Multiply two vectors each by a scalar and add vectors together
+		r.x = k1 * a.x + k2 * b.x
+		r.y = k1 * a.y + k2 * b.y
+
+
+VNegIm( {r} )
+-------------
+
+	{r} = -{r}
+
+	Negates vector {r} and returns in {r}
+		r.x = -r.x
+		r.y = -r.y
+
+
+VAddIm( {r}, {a} )
+------------------
+
+	{r} += {a}
+
+	Adds vector {a} to {r} and returns in {r}
+		r.x += a.x
+		r.y += a.y
+
+
+VAddCompIm( {r}, x, y )
+-----------------------
+
+	{r} += (x, y)
+
+	Adds vector (x, y) to {r} and returns in {r}
+		r.x += x
+		r.y += y
+
+
+VSubIm( {r}, {a} )
+------------------
+
+	{r} -= {a}
+
+	Subtracts vector {a} from {r} and returns in {r}
+		r.x -= a.x
+		r.y -= a.y
+
+
+VSubCompIm( {r}, x, y )
+-----------------------
+
+	{r} -= (x, y)
+
+	Subtracts vector (x, y) from {r} and returns in {r}
+		r.x -= x
+		r.y -= y
+
+
+VMulIm( {r}, k )
+----------------
+
+	{r} *= k
+
+	Multiplies vector {r} by scalar k and returns in {r}
+		r.x *= k
+		r.y *= k
+
+VUnitIm( {r} )
+--------------
+
+	{r} = {r} / |{r}|
+
+	Returns the unit vector {r} in {r}.  if {r} is (0, 0) then the
+	zero vector is returned.
+
+
+VLimitIm( {r}, d )
+------------------
+
+	Limits (or clamps) components of vector {r} such that no component
+	is less than -d or greater than d.
+		r.x = clamp( r.x, -d, d )
+		r.y = clamp( r.y, -d, d )
+
+
+VDot( {a}, {b} )
+----------------
+
+	d = {a} . {b}
+
+	Compute the scalar dot product of {a} dot {b}.
+		d = a.x * b.x + a.y * b.y
+
+
+VDist( {a}, {b} )
+-----------------
+
+	d = | {b} - {a} |
+
+	Compute the scalar distance from {a} to {b}
+
+
+VMag( {a} )
+-----------
+
+	d = | {a} |
+
+	Compute the magnitude of {a}
+
+
+VRotIm( {r}, angle )
+--------------------
+
+	{r} = [ cos(angle)  -sin(angle) ] * [ r.x ]
+	      [ sin(angle)   cos(angle) ]   [ r.y ]
+
+	Rotates vector {r} by angle randians where positive angle is
+	counter clockwise and returns result in {r}
+
+VRot90( {r}, {a} )
+------------------
+	
+	{r} = [ 0  -1 ] * [ a.x ]
+	      [ 1   0 ]   [ a.y ]
+
+	Rotates vector {a} 90 degress (1/4 turn) counter-clockwise and
+	returns the result in {r}
+		r.x = -a.y
+		r.y =  a.x
+
+VRot90Im( {r} )
+---------------
+
+	{r} = [ 0  -1 ] * [ r.x ]
+	      [ 1   0 ]   [ r.y ]
+
+	Rotates vector {r} 90 degress (1/4 turn) counter-clockwise and
+	returns the result in {r}
+

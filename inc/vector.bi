@@ -1,6 +1,10 @@
 #ifndef __VECTOR_BI__
 #define __VECTOR_BI__
 
+	#lang "fblite"
+
+	#inclib "vector"
+
 	type Vector
 	  x AS single
 	  y AS single
