@@ -1,10 +1,10 @@
-vector
-======
+simple_vector
+=============
 
 	A very basic 2D vector api using one type (structure) and 
 	procedures only.  This one dates from 2006 and was imported 
 	from a similar looking library written in both QB and C.  
-	Because procedures only	only are used, code was failrly
+	Because procedures only	only are used, code was fairly
 	simple to translate between QB and C.  (note: while this
 	is the original file name used, should probably rename it
 	so it is noticably different from the overall project.)
@@ -99,8 +99,8 @@ VNeg( {r}, {a} )
 	{r} = -{a}
 
 	Returns the negative of vector {a} in vector {r}
-		r.x = -x
-		r.y = -y
+		r.x = -a.x
+		r.y = -a.y
 
 	Example:
 		dim a as vector, r as vector
@@ -145,8 +145,8 @@ VSub( {r}, {a}, {b} )
 	{r} = {a} - {b}
 
 	Subtract vector {b} from {a} and return in {r}
-		r.x = a.x + b.x
-		r.y = a.y + b.y
+		r.x = a.x - b.x
+		r.y = a.y - b.y
 
 	Example:
 		dim a as vector, b as vector, r as vector
@@ -158,11 +158,11 @@ VSub( {r}, {a}, {b} )
 VSubComp( {r}, {a}, x, y )
 --------------------------
 	
-	{r} = {a} + (x, y)
+	{r} = {a} - (x, y)
 
 	Subtract vector (x, y) from vector {a} and return in {r}
-		r.x = a.x + x
-		r.y = a.y + y
+		r.x = a.x - x
+		r.y = a.y - y
 
 	Example:
 		dim a as vector, r as vector

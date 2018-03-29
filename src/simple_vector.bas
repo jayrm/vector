@@ -15,18 +15,20 @@
 
 Option Explicit
 
-#include once "vector.bi"
+#include once "simple_vector.bi"
 
 #define SNG_MIN_PRECISION 1E-7
 #define DBL_MIN_PRECISION 1E-15
 
 #if( typeof(real) = typeof(single) )
 	#define MIN_PRECISION 1E-7
+#elseif( typeof(real) = typeof(double) )
+	#define MIN_PRECISION 1D-15
+#else
+	#error type "real" not defined
 #endif
 
-#if( typeof(real) = typeof(double) )
-	#define MIN_PRECISION 1D-15
-#endif
+namespace simple
 
 ''
 sub VZero ( byref r as vector )
@@ -258,3 +260,4 @@ function VString ( byref v as const vector) as string
 	function = x
 end function
 
+end namespace

@@ -7,7 +7,7 @@ Library for working with geometric vectors
 Components
 ----------
 
-vector
+simple vector
 
 	Simple 2D vector API using procedures only
 
@@ -15,13 +15,11 @@ vector
 	procedures only.  This one dates from 2006 and was imported 
 	from a similar looking library written in both QB and C.  
 	Because procedures only	only are used, code was failrly
-	simple to translate between QB and C.  (note: while this
-	is the original file name used, should probably rename it
-	so it is noticably different from the overall project.)
+	simple to translate between QB and C.
 
 	See:
-		doc/vector.txt
-		src/vector.bas
-		inc/vector.bi
-		tests/vector_api.bas
+		doc/simple_vector.txt
+		src/simple_vector.bas
+		inc/simple_vector.bi
+		tests/simple_vector_api.bas
 		

@@ -1,14 +1,16 @@
 #include once "fbcunit.bi"
-#include once "vector.bi"
+#include once "simple_vector.bi"
+
+using simple
 
 /'
 	See:
-		inc/vector.bi
-		src/vector.bas
+		inc/simple_vector.bi
+		src/simple_vector.bas
 
 '/
 
-SUITE( vector_api )
+SUITE( simple_vector_api )
 
 	/'
 		We generally test for exact values because we testing
@@ -41,7 +43,7 @@ SUITE( vector_api )
 
 
 	TEST( header )
-		#if defined( __VECTOR_BI__ )
+		#if defined( __SIMPLE_VECTOR_BI__ )
 			CU_PASS()
 		#else
 			CU_FAIL()

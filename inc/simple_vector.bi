@@ -1,13 +1,15 @@
-#ifndef __VECTOR_BI__
-#define __VECTOR_BI__
+#ifndef __SIMPLE_VECTOR_BI__
+#define __SIMPLE_VECTOR_BI__
 
 	#lang "fblite"
 
-	#inclib "vector"
+	#inclib "simple_vector"
 
 	#ifndef real
 		type real as single
 	#endif
+
+namespace simple
 
 	type vector
 	  x as real
@@ -56,5 +58,7 @@
 	declare function SubMinimal ( byval x as const real, byval d as const real ) as real
 	declare sub VSubImMinimal ( byref r as vector, byref a as const vector )
 	declare function AddMinimalDbl ( byval x as const double, byval d as const double ) as real
+
+end namespace
 
 #endif
