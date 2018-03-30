@@ -7,7 +7,7 @@ using simple_vector
 	See:
 		inc/simple_vector.bi
 		src/simple_vector.bas
-		doc.simple_vector.txt
+		doc/simple_vector.txt
 
 '/
 
@@ -396,8 +396,8 @@ SUITE( simple_vector_api )
 		dim a as vector, r as vector
 
 		check_exact( a.x, a.y, 0, 0 )
-		VUnitIm( a )
-		check_exact( a.x, a.y, 0, 0 )
+		VUnit( r, a )
+		check_exact( r.x, r.y, 0, 0 )
 
 		for y as real = -2 to 2
 			for x as real = -2 to 2

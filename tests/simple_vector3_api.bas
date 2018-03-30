@@ -7,7 +7,7 @@ using simple_vector3
 	See:
 		inc/simple_vector3.bi
 		src/simple_vector3.bas
-		doc.simple_vector3.txt
+		doc/simple_vector3.txt
 
 '/
 
@@ -395,8 +395,8 @@ SUITE( simple_vector3_api )
 		dim a as vector, r as vector
 
 		check_exact( a.x, a.y, a.z, 0, 0, 0 )
-		VUnit2V( a )
-		check_exact( a.x, a.y, a.y, 0, 0, 0 )
+		VUnit( r, a )
+		check_exact( r.x, r.y, r.y, 0, 0, 0 )
 
 		for x as real = -2 to 2
 			for y as real = -2 to 2

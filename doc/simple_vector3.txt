@@ -1,5 +1,5 @@
-simple_vector
-=============
+simple_vector3
+==============
 
 	A very basic 3D vector API using one type (structure) and 
 	procedures only.  This one dates from 2006 and was adapted

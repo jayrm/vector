@@ -194,6 +194,7 @@ VAddMul( {r}, k1, {a}, k2, {b} )
 
 	{r} = [ k1  k2 ] * [ a.x  a.y ]
 	                   [ b.x  b.y ]
+
 	Multiply two vectors each by a scalar and add vectors together
 		r.x = k1 * a.x + k2 * b.x
 		r.y = k1 * a.y + k2 * b.y
