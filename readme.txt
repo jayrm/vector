@@ -3,6 +3,10 @@ vector
 
 Library for working with geometric vectors
 
+These API's for vectors are typically as they were when they were
+first created.  Each set of API's typically had a specific purpose
+when they were made, so are not wholly consistent with each other.
+
 
 Components
 ----------
@@ -29,7 +33,7 @@ simple vector3
 	Simple 3D vector API using procedures only
 
 	A very basic 3D vector api using one type (structure) and 
-	procedures only adapted from the Simple 2D vector api.
+	procedures adapted from the Simple 2D vector api.
 
 	See:
 		doc/simple_vector3.txt

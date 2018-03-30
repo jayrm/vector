@@ -1,0 +1,377 @@
+simple_vector
+=============
+
+	A very basic 3D vector API using one type (structure) and 
+	procedures only.  This one dates from 2006 and was adapted
+	from the 2D version. 
+
+Notation
+--------
+
+	There are several ways to represent vectors, none of which
+	fully translate to plain text, so for this document, the 
+	following will be used:
+
+	(x, y, z)  vector with scalar components x, y, z
+	{a}        vector 'a', what would normally be written in bold
+	           or with a arrow line above
+	a.x     x component of {a}, a subscript x
+	a.y     y component of {a}, a subscript y
+	a.z     z component of {a}, a subscript z
+	{a, b}  a line segment from {a} to {b}
+
+
+Vector API
+==========
+
+type vector
+-----------
+
+	Simple type stores that components of the 2D vector
+
+		type vector
+		  x as single
+		  y as single
+		  z as single
+		end type
+
+
+type line_t
+-----------
+
+	Line equation of the form Ax + By + C = 0
+
+		type line_t
+			n as vector
+			d as real
+		end type
+
+	where:
+
+		n.x = A
+		n.y = B
+		d = C
+
+
+VZero( {r} )
+------------
+
+	{r} = {0}
+	
+	Set vector {r} to the zero vector (0, 0, 0)
+		r.x = 0
+		r.y = 0
+		r.z = 0
+
+	Example:
+		dim r as vector
+		VZero( r )
+
+
+VSet( {r}, x, y, z )
+-----------------
+
+	{r} = (x, y, z)
+
+	Set a vector {r} to component values (x, y, z)
+		r.x = x
+		r.y = y
+		t.z = z
+
+	Example:
+		dim r as vector
+		VSet( r, 1, 2, 3 )
+
+
+VNeg( {r}, {a} )
+----------------
+
+	{r} = -{a}
+
+	Returns the negative of vector {a} in vector {r}
+		r.x = -a.x
+		r.y = -a.y
+		r.z = -a.z
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2, 3 )
+		VNeg( r, a )
+
+
+VAdd( {r}, {a}, {b} )
+---------------------
+	
+	{r} = {a} + {b}
+
+	Add vector {a} to vector {b} and return in {r}
+		r.x = a.x + b.x
+		r.y = a.y + b.y
+		r.z = a.z + b.z
+
+	Example:
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2, 3 )
+		VSet( b, 5, 7, 11 )
+		VAdd( r, a, b )
+
+
+VAddComp( {r}, {a}, x, y )
+--------------------------
+	
+	{r} = {a} + (x, y, z)
+
+	Add vector (x, y, z) to vector {a} and return in {r}
+		r.x = a.x + x
+		r.y = a.y + y
+		r.z = a.z + z
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2, 3 )
+		VAdd( r, a, 5, 7, 11 )
+
+
+VSub( {r}, {a}, {b} )
+---------------------
+	
+	{r} = {a} - {b}
+
+	Subtract vector {b} from {a} and return in {r}
+		r.x = a.x - b.x
+		r.y = a.y - b.y
+		r.z = a.z - b.z
+
+	Example:
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2, 3 )
+		VSet( b, 5, 7, 11 )
+		VSub( r, a, b )
+
+
+VSubComp( {r}, {a}, x, y, z )
+--------------------------
+	
+	{r} = {a} - (x, y, z)
+
+	Subtract vector (x, y, z) from vector {a} and return in {r}
+		r.x = a.x - x
+		r.y = a.y - y
+		r.z = a.z - z
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2, 3 )
+		VSub( r, a, 5, 7, 11 )
+
+
+VScale( {r}, {a}, k )
+-------------------
+
+	{r} = k * {a}
+
+	Multiply vector {a} by scalar k and return in {r}
+		r.x = k * a.x
+		r.y = k * a.y
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2 )
+		VMul( r, k, a )
+
+
+VAddMul( {r}, k1, {a}, k2, {b} )
+--------------------------------
+
+	{r} = k1 * {a} + k2 * {b}
+
+	and if {a} and {b} are represented as 2x3 matrix, equivalent to:
+
+	{r} = [ k1  k2 ] * [ a.x  a.y  a.z ]
+	                   [ b.x  b.y  b.z ]
+
+	Multiply two vectors each by a scalar and add vectors together
+		r.x = k1 * a.x + k2 * b.x
+		r.y = k1 * a.y + k2 * b.y
+		r.z = k1 * a.z + k2 * b.z
+
+
+VNeg2V( {r} )
+-------------
+
+	{r} = -{r}
+
+	Negates vector {r} and returns in {r}
+		r.x = -r.x
+		r.y = -r.y
+		r.Z = -r.Z
+
+
+VAdd2V( {r}, {a} )
+------------------
+
+	{r} += {a}
+
+	Adds vector {a} to {r} and returns in {r}
+		r.x += a.x
+		r.y += a.y
+		r.Z += a.Z
+
+
+VAddComp2V( {r}, x, y, z )
+-----------------------
+
+	{r} += (x, y, z)
+
+	Adds vector (x, y, z) to {r} and returns in {r}
+		r.x += x
+		r.y += y
+		r.z += z
+
+
+VSub2V( {r}, {a} )
+------------------
+
+	{r} -= {a}
+
+	Subtracts vector {a} from {r} and returns in {r}
+		r.x -= a.x
+		r.y -= a.y
+		r.z -= a.z
+
+
+VSubComp2V( {r}, x, y, z )
+-----------------------
+
+	{r} -= (x, y, z)
+
+	Subtracts vector (x, y, z) from {r} and returns in {r}
+		r.x -= x
+		r.y -= y
+		r.z -= z
+
+
+VScale2V( {r}, k )
+----------------
+
+	{r} *= k
+
+	Multiplies vector {r} by scalar k and returns in {r}
+		r.x *= k
+		r.y *= k
+		r.z *= k
+
+
+VUnit( {r}, {a} )
+--------------
+
+	{r} = {a} / |{a}|
+
+	Returns the unit vector {a} in {r}.  if {a} is (0, 0, 0) then the
+	zero vector is returned.
+
+
+VUnit2v( {r} )
+--------------
+
+	{r} = {r} / |{r}|
+
+	Returns the unit vector {r} in {r}.  if {r} is (0, 0, 0) then the
+	zero vector is returned.
+
+
+VLimit2V( {r}, d )
+------------------
+
+	Limits (or clamps) components of vector {r} such that no component
+	is less than -d or greater than d.
+		r.x = clamp( r.x, -d, d )
+		r.y = clamp( r.y, -d, d )
+		r.z = clamp( r.z, -d, d )
+
+
+VDot( {a}, {b} )
+----------------
+
+	d = {a} . {b}
+
+	Compute the scalar dot product of {a} dot {b}.
+		d = a.x * b.x + a.y * b.y
+
+
+VDist( {a}, {b} )
+-----------------
+
+	d = | {b} - {a} |
+
+	Compute the scalar distance from {a} to {b}
+
+
+VMag( {a} )
+-----------
+
+	d = | {a} |
+
+	Compute the magnitude of {a}
+
+
+VRot2Vx( {r}, angle )
+--------------------
+
+	{r} = [ 1   0           0         ] * [ r.x ]
+	      [ 0  cos(angle)  sin(angle) ]   [ r.y ]
+	      [ 1 -sin(angle)  cos(angle) ]   [ r.z ]
+
+	Rotates vector {r} by angle radians about the x axis 
+	and returns result in {r}
+
+
+VRot2Vy( {r}, angle )
+--------------------
+
+	{r} = [ cos(angle)  0  -sin(angle) ] * [ r.x ]
+	      [  0          1     0        ]   [ r.y ]
+	      [ sin(angle)  0   cos(angle) ]   [ r.z ]
+
+	Rotates vector {r} by angle radians about the y axis 
+	and returns result in {r}
+
+
+VRot2Vz( {r}, angle )
+--------------------
+
+	{r} = [ cos(angle)  -sin(angle)  0 ] * [ r.x ]
+	      [ sin(angle)   cos(angle)  0 ]   [ r.y ]
+	      [  0            0          1 ]   [ r.z ]
+
+	Rotates vector {r} by angle radians about the z axis 
+	and returns result in {r}
+
+
+VRot902Vx( {r} )
+----------------
+
+	Rotats vector {r} by +90 degress (1/4 turn) about the x axis 
+	and returns result in {r}
+
+
+VRot902Vy( {r} )
+----------------
+
+	Rotats vector {r} by +90 degress (1/4 turn) about the y axis 
+	and returns result in {r}
+
+
+VRot902Vz( {r} )
+----------------
+
+	Rotats vector {r} by +90 degress (1/4 turn) about the z axis 
+	and returns result in {r}
+
+
+VString( {a} )
+--------------
+
+	Returns a string representation of vector {a} in the form:
+	"(a.x,a.y,a.z)"
+

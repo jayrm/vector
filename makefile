@@ -16,6 +16,7 @@ SIMPLE_VECTOR3_HDRS    := inc/simple_vector3.bi
 
 TEST_SRCS := tests/tests.bas
 TEST_SRCS += tests/simple_vector_api.bas
+TEST_SRCS += tests/simple_vector3_api.bas
 
 TEST_OBJS := $(patsubst %.bas,%.o,$(TEST_SRCS))
 
@@ -25,6 +26,9 @@ EXAMPLES := examples/ex01.exe
 
 LIBRARIES := $(SIMPLE_VECTOR_LIBRARY)
 LIBRARIES += $(SIMPLE_VECTOR3_LIBRARY)
+
+HDRS := $(SIMPLE_VECTOR_HDRS)
+HDRS += $(SIMPLE_VECTOR3_HDRS)
 
 ifneq ($(ARCH),)
 	FBCFLAGS += -arch $(ARCH)
