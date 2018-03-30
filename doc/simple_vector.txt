@@ -20,7 +20,7 @@ Notation
 	{a}     vector 'a', what would normally be written in bold
 	        or with a arrow line above
 	a.x     x component of {a}, a subscript x
-	a.y     y component of {b}, a subscript y
+	a.y     y component of {a}, a subscript y
 	{a, b}  a line segment from {a} to {b}
 
 
@@ -43,8 +43,8 @@ type vector
 	Simple type stores that components of the 2D vector
 
 		type vector
-		  x AS real
-		  y AS real
+		  x as real
+		  y as real
 		end type
 
 
@@ -192,9 +192,8 @@ VAddMul( {r}, k1, {a}, k2, {b} )
 
 	and if {a} and {b} are represented as 2x2 matrix, equivalent to:
 
-	{r} = [ {a} ] * [ k1 ]
-	      [ {b} ]   [ k2 ]
-	             
+	{r} = [ k1  k2 ] * [ a.x  a.y ]
+	                   [ b.x  b.y ]
 	Multiply two vectors each by a scalar and add vectors together
 		r.x = k1 * a.x + k2 * b.x
 		r.y = k1 * a.y + k2 * b.y

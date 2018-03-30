@@ -1,12 +1,13 @@
 #include once "fbcunit.bi"
 #include once "simple_vector.bi"
 
-using simple
+using simple_vector
 
 /'
 	See:
 		inc/simple_vector.bi
 		src/simple_vector.bas
+		doc.simple_vector.txt
 
 '/
 
@@ -43,7 +44,7 @@ SUITE( simple_vector_api )
 
 
 	TEST( header )
-		#if defined( __SIMPLE_VECTOR_BI__ )
+		#if defined( __SIMPLE_VECTOR_BI_INCLUDE__ )
 			CU_PASS()
 		#else
 			CU_FAIL()
