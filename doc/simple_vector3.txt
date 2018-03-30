@@ -351,21 +351,21 @@ VRot2Vz( {r}, angle )
 VRot902Vx( {r} )
 ----------------
 
-	Rotats vector {r} by +90 degress (1/4 turn) about the x axis 
+	Rotats vector {r} by +90 degrees (1/4 turn) about the x axis 
 	and returns result in {r}
 
 
 VRot902Vy( {r} )
 ----------------
 
-	Rotats vector {r} by +90 degress (1/4 turn) about the y axis 
+	Rotats vector {r} by +90 degrees (1/4 turn) about the y axis 
 	and returns result in {r}
 
 
 VRot902Vz( {r} )
 ----------------
 
-	Rotats vector {r} by +90 degress (1/4 turn) about the z axis 
+	Rotats vector {r} by +90 degrees (1/4 turn) about the z axis 
 	and returns result in {r}
 
 

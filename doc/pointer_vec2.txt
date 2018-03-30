@@ -343,7 +343,7 @@ FixAngle360( angle )
 
 	Declare Function FixAngle360( ByVal a As REAL ) As REAL
 
-	Computes equivalent angle between 0 degrees and 360 degress.
+	Computes equivalent angle between 0 degrees and 360 degrees.
 
 	Uses a simple loop to clamp the angle, so expectation is that
 	the starting angle is somewhat close to the 0 to 360 range to
@@ -357,7 +357,7 @@ FixAngle180( angle )
 
 	Declare Function FixAngle180( ByVal a As REAL ) As REAL
 
-	Computes equivalent angle between -180 degrees and 180 degress.
+	Computes equivalent angle between -180 degrees and 180 degrees.
 
 	Uses a simple loop to clamp the angle, so expectation is that
 	the starting angle is somewhat close to the -180 to 180 range to
@@ -374,7 +374,7 @@ V2Angle( {a} )
 	Computes the angle relative to the positive x axis, increasing
 	angles are counter-clockwise.
 
-	Returns the angle in the range of 0 degress to 360 degress
+	Returns the angle in the range of 0 degrees to 360 degrees
 
 
 LimitValue( number, min_value, max_value )
