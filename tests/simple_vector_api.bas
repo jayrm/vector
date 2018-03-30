@@ -27,7 +27,7 @@ SUITE( simple_vector_api )
 		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_SINGLE_EXACT
 		#define CU_ASSERT_REAL_APPROX CU_ASSERT_SINGLE_APPROX
 		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_SINGLE_EQUAL
-		const PI = 3.1415927
+		const PI = 3.14159265
 		const epsilon = 1E-7
 
 	#elseif( typeof(real) = typeof(double) )
