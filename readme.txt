@@ -60,3 +60,22 @@ simple vector3
 		src/simple_vector3.bas
 		inc/simple_vector3.bi
 		tests/simple_vector3_api.bas
+
+
+pointer vector (Vec2_T)
+--------------
+
+	A 2D vector API using procedures, taking only pointer
+	arguments or returning pointer arguments.  Only ever used
+	this one in one project (that was never published) and
+	had heavy influence from another API I wrote in C.  The
+	idea is that pointers would be fast and flexible, cast a
+	pointer to any pair of float to use as an argument to the
+	API.  Also adapted from simple vector and created later
+	on in 2006.
+
+	Original filenames were vec2.bi and vec2.bas
+
+	See:
+		src/pointer_vec2.bas
+		inc/pointer_vec2.bi
