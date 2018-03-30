@@ -23,8 +23,8 @@ was by using the code.
 Components
 ==========
 
-simple vector
--------------
+simple vector2
+--------------
 
 	Simple 2D vector API using procedures only
 
@@ -38,10 +38,10 @@ simple vector
 	no namespace added.
 
 	See:
-		doc/simple_vector.txt
-		src/simple_vector.bas
-		inc/simple_vector.bi
-		tests/simple_vector_api.bas
+		doc/simple_vector2.txt
+		src/simple_vector2.bas
+		inc/simple_vector2.bi
+		tests/simple_vector2_api.bas
 		
 
 simple vector3

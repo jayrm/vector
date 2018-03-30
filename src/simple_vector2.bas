@@ -15,7 +15,7 @@
 
 Option Explicit
 
-#include once "simple_vector.bi"
+#include once "simple_vector2.bi"
 
 #define SNG_MIN_PRECISION 1E-7
 #define DBL_MIN_PRECISION 1E-15
@@ -28,7 +28,7 @@ Option Explicit
 	#error type "real" not defined
 #endif
 
-namespace simple_vector
+namespace simple_vector2
 
 	''
 	public sub VZero( byref r as vector )
