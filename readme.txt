@@ -77,5 +77,7 @@ pointer vector (Vec2_T)
 	Original filenames were vec2.bi and vec2.bas
 
 	See:
+		doc/pointer_vec2.txt
 		src/pointer_vec2.bas
 		inc/pointer_vec2.bi
+		tests/pointer_vec2_api.bas

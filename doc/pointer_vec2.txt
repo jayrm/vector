@@ -1,0 +1,398 @@
+pointer_vec2
+============
+
+	A 2D vector API using one type (structure) and  procedures 
+	only.  All vector arguments are passed by-value by-pointer,
+	and scalars are passed by value.  This API dates from later
+	on in 2006 and was adapted from the simple 2D vector API.
+	Was only every used for one (never published) project.
+
+
+Notation
+--------
+
+	The following will be used:
+
+	(x, y)  vector with scalar components x & y
+	{a}     vector 'a', what would normally be written in bold
+	        or with a arrow line above
+	a.x     x component of {a}, a subscript x
+	a.y     y component of {a}, a subscript y
+
+
+Vector API
+==========
+
+type REAL
+---------
+	
+	The "real" type resolves to single float.
+
+	#define REAL single
+
+
+type Vec2_T
+-----------
+
+	Simple type that stores that components of the 2D vector
+
+		type Vec2_T
+		  x as real
+		  y as real
+		end type
+
+
+V2Make( {a}, x, y )
+-----------------
+
+	Declare Function V2Make( ByVal a As Vec2_T Ptr, ByVal x As REAL, ByVal y As REAL ) As Vec2_T Ptr
+
+	{a} = (x, y)
+
+	Set a vector {a} to component values (x, y)
+		a.x = x
+		a.y = y
+
+	Returns pointer to {a}
+
+	Example:
+		dim a as vector
+		V2Make( @a, 1, 2 )
+
+
+V2Zero( {a} )
+-----------------
+
+	Declare Function V2Zero( ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
+
+	{a} = (0, 0)
+
+	Set a vector {a} to component values (0, 0)
+		a.x = 0
+		a.y = 0
+
+	Returns pointer to {a}
+
+	Example:
+		dim a as vector
+		V2Zero( @a )
+
+
+V2Split( {a}, x, y )
+-----------------
+
+	Declare Sub V2Split( ByVal a As Vec2_T Ptr, ByRef x As REAL, ByRef y As REAL )
+
+	(x, y) = {a}
+
+	Extract the component values from vector and
+	assign to variables:
+		x = a.x
+		y = a.y
+
+	Example:
+		dim a as vector
+		V2Make( @a, 10, 9 )
+
+		dim x as real, y as real
+		V2Split( @a, x, y )
+
+
+V2Unit( {a} )
+-------------
+
+	Declare Function V2Unit( ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
+
+	{a} = {a} / |{a}|
+
+	Set vector {a} to the unit vector {a}.  if {a} is (0, 0) then the
+	zero vector is set.
+
+	Returns pointer to {a}
+
+	Example:
+		dim a as vector
+		V2Make( @a, 1, 2 )
+		V2Unit( @a )
+
+
+V2Neg( {a} )
+-------------
+
+	Declare Function V2Neg( ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
+
+	{a} = -{a}
+
+	Negates vector {a}
+		a.x = -a.x
+		a.y = -a.y
+
+	Returns pointer to {a}
+
+	Example:
+		dim a as vector
+		V2Make( @a, 1, 2 )
+		V2Neg( @a )
+
+
+V2Add( {a}, {b} )
+------------------
+
+	Declare Function V2Add( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As Vec2_T Ptr
+
+	{a} += {b}
+
+	Adds vector {a} to {r} and returns in {r}
+		r.x += a.x
+		r.y += a.y
+
+	Returns pointer to {a}
+
+
+V2Sub( {a}, {b} )
+------------------
+
+	Declare Function V2Sub( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As Vec2_T Ptr
+
+	{a} -= {b}
+
+	Subtracts vector {b} from {a} and sets vector {b}
+		a.x -= b.x
+		a.y -= b.y
+
+	Returns pointer to {a}
+
+
+V2Mul( {a}, k )
+----------------
+
+	Declare Function V2Mul( ByVal a As Vec2_T Ptr, byval k As REAL ) As Vec2_T Ptr
+
+	{a} *= k
+
+	Multiplies vector {a} by scalar k and sets in {a}
+		a.x *= k
+		a.y *= k
+
+	Returns pointer to {a}
+
+
+V2MulAdd( {a}, k1, {b}, k2 )
+--------------------------------
+
+	Declare Function V2MulAdd( ByVal a As Vec2_T Ptr, byval k1 As REAL, ByVal b As Vec2_T Ptr, byval k2 As REAL ) As Vec2_T Ptr
+
+	{a} = k1 * {a} + k2 * {b}
+
+	and if {a} and {b} are represented as 2x2 matrix, equivalent to:
+
+	{a} = [ k1  k2 ] * [ a.x  a.y ]
+	                   [ b.x  b.y ]
+
+	Multiply two vectors each by a scalar and add vectors together
+		a.x = k1 * a.x + k2 * b.x
+		a.y = k1 * a.y + k2 * b.y
+
+	Returns pointer to {a}
+
+
+V2UnitR( {r}, {a} )
+--------------
+
+	Declare Function V2UnitR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
+
+	{r} = {a} / |{a}|
+
+	Returns the unit vector {a} in {r}.  if {a} is (0, 0) then the
+	zero vector is returned.
+
+	Returns pointer to {r}
+
+
+V2NegR( {r}, {a} )
+-------------
+
+	Declare Function V2NegR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
+
+	{r} = -{a}
+
+	Returns the negative of vector {a} in vector {r}
+		r.x = -a.x
+		r.y = -a.y
+
+	Returns pointer to {r}
+
+
+V2Add( {r}, {a}, {b} )
+---------------------
+
+	Declare Function V2AddR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As Vec2_T Ptr
+	
+	{r} = {a} + {b}
+
+	Add vector {a} to vector {b} and return in {r}
+		r.x = a.x + b.x
+		r.y = a.y + b.y
+
+	Returns pointer to {r}
+
+	Example:
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2 )
+		VSet( b, 3, 5 )
+		VAdd( r, a, b )
+
+
+VSub( {r}, {a}, {b} )
+---------------------
+
+	Declare Function V2SubR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As Vec2_T Ptr
+	
+	{r} = {a} - {b}
+
+	Subtract vector {b} from {a} and return in {r}
+		r.x = a.x - b.x
+		r.y = a.y - b.y
+
+	Returns pointer to {r}
+
+	Example:
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2 )
+		VSet( b, 3, 5 )
+		VSub( r, a, b )
+
+
+V2MulR( {r}, k, {a} )
+-------------------
+
+	Declare Function V2MulR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr, byval k As Real) As Vec2_T Ptr
+
+	{r} = k * {a}
+
+	Multiply vector {a} by scalar k and return in {r}
+		r.x = k * a.x
+		r.y = k * a.y
+
+	Returns pointer to {r}
+
+	Example:
+		dim a as vector, r as vector
+		VSet( a, 1, 2 )
+		VMul( r, k, a )
+
+
+V2MulAddR( {r}, k1, {a}, k2, {b} )
+--------------------------------
+
+	Declare Function V2MulAddR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr, byval k1 As REAL, ByVal b As Vec2_T Ptr, byval k2 As REAL ) As Vec2_T Ptr
+
+	{r} = k1 * {a} + k2 * {b}
+
+	and if {a} and {b} are represented as 2x2 matrix, equivalent to:
+
+	{r} = [ k1  k2 ] * [ a.x  a.y ]
+	                   [ b.x  b.y ]
+
+	Multiply two vectors each by a scalar and add vectors together
+		r.x = k1 * a.x + k2 * b.x
+		r.y = k1 * a.y + k2 * b.y
+
+	Returns pointer to {r}
+
+
+V2Dist( {a}, {b} )
+-----------------
+
+	Declare Function V2Dist( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As REAL
+
+	d = | {b} - {a} |
+
+	Compute the scalar distance from {a} to {b}
+
+	Returns distance from {a} to {b}
+
+
+V2Mag( {a} )
+-----------
+
+	Declare Function V2Mag( ByVal a As Vec2_T Ptr ) As REAL
+
+	d = | {a} |
+
+	Compute the magnitude of {a}
+
+	Returns magnitude of {a}
+
+
+V2Dot( {a}, {b} )
+----------------
+
+	Declare Function V2Dot( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) AS REAL
+
+	d = {a} . {b}
+
+	Compute the scalar dot product of {a} dot {b}.
+		d = a.x * b.x + a.y * b.y
+
+	Returns the scalar dot product.
+
+
+FixAngle360( angle )
+--------------------
+
+	Declare Function FixAngle360( ByVal a As REAL ) As REAL
+
+	Computes equivalent angle between 0 degrees and 360 degress.
+
+	Uses a simple loop to clamp the angle, so expectation is that
+	the starting angle is somewhat close to the 0 to 360 range to
+	begin with.
+
+	Returns the clamped angle.
+
+
+FixAngle180( angle )
+--------------------
+
+	Declare Function FixAngle180( ByVal a As REAL ) As REAL
+
+	Computes equivalent angle between -180 degrees and 180 degress.
+
+	Uses a simple loop to clamp the angle, so expectation is that
+	the starting angle is somewhat close to the -180 to 180 range to
+	begin with.
+
+	Returns the clamped angle.
+
+
+V2Angle( {a} )
+--------------
+
+	Declare Function V2Angle( ByVal a As Vec2_T Ptr ) As REAL
+
+	Computes the angle relative to the positive x axis, increasing
+	angles are counter-clockwise.
+
+	Returns the angle in the range of 0 degress to 360 degress
+
+
+LimitValue( number, min_value, max_value )
+------------------------------------------
+
+	Declare Function LimitValue( ByVal a As REAL, ByVal lo As REAL, ByVal Hi As REAL ) As REAL
+
+	Returns the clamped value of 'a' in the range of
+	'lo' to 'hi'.  'lo' must be <= 'hi'.
+
+
+GetAngleDelta( angle1, angle2 )
+-------------------------------
+
+	Declare Function GetAngleDelta( ByVal a1 As REAL, ByVal a2 As REAL ) As REAL
+
+	Returns the change in angle from angle1 to angle2 in the
+	range of -180 degrees to 180 degrees.
+
+	Expects angle1 and angle2 to be in the range -360 to 360.
+

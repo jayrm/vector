@@ -14,9 +14,14 @@ SIMPLE_VECTOR3_LIBRARY := lib/libsimple_vector3.a
 SIMPLE_VECTOR3_SRCS    := src/simple_vector3.bas
 SIMPLE_VECTOR3_HDRS    := inc/simple_vector3.bi
 
+POINTER_VEC2_LIBRARY := lib/libpointer_vec2.a
+POINTER_VEC2_SRCS    := src/pointer_vec2.bas
+POINTER_VEC2_HDRS    := inc/pointer_vec2.bi
+
 TEST_SRCS := tests/tests.bas
 TEST_SRCS += tests/simple_vector_api.bas
 TEST_SRCS += tests/simple_vector3_api.bas
+TEST_SRCS += tests/pointer_vec2_api.bas
 
 TEST_OBJS := $(patsubst %.bas,%.o,$(TEST_SRCS))
 
@@ -26,9 +31,11 @@ EXAMPLES := examples/ex01.exe
 
 LIBRARIES := $(SIMPLE_VECTOR_LIBRARY)
 LIBRARIES += $(SIMPLE_VECTOR3_LIBRARY)
+LIBRARIES += $(POINTER_VEC2_LIBRARY)
 
 HDRS := $(SIMPLE_VECTOR_HDRS)
 HDRS += $(SIMPLE_VECTOR3_HDRS)
+HDRS += $(POINTER_VEC2_HDRS)
 
 ifneq ($(ARCH),)
 	FBCFLAGS += -arch $(ARCH)
@@ -93,6 +100,9 @@ $(SIMPLE_VECTOR_LIBRARY): $(SIMPLE_VECTOR_SRCS) $(SIMPLE_VECTOR_HDRS)
 
 $(SIMPLE_VECTOR3_LIBRARY): $(SIMPLE_VECTOR3_SRCS) $(SIMPLE_VECTOR3_HDRS)
 	$(FBC) $(FBCFLAGS) -lib $(SIMPLE_VECTOR3_SRCS) -x $@
+
+$(POINTER_VEC2_LIBRARY): $(POINTER_VEC2_SRCS) $(POINTER_VEC2_HDRS)
+	$(FBC) $(FBCFLAGS) -lib $(POINTER_VEC2_SRCS) -x $@
 
 tests/%.o: tests/%.bas $(HDRS)
 	$(FBC) $(FBCFLAGS) -m tests -c $< -o $@
