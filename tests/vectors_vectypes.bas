@@ -1,6 +1,8 @@
 #include once "fbcunit.bi"
 #include once "vectypes.bi"
 
+using vectors
+
 SUITE( vectors_vectypes )
 
 	#if( typeof(real) = typeof(single) )
@@ -31,7 +33,7 @@ SUITE( vectors_vectypes )
 			#endif
 		#endmacro
 
-		#if defined( __VECTYPES_BI )
+		#if defined( __VECTORS_VECTYPES_BI_INCLUDE__ )
 			CU_PASS()
 		#else
 			CU_FAIL()

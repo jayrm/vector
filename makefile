@@ -19,14 +19,25 @@ POINTER_VEC2_SRCS    := src/pointer_vec2.bas
 POINTER_VEC2_HDRS    := inc/pointer_vec2.bi
 
 VECTORS_LIBRARY := lib/libvectors.a
+
 VECTORS_SRCS    := src/vectypes.bas
+VECTORS_SRCS    += src/vector2.bas
+VECTORS_SRCS    += src/vector3.bas
+VECTORS_SRCS    += src/camera.bas
+VECTORS_SRCS    += src/plane3.bas
+
 VECTORS_HDRS    := inc/vectypes.bi
+VECTORS_HDRS    += inc/vector2.bi
+VECTORS_HDRS    += inc/vector3.bi
+VECTORS_HDRS    += inc/camera.bi
+VECTORS_HDRS    += inc/plane3.bi
 
 TEST_SRCS := tests/tests.bas
 TEST_SRCS += tests/simple_vector2_api.bas
 TEST_SRCS += tests/simple_vector3_api.bas
 TEST_SRCS += tests/pointer_vec2_api.bas
 TEST_SRCS += tests/vectors_vectypes.bas
+TEST_SRCS += tests/vectors_vector2.bas
 
 TEST_OBJS := $(patsubst %.bas,%.o,$(TEST_SRCS))
 

@@ -1,68 +1,71 @@
 #include once "plane3.bi"
 
-'':::::
-public sub PlaneFromPointAndNormal _
-	( _
-		byref r as plane3, _
-		byref a as vector3, _
-		byref n as vector3 _
-	) EXPORT
+namespace vectors
 
-	r.n = n.unit
-	r.d = - ( r.n * a )
+	'':::::
+	public sub PlaneFromPointAndNormal _
+		( _
+			byref r as plane3, _
+			byref a as vector3, _
+			byref n as vector3 _
+		) EXPORT
 
-end sub
+		r.n = n.unit
+		r.d = - ( r.n * a )
 
-'':::::
-public function PlaneLineSegmentInterRatio _
-	( _
-		byref p as plane3, _
-		byref a as vector3, _
-		byref b as vector3, _
-		byref ratio as real _
-	) as BOOL EXPORT
+	end sub
 
-	dim d1 as real = a * p.n - p.d
-	dim d2 as real = b * p.n - p.d
-	dim d as real = d1 - d2
+	'':::::
+	public function PlaneLineSegmentInterRatio _
+		( _
+			byref p as plane3, _
+			byref a as vector3, _
+			byref b as vector3, _
+			byref ratio as real _
+		) as BOOL EXPORT
 
-	if( abs(d) < EPSILON ) then
-		ratio = 0
-		function = FALSE
+		dim d1 as real = a * p.n - p.d
+		dim d2 as real = b * p.n - p.d
+		dim d as real = d1 - d2
 
-	else
-		'' Intersection point will be
-		'' = a + ratio * ( b - a )
-		ratio = d1 / d
-		function = TRUE
+		if( abs(d) < EPSILON ) then
+			ratio = 0
+			function = FALSE
 
-	end if
+		else
+			'' Intersection point will be
+			'' = a + ratio * ( b - a )
+			ratio = d1 / d
+			function = TRUE
 
-end function
+		end if
 
-'':::::
-public function PlaneRayInterRatio _
-	( _
-		byref p as plane3, _
-		byref a as vector3, _
-		byref m as vector3, _
-		byref ratio as real _
-	) as BOOL EXPORT
+	end function
 
-	dim d1 as real = a * p.n - p.d
-	dim d as real = m * p.n
+	'':::::
+	public function PlaneRayInterRatio _
+		( _
+			byref p as plane3, _
+			byref a as vector3, _
+			byref m as vector3, _
+			byref ratio as real _
+		) as BOOL EXPORT
 
-	if( abs(d) < EPSILON ) then
-		ratio = 0
-		function = FALSE
+		dim d1 as real = a * p.n - p.d
+		dim d as real = m * p.n
 
-	else
-		'' Intersection point will be
-		'' = a + ratio * m
-		ratio = d1 / d
-		function = TRUE
+		if( abs(d) < EPSILON ) then
+			ratio = 0
+			function = FALSE
 
-	end if
+		else
+			'' Intersection point will be
+			'' = a + ratio * m
+			ratio = d1 / d
+			function = TRUE
 
-end function
+		end if
 
+	end function
+
+end namespace
