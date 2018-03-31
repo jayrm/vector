@@ -1,0 +1,432 @@
+vector2
+=======
+
+type vector2
+------------
+
+	type vector2
+		union
+			type
+				x as real
+				y as real
+			end type
+			e(0 to 1) as real
+		end union
+	end type
+
+	Vector components can be access through either the named
+	fields x and y.  Or through the element array e().
+
+
+Construction/Initialization
+---------------------------
+
+	dim {r} = (x, y)
+
+	Set a vector {r} to component values (x, y) when
+	declaring the variable:
+		r.x = x
+		r.y = y
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (1, 2)
+		print r
+
+	Output:
+		(1, 2)
+
+
+{r}.set( x, y )
+---------------
+
+	{r} = (x, y)
+
+	Set a vector {r} to component values (x, y)
+		r.x = x
+		r.y = y
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2
+		r.set( 1, 2)
+		print r
+
+	Output:
+		(1, 2)
+
+
+Operator let (assignment)
+-------------------------
+
+	{r} = {a}
+
+	Set a vector {r} to component values (x, y)
+		r.x = x
+		r.y = y
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2, r as vector2
+		a.set( 1, 2)
+		r = a
+		print r
+
+	Output:
+		(1, 2)
+
+
+Operator + ( vector2, vector2 ) (addition)
+-------------------------------------------
+
+	{r} = {a} + {b}
+
+	Add vector {a} to vector {b} and return in {r}
+		r.x = a.x + b.x
+		r.y = a.y + b.y
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (3, 5)
+		dim r as vector2
+		r = a + b
+		print r
+
+	Output:
+		(4, 7)
+
+
+Operator += ( vector2 ) (addition and assignement)
+--------------------------------------
+
+	{r} += {a}
+
+	Add vector {a} to vector {r} and return in {r}
+		r.x += a.x
+		r.y += a.y
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (3, 5)
+		dim r as vector2
+		r += a
+		print r
+		r += b
+		print r
+
+	Output:
+		(1, 2)
+		(4, 7)
+
+
+Operator - ( vector2, vector2 ) (subtraction)
+------------------------
+
+	{r} = {a} - {b}
+
+	subtract vector {a} from vector {b} and return in {r}
+		r.x = a.x - b.x
+		r.y = a.y - b.y
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (3, 5)
+		dim r as vector2
+		r = a - b
+		print r
+
+	Output:
+		(-2, -3)
+
+
+Operator -= ( vector2 ) (subtraction and assignement)
+-----------------------------------------
+
+	{r} -= {a}
+
+	Subtract vector {a} from vector {r} and return in {r}
+		r.x -= a.x
+		r.y -= a.y
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (3, 5)
+		dim r as vector2
+		r -= a
+		print r
+		r -= b
+		print r
+
+	Output:
+		(-1, -2)
+		(-4, -7)
+
+
+
+Operator *= (scalar multiplication and assignment)
+--------------------------------------------------
+
+	{r} *= k
+
+	Multiply vector {r} by scalar k and return in {r}
+		r.x *= k
+		r.y *= k
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (1, 2)
+		r *= -3
+		print r
+
+	Output:
+		(-3, -6)
+
+
+Operator /= (scalar multiplication and assignment
+-------------------------------------------------
+
+	{r} /= k
+
+	Divide vector {r} by scalar k and return in {r}
+		r.x /= k
+		r.y /= k
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (4, -6)
+		r /= 2
+		print r
+
+	Output:
+		(2, -3)
+
+
+{r}.magnitude
+-------------
+
+	d = | {a} |
+
+	Compute the magnitude of {r}
+		d = sqr( r.x ^ 2 + r.y ^ 2 )
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (3, 4)
+		dim d as real
+		d = r.magnitude
+		print "r   = "; r
+		print "|r| = "; d
+
+	Output:
+		r   = (3, 4)
+		|r| = 5
+
+
+{r}.magnitude2
+--------------
+
+	d = | {r} | ^ 2
+
+	Compute the magnitude of {r} squared
+		d = r.x ^ 2 + r.y ^ 2
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (3, 4)
+		dim d as real
+		d = r.magnitude
+		print "r   = "; r
+		print "|r| = "; d
+
+	Output:
+		r   = (3, 4)
+		|r| = 25
+
+
+{r}.distance
+------------
+
+	d = | {b} - {r} |
+
+	Compute the scalar distance from {r} to {b}
+		d = sqr( (b.x - r.x) ^ 2 + (b.y - r.y) ^ 2 )
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (4, 7)
+		print a.distance( b )
+
+	Output:
+		 5
+
+
+{r}.distance2
+-------------
+
+	d = | {b} - {r} |
+
+	Compute the scalar distance from {r} to {b} sqaured
+		d = (b.x - r.x) ^ 2 + (b.y - r.y) ^ 2
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (4, 7)
+		print a.distance( b )
+
+	Output:
+		 25
+
+		
+{r}.unit
+--------
+
+	{r} = {a} / |{a}|
+
+	Returns the unit vector {a} in {r}.  if {a} is (0, 0) then the
+	zero vector is returned.
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (8.660254, 5)
+		dim r as vector2
+		r = a.unit
+		print r
+	
+	Output:
+		(0.8660254, 0.5)
+
+
+{r}.normalize
+-------------
+
+	{r} = {r} / |{r}|
+
+	Returns the unit vector {r} in {r}.  if {r} is (0, 0) then the
+	zero vector is returned.
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (8.660254, 5)
+		r.normalize
+		print r
+	
+	Output:
+		(0.8660254, 0.5)
+
+
+{r}.selfop_neg
+--------------
+
+	{r} = -{r}
+
+	Returns negative of vector {r} in {r}
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (1, 2)
+		r.selfop_neg
+		print r
+	
+	Output:
+		(-1, -2)
+
+		
+{r}.selfop_zero
+---------------
+
+	{r} = (0, 0)
+
+	{r} = -{r}
+
+	Sets {r} to the zero vector.
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (1, 2)
+		r.selfop_zero
+		print r
+	
+	Output:
+		(0, 0)
+
+
+{r}.cast() as string
+--------------------
+
+	cstr( {r} )
+
+	Converts vector {r} to a string.
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim r as vector2 = (1, 2)
+		dim s as string = r
+		print s
+
+	Output:
+		(1, 2)
+
+
+Operator - (Negative)
+---------------------
+
+	{r} = -{a}
+
+	Returns negative of vector {a} in {r}
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim r as vector2
+		r = -a
+		print r
+	
+	Output:
+		(-1, -2)
+		
+
+
+Operator * ( vector2, vector2 ) (Dot Product)
+---------------------------------------------
+
+	d = {a} . {b}
+
+	Compute the scalar dot product of {a} dot {b}.
+		d = a.x * b.x + a.y * b.y
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (3, 5)
+		dim d as real
+		d = a * b
+		print d
+	
+	Output:
+		 13

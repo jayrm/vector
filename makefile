@@ -38,6 +38,7 @@ TEST_SRCS += tests/simple_vector3_api.bas
 TEST_SRCS += tests/pointer_vec2_api.bas
 TEST_SRCS += tests/vectors_vectypes.bas
 TEST_SRCS += tests/vectors_vector2.bas
+TEST_SRCS += tests/vectors_vector3.bas
 
 TEST_HDRS := tests/fbcunit_local.bi
 

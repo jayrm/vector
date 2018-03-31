@@ -1,37 +1,14 @@
 #include once "fbcunit.bi"
 #include once "vectypes.bi"
 
+
 using vectors
 
 SUITE( vectors_vectypes )
 
-	#if( typeof(real) = typeof(single) )
-
-		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_SINGLE_EXACT
-		#define CU_ASSERT_REAL_APPROX CU_ASSERT_SINGLE_APPROX
-		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_SINGLE_EQUAL
-		const epsilon = 1E-6
-
-	#elseif( typeof(real) = typeof(double) )
-
-		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_DOUBLE_EXACT
-		#define CU_ASSERT_REAL_APPROX CU_ASSERT_DOUBLE_APPROX
-		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_DOUBLE_EQUAL
-		const epsilon = 1D-15
-
-	#else
-		#error unrecognized float type
-	#endif
+	#include once "fbcunit_local.bi"
 
 	TEST( header )
-
-		#macro check_type( a, b )
-			#if typeof( a ) = typeof( b )
-				CU_PASS()
-			#else
-				CU_FAIL()
-			#endif
-		#endmacro
 
 		#if defined( __VECTORS_VECTYPES_BI_INCLUDE__ )
 			CU_PASS()
@@ -159,8 +136,27 @@ SUITE( vectors_vectypes )
 
 	TEST( FixAnglePI_ )
 
-		'' comparisons must be approximate due
-		'' to precision errors
+		'' comparisons must be approximate due to precision
+		'' errors, and since we are comparing mul/div
+		'' calculation to an add/sub calculation we may end
+		'' up close to -PI or +PI, which in this case are
+		'' nearly equivalent angles, though different numbers
+
+		'' choose a suitable epsilon
+		const e = test_epsilon_real * exp(log(PI))
+
+		#macro check_angle( ref_angle, cal_angle )
+			'' test for equivalent near the endpoints
+			if( (ref_angle < -PI+e) and (cal_angle > PI-e) _
+			or (cal_angle < -PI-e) and (ref_angle > PI-e) ) then
+				CU_PASS()
+			else
+				CU_ASSERT_REAL_APPROX( ref_angle, angle, 3 )
+			end if
+
+			CU_ASSERT( angle >= -PI-e )
+			CU_ASSERT( angle < PI+e )
+		#endmacro
 		
 		dim a as real, angle as real
 		for deg_angle as real = -180 to 179 step 30
@@ -168,38 +164,19 @@ SUITE( vectors_vectypes )
 			angle = DEGTORAD( deg_angle )
 
 			a = FixAnglePI( angle )
-			CU_ASSERT_REAL_APPROX( angle, a, 0 )
-			CU_ASSERT( angle >= -PI )
-			CU_ASSERT( angle < PI )
+			check_angle( angle, a )
 
 			a = FixAnglePI( angle + 2 * PI )
-			CU_ASSERT_REAL_APPROX( angle, a, 2 )
-			CU_ASSERT( angle >= -PI )
-			CU_ASSERT( angle < PI )
-
-			'' because of the way FixAnglePI() works, we can get
-			'' cumulative precision errors, where the answer is
-			'' supposed to be (PI - epsilon) < answer <= PI, 
-			'' but instead it's -PI < answer <= (-PI + epsilon)
+			check_angle( angle, a )
 
 			a = FixAnglePI( angle + 4 * PI )
-			if( abs(a) >= PI-epsilon ) then
-				CU_ASSERT_REAL_APPROX( abs(angle), abs(a), 3 )
-			else
-				CU_ASSERT_REAL_APPROX( angle, a, 3 )
-			end if
-			CU_ASSERT( angle >= -PI )
-			CU_ASSERT( angle < PI )
+			check_angle( angle, a )
 
 			a = FixAnglePI( angle - 2 * PI )
-			CU_ASSERT_REAL_APPROX( angle, a, 2 )
-			CU_ASSERT( angle >= -PI )
-			CU_ASSERT( angle < PI )
+			check_angle( angle, a )
 
 			a = FixAnglePI( angle - 4 * PI )
-			CU_ASSERT_REAL_APPROX( angle, a, 3 )
-			CU_ASSERT( angle >= -PI )
-			CU_ASSERT( angle < PI )
+			check_angle( angle, a )
 
 		next
 
@@ -207,8 +184,25 @@ SUITE( vectors_vectypes )
 
 	TEST( FixAnglePI2_ )
 
-		'' comparisons must be approximate due
-		'' to precision errors
+		'' comparisons must be approximate due to precision
+		'' errors, and since we are comparing mul/div
+		'' calculation to an add/sub calculation we may end
+		'' up close to 0 or 2*PI, which in this case are
+		'' nearly equivalent angles, though different numbers
+
+		const e = test_epsilon_real * exp(log(2*PI))
+
+		#macro check_angle( ref_angle, cal_angle )
+			if( (ref_angle < e) and (cal_angle > 2*PI-e) _
+			or (cal_angle < e) and (ref_angle > 2*PI-e) ) then
+				CU_PASS()
+			else
+				CU_ASSERT_REAL_EQUAL( ref_angle, cal_angle, e )
+			end if
+
+			CU_ASSERT( angle >= 0-e )
+			CU_ASSERT( angle < 2*PI+e )
+		#endmacro
 
 		dim a as real, angle as real
 		for deg_angle as real = 0 to 359 step 30
@@ -216,29 +210,19 @@ SUITE( vectors_vectypes )
 			angle = DEGTORAD( deg_angle )
 
 			a = FixAnglePI2( angle )
-			CU_ASSERT_REAL_APPROX( angle, a, 0 )
-			CU_ASSERT( angle >= 0 )
-			CU_ASSERT( angle < 2 * PI )
+			check_angle( angle, a )
 
 			a = FixAnglePI2( angle + 2 * PI )
-			CU_ASSERT_REAL_APPROX( angle, a, 2 )
-			CU_ASSERT( angle >= 0 )
-			CU_ASSERT( angle < 2 * PI )
+			check_angle( angle, a )
 
 			a = FixAnglePI2( angle + 4 * PI )
-			CU_ASSERT_REAL_APPROX( angle, a, 3 )
-			CU_ASSERT( angle >= 0 )
-			CU_ASSERT( angle < 2 * PI )
+			check_angle( angle, a )
 
 			a = FixAnglePI2( angle - 2 * PI )
-			CU_ASSERT_REAL_APPROX( angle, a, 2 )
-			CU_ASSERT( angle >= 0 )
-			CU_ASSERT( angle < 2 * PI )
+			check_angle( angle, a )
 
 			a = FixAnglePI2( angle - 4 * PI )
-			CU_ASSERT_REAL_APPROX( angle, a, 3 )
-			CU_ASSERT( angle >= 0 )
-			CU_ASSERT( angle < 2 * PI )
+			check_angle( angle, a )
 
 		next
 

@@ -31,6 +31,31 @@ I happen to break an API, you have been warned.
 Components
 ==========
 
+vectors
+-------
+	
+	Geometric vectors library using object oriented approach.
+
+	vector2 - 2D vector data type
+	vector3 - 3D vector data type
+
+	Also include some other support functions and constants.
+
+	See:
+		doc/vectors.txt
+		doc/vectors_vector2.txt
+		doc/vectors_vector3.txt
+		src/vectypes.bas
+		src/vector2.bas
+		src/vector3.bas
+		inc/vectypes.bi
+		inc/vector2.bi
+		inc/vector3.bi
+		tests/vectors_vectypes.bas
+		tests/vectors_vector2.bas
+		tests/vectors_vector3.bas
+
+
 simple vector2
 --------------
 

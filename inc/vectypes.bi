@@ -32,14 +32,14 @@
 
 		type real as single
 
-		#define creal( v ) cast( (real), (v) )
+		#define creal( v ) cast( real, (v) )
 
-		const pi as real = 3.1415926535897932384626433832795
-		const pi_by_2 as real = pi * 0.5
-		const two_pi as real = pi * 2.0
+		const pi as double = 3.1415926535897932384626433832795
+		const pi_by_2 as double = pi * 0.5
+		const two_pi as double = pi * 2.0
 
-		const deg_per_rad = 180.0 / pi
-		const rad_per_deg = pi / 180.0
+		const deg_per_rad as double = 180.0 / pi
+		const rad_per_deg as double = pi / 180.0
 
 		const EPSILON as real = 1e-14
 
