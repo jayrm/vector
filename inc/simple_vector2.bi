@@ -1,8 +1,6 @@
 #ifndef __SIMPLE_VECTOR2_BI_INCLUDE__
 #define __SIMPLE_VECTOR2_BI_INCLUDE__ 1
 
-	#lang "fblite"
-
 	#inclib "simple_vector2"
 
 	#ifndef real

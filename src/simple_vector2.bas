@@ -11,10 +11,6 @@
 ''
 '' ============================================================
 
-#lang "fblite"
-
-Option Explicit
-
 #include once "simple_vector2.bi"
 
 #define SNG_MIN_PRECISION 1E-7

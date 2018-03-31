@@ -13,6 +13,11 @@ using simple_vector2
 
 SUITE( simple_vector2_api )
 
+	#include once "fbcunit_local.bi"
+
+	const epsilon = test_epsilon_real
+	const PI = test_PI_real
+
 	/'
 		We generally test for exact values because we testing
 		that the semantics of the functions are correct and
@@ -21,27 +26,6 @@ SUITE( simple_vector2_api )
 		in single precision float format and we should expect
 		exact results.
 	'/
-
-	#if( typeof(real) = typeof(single) )
-
-		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_SINGLE_EXACT
-		#define CU_ASSERT_REAL_APPROX CU_ASSERT_SINGLE_APPROX
-		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_SINGLE_EQUAL
-		const PI = 3.14159265
-		const epsilon = 1E-7
-
-	#elseif( typeof(real) = typeof(double) )
-
-		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_DOUBLE_EXACT
-		#define CU_ASSERT_REAL_APPROX CU_ASSERT_DOUBLE_APPROX
-		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_DOUBLE_EQUAL
-		const PI = 3.141592653589793
-		const epsilon = 1D-15
-
-	#else
-		#error unrecognized float type
-	#endif
-
 
 	TEST( header )
 		#if defined( __SIMPLE_VECTOR2_BI_INCLUDE__ )
@@ -53,14 +37,6 @@ SUITE( simple_vector2_api )
 
 	TEST( types )
 
-		#macro check_type( a, b )
-			#if typeof( a ) = typeof( b )
-				CU_PASS()
-			#else
-				CU_FAIL()
-			#endif
-		#endmacro
-			
 		dim v as vector
 
 		check_type( v, vector )
@@ -543,6 +519,7 @@ SUITE( simple_vector2_api )
 		dim a as vector, b as vector
 		dim ra1 as real, ra2 as real
 		dim x as real, y as real
+		dim angle1 as real, angle2 as real
 
 		for angle1 = -360 to 360 step 30
 			ra1 = angle1 * PI / 180
@@ -576,10 +553,11 @@ SUITE( simple_vector2_api )
 
 		dim a as vector, b as vector
 		dim angle as real, ra as real
+		dim x as real, y as real
 
 		for angle = -360 to 360 step 30
 
-			ra = angle1 * PI / 180
+			ra = angle * PI / 180
 
 			VSet( a, 1, 0 )
 			VRotIm( a, ra )
@@ -604,10 +582,11 @@ SUITE( simple_vector2_api )
 
 		dim a as vector, b as vector
 		dim angle as real, ra as real
-
+		dim x as real, y as real
+		
 		for angle = -360 to 360 step 30
 
-			ra = angle1 * PI / 180
+			ra = angle * PI / 180
 
 			VSet( a, 1, 0 )
 			VRotIm( a, ra )
@@ -624,6 +603,7 @@ SUITE( simple_vector2_api )
 
 			CU_ASSERT_REAL_EQUAL( a.x, b.x, epsilon )
 			CU_ASSERT_REAL_EQUAL( a.y, b.y, epsilon )
+
 
 		next		
 
@@ -693,24 +673,33 @@ SUITE( simple_vector2_api )
 
 	TEST( AddMinimal_ )
 
-		'' !!! TODO !!! - improve this test or remove from API
-	
+		dim d as real, d2 as real
+
+		d = epsilon ^ 2
+		CU_ASSERT( d < epsilon )
+
+		d2 = d ^ 2
+		CU_ASSERT( d2 < d )
+
 		for x as real = -3 to 3 step 0.1
-			dim d as real
-			d = epsilon / 1000
-			CU_ASSERT_REAL_EQUAL( AddMinimal( x, d ), x + epsilon * abs(x), epsilon )
+			CU_ASSERT_REAL_EQUAL( x + d2, x, d2 )
+			CU_ASSERT( AddMinimal( x, d ) > x )
 		next x
 
 	END_TEST
 
 	TEST( SubMinimal_ )
 
-		'' !!! TODO !!! - improve this test or remove from API
+		dim d as real, d2 as real
+		d = epsilon ^ 2
+		CU_ASSERT( d < epsilon )
+
+		d2 = d ^ 2
+		CU_ASSERT( d2 < d )
 
 		for x as real = -3 to 3 step 0.1
-			dim d as real
-			d = epsilon / 1000
-			CU_ASSERT_REAL_EQUAL( SubMinimal( x, d ), x - epsilon * abs(x), epsilon )
+			CU_ASSERT_REAL_EQUAL( x + d2, x, d2 )
+			CU_ASSERT( SubMinimal( x, d ) < x )
 		next x
 
 	END_TEST

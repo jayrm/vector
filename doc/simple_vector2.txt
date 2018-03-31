@@ -1,5 +1,5 @@
-simple_vector2
-==============
+simple_vector2 library
+======================
 
 	A very basic 2D vector api using one type (structure) and 
 	procedures only.  This one dates from 2006 and was imported 
@@ -24,8 +24,8 @@ Notation
 	{a, b}  a line segment from {a} to {b}
 
 
-Vector API
-==========
+simple_vector2 API
+==================
 
 type real
 ---------
@@ -281,8 +281,8 @@ VUnitIm( {r} )
 VLimitIm( {r}, d )
 ------------------
 
-	Limits (or clamps) components of vector {r} such that no component
-	is less than -d or greater than d.
+	Limits (or clamps) components of vector {r} such that no 
+	component is less than -d or greater than d.
 		r.x = clamp( r.x, -d, d )
 		r.y = clamp( r.y, -d, d )
 
@@ -421,9 +421,9 @@ VSubImMinimal( {r}, {a} ) - EXPERIMENTAL
 
 	{r} += MIN_VECTOR( {a} )
 
-	Subtracts vector {a} from vector {r} and returns in {r}.  If any 
-	component magnitude is less than MIN_VALUE, then subtract a minimal 
-	component value respecting signs.
+	Subtracts vector {a} from vector {r} and returns in {r}.  If 
+	any	component magnitude is less than MIN_VALUE, then subtract 
+	a minimal component value respecting signs.
 
 	!!! If you think you might need this function, then you should
 	probably re-think the original algorithm as you are probably
