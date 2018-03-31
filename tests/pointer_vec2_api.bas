@@ -13,6 +13,8 @@ using pointer_vec2
 
 SUITE( pointer_vec2_api )
 
+	#include once "fbcunit_local.bi"
+
 	/'
 		We generally test for exact values because we testing
 		that the semantics of the functions are correct and
@@ -21,25 +23,6 @@ SUITE( pointer_vec2_api )
 		in single precision float format and we should expect
 		exact results.
 	'/
-
-	#if( typeof(real) = typeof(single) )
-
-		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_SINGLE_EXACT
-		#define CU_ASSERT_REAL_APPROX CU_ASSERT_SINGLE_APPROX
-		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_SINGLE_EQUAL
-		const epsilon = 1E-7
-
-	#elseif( typeof(real) = typeof(double) )
-
-		#define CU_ASSERT_REAL_EXACT  CU_ASSERT_DOUBLE_EXACT
-		#define CU_ASSERT_REAL_APPROX CU_ASSERT_DOUBLE_APPROX
-		#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_DOUBLE_EQUAL
-		const epsilon = 1D-15
-
-	#else
-		#error unrecognized float type
-	#endif
-
 
 	TEST( header )
 		#if defined( __POINTER_VEC2_BI_INCLUDE__ )
@@ -51,14 +34,6 @@ SUITE( pointer_vec2_api )
 
 	TEST( types )
 
-		#macro check_type( a, b )
-			#if typeof( a ) = typeof( b )
-				CU_PASS()
-			#else
-				CU_FAIL()
-			#endif
-		#endmacro
-			
 		dim v as vec2_t
 
 		check_type( v, vec2_t )
@@ -332,6 +307,8 @@ SUITE( pointer_vec2_api )
 	END_TEST
 
 	TEST( V2UnitR_ )
+
+		const e = test_epsilon_real
 		
 		dim a as vec2_t, r as vec2_t
 		dim ret as vec2_t ptr
@@ -353,7 +330,7 @@ SUITE( pointer_vec2_api )
 					CU_ASSERT_REAL_EXACT( r.x, 0 )
 					CU_ASSERT_REAL_EXACT( r.y, 0 )
 				else
-					CU_ASSERT_REAL_EQUAL( sqr( r.x * r.x + r.y * r.y ), 1, epsilon )
+					CU_ASSERT_REAL_EQUAL( sqr( r.x * r.x + r.y * r.y ), 1, e )
 				end if
 
 			next
@@ -362,6 +339,8 @@ SUITE( pointer_vec2_api )
 	END_TEST
 
 	TEST( V2Unit_ )
+
+		const e = test_epsilon_real
 		
 		dim a as vec2_t
 		dim ret as vec2_t ptr
@@ -384,7 +363,7 @@ SUITE( pointer_vec2_api )
 					CU_ASSERT_REAL_EXACT( a.x, 0 )
 					CU_ASSERT_REAL_EXACT( a.y, 0 )
 				else
-					CU_ASSERT_REAL_EQUAL( sqr( a.x * a.x + a.y * a.y ), 1, epsilon )
+					CU_ASSERT_REAL_EQUAL( sqr( a.x * a.x + a.y * a.y ), 1, e )
 				end if
 
 			next
@@ -551,48 +530,58 @@ SUITE( pointer_vec2_api )
 
 	TEST( V2Angle_ )
 
-		for angle as real = -720 to 719 step 30
+		'' choose a suitable epsilon
+		const e = test_epsilon_real * exp(log(360))
+		
+		#macro check_angle( ref_angle, cal_angle )
+			'' test for equivalent near the endpoints
+			if( (ref_angle < e) and (cal_angle > (360-e)) _
+			or (cal_angle < e) and (ref_angle > (360-e)) ) then
+				CU_PASS()
+			else
+				CU_ASSERT_REAL_EQUAL( ref_angle, cal_angle, e )
+			end if
 
-			dim v as vec2_t, a as real, clamp_angle as real
+			CU_ASSERT( ref_angle >= -e )
+			CU_ASSERT( ref_angle <= 360 + e )
 
-			V2Make( @v, COS( angle * (PI / 180) ), SIN( angle * (PI / 180) ) )
+			CU_ASSERT( cal_angle >= -e )
+			CU_ASSERT( cal_angle <= 360 + e )
+		#endmacro
 
-			clamp_angle = FixAngle360( angle )
+		for m as real = 1 to 2 step 0.5
+			for angle as real = -720 to 719 step 30
 
-			a = V2Angle( @v ) * 180 / PI
+				dim v as vec2_t, a as real, clamp_angle as real
 
-			CU_ASSERT( a >= 0 )
+				'' for each angle, make a vector of that angle
+				V2Make( @v, m * COS( angle * (PI / 180) ), m * SIN( angle * (PI / 180) ) )
 
-			'' !!! BUG? !!! - V2Angle() can return radian equivalent of 360 degrees
-			CU_ASSERT( a <= 360 )
-#if ENABLE_CHECK_BUGS
-			CU_ASSERT( a < 360 )
-#endif
-			a = FixAngle360( a )
-			CU_ASSERT( a < 360 )
+				'' now calculate the angle based on the vector
+				a = V2Angle( @v ) * 180 / PI
 
-			'' !!! near zero, selected epsilon is too small due to precision loss
-			CU_ASSERT_REAL_EQUAL( a, clamp_angle, epsilon * 10 )
-#if ENABLE_CHECK_BUGS
-			CU_ASSERT_REAL_EQUAL( a, clamp_angle, epsilon )
-#endif		
+				'' angle and a should be equivalent
+
+				clamp_angle = FixAngle360( angle )
+				a = FixAngle360( a )
+
+				check_angle( clamp_angle, a )
+
+		
+				CU_ASSERT( a >= 0 )
+				CU_ASSERT( a <= 360 )
+			next
 		next
 
 	END_TEST
 
-#if ENABLE_CHECK_BUGS
-
 	TEST( GetAngleDelta_ )
 		
-		'' !!! BUG? !!! - Can't remember the intent of GetAngleDelta()
-		'' it was 10 years ago I wrote it.
-
 		dim a as real, a1 as single, a2 as single
 
 		for angle1 as real = -720 to 720 step 30
 			for angle2 as real = -720 to 720 step 30
 
-				'' !!! TODO !!! - this might be wrong way to test
 				a1 = FixAngle180( angle1 )
 				a2 = FixAngle180( angle2 )
 				
@@ -603,7 +592,5 @@ SUITE( pointer_vec2_api )
 			next
 		next
 	END_TEST
-
-#endif
 
 END_SUITE

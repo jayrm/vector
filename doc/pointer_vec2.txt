@@ -2,7 +2,7 @@ pointer_vec2
 ============
 
 	A 2D vector API using one type (structure) and  procedures 
-	only.  All vector arguments are passed by-value by-pointer,
+	only.  All vector arguments are passed by pointer to vector,
 	and scalars are passed by value.  This API dates from later
 	on in 2006 and was adapted from the simple 2D vector API.
 	Was only every used for one (never published) project.
@@ -23,12 +23,15 @@ Notation
 Vector API
 ==========
 
-type REAL
+type real
 ---------
 	
-	The "real" type resolves to single float.
+	The "real" type resolves to single or double precision float.
+	By default,	if not defined, real will be typed to single.
 
-	#define REAL single
+	#ifndef real
+		type real as single
+	#endif
 
 
 type Vec2_T

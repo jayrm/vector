@@ -12,7 +12,7 @@
 		  y As REAL
 		End Type
 
-		#define PI 3.14159265
+		const PI as single = 3.14159265
 
 		Declare Function V2Make( ByVal a As Vec2_T Ptr, ByVal x As REAL, ByVal y As REAL ) As Vec2_T Ptr
 		Declare Function V2Zero( ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
