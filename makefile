@@ -39,6 +39,8 @@ TEST_SRCS += tests/pointer_vec2_api.bas
 TEST_SRCS += tests/vectors_vectypes.bas
 TEST_SRCS += tests/vectors_vector2.bas
 
+TEST_HDRS := tests/fbcunit_local.bi
+
 TEST_OBJS := $(patsubst %.bas,%.o,$(TEST_SRCS))
 
 TEST_EXE  := tests/tests.exe
@@ -124,7 +126,7 @@ $(POINTER_VEC2_LIBRARY): $(POINTER_VEC2_SRCS) $(POINTER_VEC2_HDRS)
 $(VECTORS_LIBRARY): $(VECTORS_SRCS) $(VECTORS_HDRS)
 	$(FBC) $(FBCFLAGS) -lib $(VECTORS_SRCS) -x $@
 
-tests/%.o: tests/%.bas $(HDRS)
+tests/%.o: tests/%.bas $(HDRS) $(TEST_HDRS) $(LIBRARIES)
 	$(FBC) $(FBCFLAGS) -m tests -c $< -o $@
 
 examples/%.exe: examples/%.bas $(HDRS) $(LIBRARIES)

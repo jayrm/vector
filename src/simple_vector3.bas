@@ -37,35 +37,35 @@ namespace simple_vector3
 	end sub
 
 	''
-	public sub VAddComp( byref v as vector, byref a as const vector, byval x as const single, byval y as const single, byval z as const single )
+	public sub VAddComp( byref v as vector, byref a as const vector, byval x as const real, byval y as const real, byval z as const real )
 		v.x = a.x + x
 		v.y = a.y + y
 		v.z = a.z + z
 	end sub
 
 	''
-	public sub VAddComp2V( byref v as vector, byval x as const single, byval y as const single, byval z as const single )
+	public sub VAddComp2V( byref v as vector, byval x as const real, byval y as const real, byval z as const real )
 		v.x = v.x + x
 		v.y = v.y + y
 		v.z = v.z + z
 	end sub
 
 	''
-	public sub VAddMul( byref v as vector, byval k1 as const single, byref a as const vector, byval  k2 as const single, byref b as const vector )
+	public sub VAddMul( byref v as vector, byval k1 as const real, byref a as const vector, byval  k2 as const real, byref b as const vector )
 		v.x = k1 * a.x + k2 * b.x
 		v.y = k1 * a.y + k2 * b.y
 		v.z = k1 * a.z + k2 * b.z
 	end sub
 
 	''
-	public function VDist( byref a as const vector, byref b as const vector ) as single
+	public function VDist( byref a as const vector, byref b as const vector ) as real
 		dim v as vector
 		VSub v, a, b
 		VDist = VMag(v)
 	end function
 
 	''
-	public sub VLimit2V( byref v as vector, byval d as const single )
+	public sub VLimit2V( byref v as vector, byval d as const real )
 		if v.x > d then v.x = d
 		if v.x < -d then v.x = -d
 		if v.y > d then v.y = d
@@ -75,7 +75,7 @@ namespace simple_vector3
 	end sub
 
 	''
-	public function VMag( byref v as const vector ) as single
+	public function VMag( byref v as const vector ) as real
 		VMag = SQR(v.x * v.x + v.y * v.y + v.z * v.z)
 	end function
 
@@ -90,21 +90,21 @@ namespace simple_vector3
 	end sub
 
 	''
-	public sub VScale( byref v as vector, byref a as const vector, byval k as const single )
+	public sub VScale( byref v as vector, byref a as const vector, byval k as const real )
 		v.x = k * a.x
 		v.y = k * a.y
 		v.z = k * a.z
 	end sub
 
 	''
-	public sub VScale2V( byref v as vector, byval k as const single )
+	public sub VScale2V( byref v as vector, byval k as const real )
 		v.x = k * v.x
 		v.y = k * v.y
 		v.z = k * v.z
 	end sub
 
 	''
-	public sub VSet( byref v as vector, byval x as const single, byval y as const single, byval z as const single )
+	public sub VSet( byref v as vector, byval x as const real, byval y as const real, byval z as const real )
 	  v.x = x
 	  v.y = y
 	  v.z = z
@@ -125,21 +125,21 @@ namespace simple_vector3
 	end sub
 
 	''
-	public sub VSubComp( byref v as vector, byref a as const vector, byval x as const single, byval y as const single, byval z as const single )
+	public sub VSubComp( byref v as vector, byref a as const vector, byval x as const real, byval y as const real, byval z as const real )
 		v.x = a.x - x
 		v.y = a.y - y
 		v.z = a.z - z
 	end sub
 
 	''
-	public sub VSubComp2V( byref v as vector, byval x as const single, byval y as const single, byval z as const single )
+	public sub VSubComp2V( byref v as vector, byval x as const real, byval y as const real, byval z as const real )
 		v.x = v.x - x
 		v.y = v.y - y
 		v.z = v.z - z
 	end sub
 
 	''
-	public sub VRot2Vx( byref v as vector, byval r as const single )
+	public sub VRot2Vx( byref v as vector, byval r as const real )
 		dim a as vector
 		a.x = v.x
 		a.y = -v.z * SIN(r) + v.y * COS(r)
@@ -157,7 +157,7 @@ namespace simple_vector3
 	end sub
 
 	''
-	public sub VRot2Vy( byref v as vector, byval r as const single )
+	public sub VRot2Vy( byref v as vector, byval r as const real )
 		dim a as vector
 		a.x = v.x * COS(r) + v.z * SIN(r)
 		a.y = v.y
@@ -175,7 +175,7 @@ namespace simple_vector3
 	end sub
 
 	''
-	public sub VRot2Vz( byref v as vector, byval r as const single )
+	public sub VRot2Vz( byref v as vector, byval r as const real )
 		dim a as vector
 		a.x = v.x * COS(r) + v.y * SIN(r)
 		a.y = -v.x * SIN(r) + v.y * COS(r)
@@ -193,7 +193,7 @@ namespace simple_vector3
 	end sub
 
 	''
-	public function VDot( byref v1 as const vector, byref v2 as const vector ) as single
+	public function VDot( byref v1 as const vector, byref v2 as const vector ) as real
 		function = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
 	end function
 
@@ -206,7 +206,7 @@ namespace simple_vector3
 
 	''
 	public sub VUnit( byref v as vector, byref a as const vector )
-		dim d as single = VMag(a)
+		dim d as real = VMag(a)
 		if d > 0 then
 			VScale v, a, 1/d
 		else
@@ -216,7 +216,7 @@ namespace simple_vector3
 
 	''
 	public sub VUnit2V( byref v as vector )
-		dim d as single = VMag(v)
+		dim d as real = VMag(v)
 		if d > 0 then
 			VScale2V v, 1/d
 		else

@@ -13,22 +13,16 @@ using simple_vector3
 
 SUITE( simple_vector3_api )
 
+	#include once "fbcunit_local.bi"
+
 	/'
 		We generally test for exact values because we testing
 		that the semantics of the functions are correct and
 		not the precision of the processor and/or platform.
 		In most cases our test values are exactly representable
-		in single precision float format and we should expect
-		exact results.
+		in floating point format and we should expect exact 
+		results.
 	'/
-
-	#define CU_ASSERT_REAL_EXACT  CU_ASSERT_SINGLE_EXACT
-	#define CU_ASSERT_REAL_APPROX CU_ASSERT_SINGLE_APPROX
-	#define CU_ASSERT_REAL_EQUAL  CU_ASSERT_SINGLE_EQUAL
-	const PI = 3.14159265
-	const epsilon = 1E-7
-
-	type real as single
 
 	TEST( header )
 		#if defined( __SIMPLE_VECTOR3_BI_INCLUDE__ )
@@ -40,20 +34,12 @@ SUITE( simple_vector3_api )
 
 	TEST( types )
 
-		#macro check_type( a, b )
-			#if typeof( a ) = typeof( b )
-				CU_PASS()
-			#else
-				CU_FAIL()
-			#endif
-		#endmacro
-			
 		dim v as vector
 
 		check_type( v, vector )
-		check_type( v.x, single )
-		check_type( v.y, single )
-		check_type( v.z, single )
+		check_type( v.x, real )
+		check_type( v.y, real )
+		check_type( v.z, real )
 
 	END_TEST
 
@@ -94,9 +80,9 @@ SUITE( simple_vector3_api )
 		a.z = 3
 		check_exact( a.x, a.y, a.z, 1, 2, 3 )
 		
-		for x as single = -2 to 2	
-			for y as single = -2 to 2
-				for z as single = -2 to 2
+		for x as real = -2 to 2	
+			for y as real = -2 to 2
+				for z as real = -2 to 2
 					VSet( a, x, y, z )
 					check_exact( a.x, a.y, a.z, x, y, z )
 				next
@@ -112,7 +98,7 @@ SUITE( simple_vector3_api )
 
 		for x as real = -2 to 2
 			for y as real = -2 to 2
-				for z as single = -2 to 2
+				for z as real = -2 to 2
 					VSet( a, x, y, z )
 					VZero( b )
 					VNeg( b, a )
@@ -392,6 +378,8 @@ SUITE( simple_vector3_api )
 
 	TEST( VUnit_ )
 		
+		const e = test_epsilon_real
+
 		dim a as vector, r as vector
 
 		check_exact( a.x, a.y, a.z, 0, 0, 0 )
@@ -414,7 +402,7 @@ SUITE( simple_vector3_api )
 						CU_ASSERT_REAL_EXACT( r.y, 0 )
 						CU_ASSERT_REAL_EXACT( r.z, 0 )
 					else
-						CU_ASSERT_REAL_EQUAL( sqr( r.x * r.x + r.y * r.y + r.z * r.z ), 1, epsilon )
+						CU_ASSERT_REAL_EQUAL( sqr( r.x * r.x + r.y * r.y + r.z * r.z ), 1, e )
 					end if
 				next
 			next
@@ -423,6 +411,8 @@ SUITE( simple_vector3_api )
 	END_TEST
 
 	TEST( VUnit2V_ )
+
+		const e = test_epsilon_real
 		
 		dim a as vector
 
@@ -446,7 +436,7 @@ SUITE( simple_vector3_api )
 						CU_ASSERT_REAL_EXACT( a.y, 0 )
 						CU_ASSERT_REAL_EXACT( a.z, 0 )
 					else
-						CU_ASSERT_REAL_EQUAL( sqr( a.x * a.x + a.y * a.y + a.z * a.z ), 1, epsilon )
+						CU_ASSERT_REAL_EQUAL( sqr( a.x * a.x + a.y * a.y + a.z * a.z ), 1, e )
 					end if
 
 				next
@@ -559,11 +549,11 @@ SUITE( simple_vector3_api )
 
 /'
 
-		declare sub VRot2Vx( byref v as vector, byval r as single )
+		declare sub VRot2Vx( byref v as vector, byval r as real )
 		declare sub VRot902Vx( byref v as vector )
-		declare sub VRot2Vy( byref v as vector, byval r as single )
+		declare sub VRot2Vy( byref v as vector, byval r as real )
 		declare sub VRot902Vy( byref v as vector )
-		declare sub VRot2Vz( byref v as vector, byval r as single )
+		declare sub VRot2Vz( byref v as vector, byval r as real )
 		declare sub VRot902Vz( byref v as vector )
 
 
@@ -582,8 +572,8 @@ SUITE( simple_vector3_api )
 			x = cos( ra1 )
 			y = sin( ra1 )
 
-			CU_ASSERT_REAL_EQUAL( a.x, x, epsilon )
-			CU_ASSERT_REAL_EQUAL( a.y, y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, x, epsilon_real )
+			CU_ASSERT_REAL_EQUAL( a.y, y, epsilon_real )
 
 			for angle2 = -360 to 360 step 30
 				ra2 = angle2 * PI / 180
@@ -594,8 +584,8 @@ SUITE( simple_vector3_api )
 				x = cos( ra1 + ra2 )
 				y = sin( ra1 + ra2 )
 				
-				CU_ASSERT_REAL_EQUAL( b.x, x, epsilon )
-				CU_ASSERT_REAL_EQUAL( b.y, y, epsilon )
+				CU_ASSERT_REAL_EQUAL( b.x, x, epsilon_real )
+				CU_ASSERT_REAL_EQUAL( b.y, y, epsilon_real )
 			next
 		next
 

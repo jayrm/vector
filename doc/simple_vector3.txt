@@ -1,5 +1,5 @@
-simple_vector3
-==============
+simple_vector3 library
+======================
 
 	A very basic 3D vector API using one type (structure) and 
 	procedures only.  This one dates from 2006 and was adapted
@@ -21,8 +21,8 @@ Notation
 	{a, b}  a line segment from {a} to {b}
 
 
-Vector API
-==========
+simple_vector3 API
+==================
 
 type vector
 -----------
@@ -267,8 +267,8 @@ VUnit( {r}, {a} )
 
 	{r} = {a} / |{a}|
 
-	Returns the unit vector {a} in {r}.  if {a} is (0, 0, 0) then the
-	zero vector is returned.
+	Returns the unit vector {a} in {r}.  if {a} is (0, 0, 0) then 
+	the	zero vector is returned.
 
 
 VUnit2v( {r} )
@@ -276,15 +276,15 @@ VUnit2v( {r} )
 
 	{r} = {r} / |{r}|
 
-	Returns the unit vector {r} in {r}.  if {r} is (0, 0, 0) then the
-	zero vector is returned.
+	Returns the unit vector {r} in {r}.  if {r} is (0, 0, 0) then 
+	the	zero vector is returned.
 
 
 VLimit2V( {r}, d )
 ------------------
 
-	Limits (or clamps) components of vector {r} such that no component
-	is less than -d or greater than d.
+	Limits (or clamps) components of vector {r} such that no 
+	component is less than -d or greater than d.
 		r.x = clamp( r.x, -d, d )
 		r.y = clamp( r.y, -d, d )
 		r.z = clamp( r.z, -d, d )
