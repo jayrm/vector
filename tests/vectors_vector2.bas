@@ -48,6 +48,10 @@ SUITE( vectors_vector2 )
 		CU_ASSERT_REAL_EXACT( b.x, 0 )
 		CU_ASSERT_REAL_EXACT( b.y, 0 )
 
+		dim c as const vector2 = (1, 2)
+		CU_ASSERT_REAL_EXACT( c.x, 1 )
+		CU_ASSERT_REAL_EXACT( c.y, 2 )
+
 	END_TEST
 
 	TEST( add_bop )
@@ -65,6 +69,19 @@ SUITE( vectors_vector2 )
 
 						c = a + b
 						check_exact( c.x, c.y, x1+x2, y1+y2 )
+
+						dim c1 as const vector2 = ( x1, y1 )
+						dim c2 as const vector2 = ( x2, y2 )
+						
+						c = c1 + b
+						check_exact( c.x, c.y, x1+x2, y1+y2 )
+
+						c = a + c2
+						check_exact( c.x, c.y, x1+x2, y1+y2 )
+
+						c = c1 + c2
+						check_exact( c.x, c.y, x1+x2, y1+y2 )
+
 					next
 				next
 			next
@@ -88,6 +105,11 @@ SUITE( vectors_vector2 )
 						check_exact( a.x, a.y, x1+x2, y1+y2 )
 						check_exact( b.x, b.y, x2, y2 )
 
+						a.set( x1, y1 )
+						dim c2 as const vector2 = ( x2, y2 )
+						a += c2
+						check_exact( a.x, a.y, x1+x2, y1+y2 )
+
 					next
 				next
 			next
@@ -109,6 +131,19 @@ SUITE( vectors_vector2 )
 
 						c = a - b
 						check_exact( c.x, c.y, x1-x2, y1-y2 )
+
+						dim c1 as const vector2 = ( x1, y1 )
+						dim c2 as const vector2 = ( x2, y2 )
+						
+						c = c1 - b
+						check_exact( c.x, c.y, x1-x2, y1-y2 )
+
+						c = a - c2
+						check_exact( c.x, c.y, x1-x2, y1-y2 )
+
+						c = c1 - c2
+						check_exact( c.x, c.y, x1-x2, y1-y2 )
+
 					next
 				next
 			next
@@ -131,6 +166,11 @@ SUITE( vectors_vector2 )
 
 						check_exact( a.x, a.y, x1-x2, y1-y2 )
 						check_exact( b.x, b.y, x2, y2 )
+
+						a.set( x1, y1 )
+						dim c2 as const vector2 = ( x2, y2 )
+						a -= c2
+						check_exact( a.x, a.y, x1-x2, y1-y2 )
 
 					next
 				next
@@ -155,6 +195,17 @@ SUITE( vectors_vector2 )
 					c.set( 0,0 )
 					c = a * k
 					check_exact( c.x, c.y, a.x * k, a.y * k )
+
+					dim c1 as const vector2 = ( x, y )
+
+					c.set( 0, 0 )
+					c = c1 * k
+					check_exact( c.x, c.y, a.x * k, a.y * k )
+
+					c.set( 0, 0 )
+					c = k * c1
+					check_exact( c.x, c.y, a.x * k, a.y * k )
+
 				next
 			next
 		next
@@ -191,6 +242,12 @@ SUITE( vectors_vector2 )
 
 					c.set( 0,0 )
 					c = a / k
+					check_exact( c.x, c.y, a.x / k, a.y / k )
+
+					dim c1 as const vector2 = ( x, y )
+
+					c.set( 0, 0 )
+					c = c1 / k
 					check_exact( c.x, c.y, a.x / k, a.y / k )
 
 				next
@@ -394,6 +451,9 @@ SUITE( vectors_vector2 )
 				b.selfop_zero
 				b = -a
 				check_exact( b.x, b.y, -x, -y )
+
+				dim c as const vector2 = -a
+				check_exact( c.x, c.y, -x, -y )
 			next
 		next
 		
@@ -413,11 +473,10 @@ SUITE( vectors_vector2 )
 
 	END_TEST
 
-
 	TEST( dot_product )
 
 		dim a as vector2, b as vector2
-		dim d as real
+		dim d1 as real, d2 as real
 		
 		for x1 as real = -2 to 2
 			for y1 as real = -2 to 2
@@ -427,15 +486,95 @@ SUITE( vectors_vector2 )
 						a.set( x1, y1 )
 						b.set( x2, y2 )
 
-						d = a * b
+						d1 = a * b
+						CU_ASSERT_REAL_EXACT( d1, a.x * b.x + a.y * b.y )
 
-						CU_ASSERT_REAL_EXACT( d, a.x * b.x + a.y * b.y )
+						d2 = a.dot( b )
+						CU_ASSERT_REAL_EXACT( d2, a.x * b.x + a.y * b.y )
+
+						CU_ASSERT_REAL_EXACT( d1, d2 )
+
+						dim c1 as const vector2 = ( x1, y1 )
+						dim c2 as const vector2 = ( x2, y2 )
+
+						d2 = a * c2
+						CU_ASSERT_REAL_EXACT( d1, d2 )
+
+						d2 = c1 * b
+						CU_ASSERT_REAL_EXACT( d1, d2 )
+
+						d2 = c1 * c2
+						CU_ASSERT_REAL_EXACT( d1, d2 )
 
 					next
 				next
 			next
 		next
 			
+	END_TEST
+
+	TEST( operator_args )
+		
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (5, 7)
+		dim c as vector2
+
+		dim F as const vector2 = a
+		dim G as const vector2 = b
+
+		dim s as single = 2
+		dim d as single = 2
+		dim i as integer = 2
+
+		'' operator + (vector2, vector2) as vector2
+		c = a + b: check_exact( c.x, c.y, 6, 9 )
+		c = a + G: check_exact( c.x, c.y, 6, 9 )
+		c = F + b: check_exact( c.x, c.y, 6, 9 )
+		c = F + G: check_exact( c.x, c.y, 6, 9 )
+
+		'' operator - (vector2, vector2) as vector2
+		c = a - b: check_exact( c.x, c.y, -4, -5 )
+		c = a - G: check_exact( c.x, c.y, -4, -5 )
+		c = F - b: check_exact( c.x, c.y, -4, -5 )
+		c = F - G: check_exact( c.x, c.y, -4, -5 )
+
+		'' operator * (vector2, dtype) as vector2
+		'' operator * (dtype, vector2) as vector2
+		c = a * s: check_exact( c.x, c.y, 2, 4 )
+		c = a * d: check_exact( c.x, c.y, 2, 4 )
+		c = a * i: check_exact( c.x, c.y, 2, 4 )
+		c = s * a: check_exact( c.x, c.y, 2, 4 )
+		c = d * a: check_exact( c.x, c.y, 2, 4 )
+		c = i * a: check_exact( c.x, c.y, 2, 4 )
+		c = F * s: check_exact( c.x, c.y, 2, 4 )
+		c = F * d: check_exact( c.x, c.y, 2, 4 )
+		c = F * i: check_exact( c.x, c.y, 2, 4 )
+		c = s * F: check_exact( c.x, c.y, 2, 4 )
+		c = d * F: check_exact( c.x, c.y, 2, 4 )
+		c = i * F: check_exact( c.x, c.y, 2, 4 )
+
+		'' operator / (vector2, dtype) as vector2
+		c = a / s: check_exact( c.x, c.y, 0.5, 1 )
+		c = a / d: check_exact( c.x, c.y, 0.5, 1 )
+		c = a / i: check_exact( c.x, c.y, 0.5, 1 )
+		c = F / s: check_exact( c.x, c.y, 0.5, 1 )
+		c = F / d: check_exact( c.x, c.y, 0.5, 1 )
+		c = F / i: check_exact( c.x, c.y, 0.5, 1 )
+
+		'' operator * (dtype) as vector2
+		c = a: c *= s: check_exact( c.x, c.y, 2, 4 )
+		c = a: c *= d: check_exact( c.x, c.y, 2, 4 )
+		c = a: c *= i: check_exact( c.x, c.y, 2, 4 )
+
+		'' operator / (dtype) as vector2
+		c = a: c /= s: check_exact( c.x, c.y, 0.5, 1 )
+		c = a: c /= d: check_exact( c.x, c.y, 0.5, 1 )
+		c = a: c /= i: check_exact( c.x, c.y, 0.5, 1 )
+
+		'' operator - (vector2) as vector2
+		c = -a: check_exact( c.x, c.y, -1, -2 )
+		c = -F: check_exact( c.x, c.y, -1, -2 )
+
 	END_TEST
 
 END_SUITE

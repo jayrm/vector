@@ -4,12 +4,16 @@ namespace vectors
 
 	'':::::
 	public sub vector2.set( byval _x as real, byval _y as real ) EXPORT
+		'' assign components
+		'' {v}.set( x, y ) 
 		x = _x
 		y = _y
 	end sub
 
 	'':::::
-	public operator vector2.let ( byref b as vector2 ) EXPORT
+	public operator vector2.let ( byref b as const vector2 ) EXPORT
+		'' assignment operator '='
+		'' {v} = {b}
 		with b
 			x = .x
 			y = .y
@@ -17,7 +21,9 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator vector2.-= ( byref b as vector2 ) EXPORT
+	public operator vector2.-= ( byref b as const vector2 ) EXPORT
+		'' subtraction and assignment operator '-='
+		'' {v} -= {b}
 		with b
 			x -= .x
 			y -= .y
@@ -25,7 +31,9 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator vector2.+= ( byref b as vector2 ) EXPORT
+	public operator vector2.+= ( byref b as const vector2 ) EXPORT
+		'' addition and assignment operator '+='
+		'' {v} += {b}
 		with b
 			x += .x
 			y += .y
@@ -34,38 +42,52 @@ namespace vectors
 
 	'':::::
 	public operator vector2.*= ( byval k as real ) EXPORT
+		'' Multiply vector by scalar and assignment operator *=
+		'' {v} *= k
 		x *= k
 		y *= k
 	end operator
 
 	'':::::
 	public operator vector2./= ( byval k as real ) EXPORT
+		'' Multiply vector by scalar and assignment operator *=
+		'' {v} *= k
 		x /= k
 		y /= k
 	end operator
 
 	'':::::
 	public function vector2.magnitude() as real	EXPORT
+		'' Magnitude (length) of vector
+		'' d = |{v}|
 		function = sqr( x * x + y * y )
 	end function
 
 	'':::::
 	public function vector2.magnitude2() as real EXPORT
+		'' Magnitude (length) of vector squared
+		'' d = |{v}|^2
 		function = x * x + y * y
 	end function
 
 	'':::::
-	public function vector2.distance( byref b as vector2 ) as real EXPORT	
+	public function vector2.distance( byref b as const vector2 ) as real EXPORT	
+		'' Distance (length) between two points
+		'' d = |{a}-{b}|
 		function = sqr( (b.x-x)*(b.x-x) + (b.y-y)*(b.y-y) )
 	end function
 
 	'':::::
-	public function vector2.distance2( byref b as vector2 ) as real	EXPORT
+	public function vector2.distance2( byref b as const vector2 ) as real	EXPORT
+		'' Distance (length) between two points squared
+		'' d = |{a}-{b}|^2
 		function = (b.x-x)*(b.x-x) + (b.y-y)*(b.y-y)
 	end function
 
 	'':::::
 	public function vector2.unit() as vector2 EXPORT
+		'' unit vector
+		'' {r} = {v}/|{v}|
 		dim ret as vector2 = this
 		ret.normalize
 		function = ret
@@ -73,6 +95,8 @@ namespace vectors
 
 	'':::::
 	public sub vector2.normalize() EXPORT
+		'' normalize, self-op unit vector
+		'' {v} = {v}/|{v}|
 		dim k as real
 		k = this.magnitude()
 		if( k = 0 ) then
@@ -84,28 +108,56 @@ namespace vectors
 
 	'':::::
 	public sub vector2.selfop_neg() EXPORT
+		'' self-op negative
+		'' {v} = -{v}
 		x = -x
 		y = -y
 	end sub
 
 	'':::::
 	public sub vector2.selfop_zero() EXPORT
+		'' self-op assign zero vector
+		'' {v} = (0, 0)
 		x = 0
 		y = 0
 	end sub
 
 	'':::::
 	public operator vector2.cast() as string EXPORT
+		'' convert to STRING
+		'' s = cstr( {v} )
 		operator = "(" & x & ", " & y & ")"
 	end operator
 
 	'':::::
-	public function vector2.dot( byref b as vector2 ) as real EXPORT
+	public function vector2.dot( byref b as const vector2 ) as real EXPORT
 		function = x * b.x + y * b.y
 	end function
 
 	'':::::
-	public operator - ( byref b as vector2 ) as vector2 EXPORT
+	public function vector2.scale( byref b as const vector2 ) as vector2 EXPORT
+		'' entry wise product
+		'' {r} = {v} o {b}
+		function = type( _
+			x * b.x, _
+			y * b.y _
+		)
+	end function
+
+	'':::::
+	public function vector2.scale( byval k as real ) as vector2 EXPORT
+		'' multiply vector by scalar
+		'' {r} = {v} * k
+		function = type( _
+			x * k, _
+			y * k _
+		)
+	end function
+
+	'':::::
+	public operator - ( byref b as const vector2 ) as vector2 EXPORT
+		'' negate unary operator '-'
+		'' {r} = -{b}
 		operator = type( _
 			-b.x, _
 			-b.y _
@@ -113,7 +165,9 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator - ( byref a as vector2, byref b as vector2 ) as vector2 EXPORT
+	public operator - ( byref a as const vector2, byref b as const vector2 ) as vector2 EXPORT
+		'' subtraction binary operator '-'
+		'' {r} = {a} - {b}
 		operator = type( _
 			a.x - b.x, _
 			a.y - b.y _
@@ -121,7 +175,17 @@ namespace vectors
 	end operator
 
 	'':::::
+	public operator + ( byref a as const vector2, byref b as const vector2 ) as vector2 EXPORT
+		operator = type( _
+			a.x + b.x, _
+			a.y + b.y _
+		)
+	end operator
+
+	'':::::
 	public operator + ( byref a as vector2, byref b as vector2 ) as vector2 EXPORT
+		'' addition binary operator '+'
+		'' {r} = {a} + {b}
 		operator = type( _
 			a.x + b.x, _
 			a.y + b.y _
@@ -129,7 +193,9 @@ namespace vectors
 	end operator
 
 	''::::: 
-	public operator * ( byref a as vector2, byval k as real ) as vector2 EXPORT
+	public operator * ( byref a as const vector2, byval k as real ) as vector2 EXPORT
+		'' multiply vector by scalar binary operator '*'
+		'' {v} = {a} * k
 		operator = type( _
 			a.x * k, _
 			a.y * k _
@@ -137,7 +203,9 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator * ( byval k as real, byref b as vector2 ) as vector2 EXPORT
+	public operator * ( byval k as real, byref b as const vector2 ) as vector2 EXPORT
+		'' multiply vector by scalar binary operator
+		'' {v} = k * {b}
 		operator = type( _
 			k * b.x, _
 			k * b.y _
@@ -145,7 +213,9 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator / ( byref a as vector2, byval k as real ) as vector2 EXPORT
+	public operator / ( byref a as const vector2, byval k as real ) as vector2 EXPORT
+		'' divide vector by scalar binary operator
+		'' {v} = {a} / k
 		operator = type( _
 			a.x / k, _
 			a.y / k _
@@ -153,8 +223,11 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator * ( byref a as vector2, byref b as vector2 ) as real EXPORT
+	public operator * ( byref a as const vector2, byref b as const vector2 ) as real EXPORT
+		'' scalar dot product binary operator '*'
+		'' d = {a} . {b}
 		operator = a.x * b.x + a.y * b.y
 	end operator
+
 
 end namespace

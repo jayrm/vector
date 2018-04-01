@@ -15,7 +15,7 @@
 				e(0 to 2) as real
 			end union
 
-			declare sub set( byval _x as real, byval _y as real, byval z_ as real )
+			declare sub set( byval _x as real, byval _y as real, byval _z as real )
 
 			declare operator let ( byref a as const vector3 )
 			
@@ -51,11 +51,9 @@
 
 		'' Subtract
 		declare operator - ( byref a as const vector3, byref b as const vector3 ) as vector3
-		declare operator - ( byref a as vector3, byref b as vector3 ) as vector3
 
 		'' Add
 		declare operator + ( byref a as const vector3, byref b as const vector3 ) as vector3
-		declare operator + ( byref a as vector3, byref b as vector3 ) as vector3
 
 		'' Multiply (Scale)
 		declare operator * ( byref a as const vector3, byval b as real ) as vector3
@@ -63,11 +61,9 @@
 
 		'' Divide (Scale)
 		declare operator / ( byref a as const vector3, byval b as real ) as vector3
-		declare operator / ( byref a as vector3, byval b as real ) as vector3
 
 		'' Dot product
 		declare operator * ( byref a as const vector3, byref b as const vector3 ) as real
-		declare operator * ( byref a as vector3, byref b as vector3 ) as real
 
 	end namespace
 

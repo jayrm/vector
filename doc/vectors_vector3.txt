@@ -19,162 +19,200 @@ type vector3
 	fields x, y and z.  Or through the element array e().
 
 
-Construction/Initialization
----------------------------
+Construction
+------------
 
-	dim {r} = (x, y, z)
+	Create a vector
 
-	Set a vector {r} to component values (x, y, z) when
-	declaring the variable:
-		r.x = x
-		r.y = y
-		r.z = z
+		dim {v}
+
+	vector data type uses a default and built-in contructor.
+	When the variable is defined, components default to zero
+	values.
+		v.x = 0
+		v.y = 0
+		v.z = 0
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (1, 2, 3)
-		print r
+		dim v as vector3
+		print v
+
+	Output:
+		(0, 0, 0)
+
+
+Initialization
+--------------
+
+	Initialize a vector with component values when it is created
+
+		dim {v} = (x, y, z)
+
+	Set a vector {v} to component values (x, y) when declaring
+	the variable:
+		v.x = x
+		v.y = y
+		v.z = z
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim v as vector3 = (1, 2, 3)
+		print v
 
 	Output:
 		(1, 2, 3)
 
 
-{r}.set( x, y )
+{v}.Set( x, y )
 ---------------
 
-	{r} = (x, y)
+	Set vector components
 
-	Set a vector {r} to component values (x, y, z)
-		r.x = x
-		r.y = y
-		r.z = z
+		{v} = (x, y)
+
+	Set a vector {v} to component values (x, y, z)
+		v.x = x
+		v.y = y
+		v.z = z
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3
-		r.set(1, 2, 3)
-		print r
+		dim v as vector3
+		v.set(1, 2, 3)
+		print v
 
 	Output:
 		(1, 2, 3)
 
 
-Operator let (assignment)
--------------------------
-
-	{r} = {a}
-
-	Set a vector {r} to component values (x, y, z)
-		r.x = x
-		r.y = y
-		r.z = z
-
-	Example:
-		#include "vector3.bi"
-		using vectors
-		dim a as vector3, r as vector3
-		a.set(1, 2, 3)
-		r = a
-		print r
-
-	Output:
-		(1, 2, 3)
-
-
-Operator + ( vector3, vector3 ) (addition)
--------------------------------------------
-
-	{r} = {a} + {b}
-
-	Add vector {a} to vector {b} and return in {r}
-		r.x = a.x + b.x
-		r.y = a.y + b.y
-		r.z = a.z + b.z
-
-	Example:
-		#include "vector3.bi"
-		using vectors
-		dim a as vector3 = (1, 2, 3)
-		dim b as vector3 = (5, 7, 11)
-		dim r as vector3
-		r = a + b
-		print r
-
-	Output:
-		(6, 9, 14)
-
-
-Operator += ( vector3 ) (addition and assignement)
---------------------------------------
-
-	{r} += {a}
-
-	Add vector {a} to vector {r} and return in {r}
-		r.x += a.x
-		r.y += a.y
-		r.z += a.z
-
-	Example:
-		#include "vector3.bi"
-		using vectors
-		dim a as vector3 = (1, 2, 3)
-		dim b as vector3 = (5, 7, 11)
-		dim r as vector3
-		r += a
-		print r
-		r += b
-		print r
-
-	Output:
-		(1, 2, 3)
-		(6, 9, 14)
-
-
-Operator - ( vector3, vector3 ) (subtraction)
+Operator let ( vector3 )
 ------------------------
 
-	{r} = {a} - {b}
+	Assignment operator '='
 
-	subtract vector {a} from vector {b} and return in {r}
-		r.x = a.x - b.x
-		r.y = a.y - b.y
-		r.z = a.z - b.z
+		{v} = {a}
+
+	Set a vector {v} to component values (x, y, z)
+		v.x = x
+		v.y = y
+		v.z = z
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3, v as vector3
+		a.set(1, 2, 3)
+		v = a
+		print v
+
+	Output:
+		(1, 2, 3)
+
+
+Operator + ( vector3, vector3 )
+-------------------------------
+
+	Addition binary operator '+'
+
+		{v} = {a} + {b}
+
+	Add vector {a} to vector {b} and return in {v}
+		v.x = a.x + b.x
+		v.y = a.y + b.y
+		v.z = a.z + b.z
 
 	Example:
 		#include "vector3.bi"
 		using vectors
 		dim a as vector3 = (1, 2, 3)
 		dim b as vector3 = (5, 7, 11)
-		dim r as vector3
-		r = a - b
-		print r
+		dim v as vector3
+		v = a + b
+		print v
+
+	Output:
+		(6, 9, 14)
+
+
+Operator += ( vector3 )
+-----------------------
+
+	Addition and assignment operator '+='
+
+		{v} += {a}
+
+	Add vector {a} to vector {v} and return in {v}
+		v.x += a.x
+		v.y += a.y
+		v.z += a.z
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (1, 2, 3)
+		dim b as vector3 = (5, 7, 11)
+		dim v as vector3
+		v += a
+		print v
+		v += b
+		print v
+
+	Output:
+		(1, 2, 3)
+		(6, 9, 14)
+
+
+Operator - ( vector3, vector3 )
+-------------------------------
+
+	Subtraction binary operator '-'
+
+		{v} = {a} - {b}
+
+	subtract vector {a} from vector {b} and return in {v}
+		v.x = a.x - b.x
+		v.y = a.y - b.y
+		v.z = a.z - b.z
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (1, 2, 3)
+		dim b as vector3 = (5, 7, 11)
+		dim v as vector3
+		v = a - b
+		print v
 
 	Output:
 		(-4, -5, -8)
 
 
-Operator -= ( vector3 ) (subtraction and assignement)
------------------------------------------
+Operator -= ( vector3 )
+-----------------------
 
-	{r} -= {a}
+	Subtraction and assignment operator '-='
 
-	Subtract vector {a} from vector {r} and return in {r}
-		r.x -= a.x
-		r.y -= a.y
-		r.z -= a.z
+		{v} -= {a}
+
+	Subtract vector {a} from vector {v} and return in {v}
+		v.x -= a.x
+		v.y -= a.y
+		v.z -= a.z
 
 	Example:
 		#include "vector3.bi"
 		using vectors
 		dim a as vector3 = (1, 2, 3)
 		dim b as vector3 = (5, 7, 11)
-		dim r as vector3
-		r -= a
-		print r
-		r -= b
-		print r
+		dim v as vector3
+		v -= a
+		print v
+		v -= b
+		print v
 
 	Output:
 		(-1, -2, -3)
@@ -182,98 +220,180 @@ Operator -= ( vector3 ) (subtraction and assignement)
 
 
 
-Operator *= (scalar multiplication and assignment)
---------------------------------------------------
+Operator * ( scalar, vector3 )
+------------------------------
 
-	{r} *= k
+	Multiply (scale) vector by scalar binary operator '*'
 
-	Multiply vector {r} by scalar k and return in {r}
-		r.x *= k
-		r.y *= k
-		r.z *= k
+		{v} = k * {a}
+
+	Multiply vector {a} by scalar k and return in {v}
+		v.x = k * a.x
+		v.y = k * a.y
+		v.z = k * a.z
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (1, 2, 3)
-		r *= -3
-		print r
+		dim a as vector3 = (1, 2, 3)
+		dim v as vector3
+		v = -3 * a
+		print v
 
 	Output:
 		(-3, -6, -9)
 
 
-Operator /= (scalar multiplication and assignment
--------------------------------------------------
+Operator * ( vector3, scalar )
+------------------------------
 
-	{r} /= k
+	Multiply (scale) vector by scalar binary operator '*'
 
-	Divide vector {r} by scalar k and return in {r}
-		r.x /= k
-		r.y /= k
-		r.z /= k
+		{v} = {a} * k
+
+	Multiply vector {a} by scalar k and return in {v}
+		v.x = k * a.x
+		v.y = k * a.y
+		v.z = k * a.z
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (4, -6, 12)
-		r /= 2
-		print r
+		dim a as vector3 = (1, 2, 3)
+		dim v as vector3
+		v = a * -3
+		print v
+
+	Output:
+		(-3, -6, -9)
+
+
+Operator *= ( scalar )
+----------------------
+
+	Multiply (scale) and assignment operator '*='
+
+		{v} *= k
+
+	Multiply vector {v} by scalar k and return in {v}
+		v.x *= k
+		v.y *= k
+		v.z *= k
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim v as vector3 = (1, 2, 3)
+		v *= -3
+		print v
+
+	Output:
+		(-3, -6, -9)
+
+
+Operator / ( vector3, scalar )
+------------------------------
+
+	Divide (scale) vector binary operator '/'
+	
+		{v} /= k
+
+	Divide vector {a} by scalar k and return in {v}
+		v.x = a.x / k
+		v.y = a.x / k
+		v.z = a.x / k
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (4, -6, 12)
+		dim v as vector3
+		v = a / 2
+		print v
 
 	Output:
 		(2, -3, 6)
 
 
-{r}.magnitude
+Operator /= ( scalar )
+----------------------
+
+	Divide (scale) and assignment operator '/='
+
+		{v} /= k
+
+	Divide vector {v} by scalar k and return in {v}
+		v.x /= k
+		v.y /= k
+		v.z /= k
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim v as vector3 = (4, -6, 12)
+		v /= 2
+		print v
+
+	Output:
+		(2, -3, 6)
+
+
+{v}.magnitude
 -------------
 
-	d = | {a} |
+	Return the magnitude of a vector
 
-	Compute the magnitude of {r}
-		d = sqr( r.x ^ 2 + r.y ^ 2 + r.z ^ 2 )
+		d = | {a} |
+
+	Compute the magnitude (length) of {v}
+		d = sqr( v.x ^ 2 + v.y ^ 2 + v.z ^ 2 )
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (2, 3, 6)
+		dim v as vector3 = (2, 3, 6)
 		dim d as real
-		d = r.magnitude
-		print "r   = "; r
-		print "|r| = "; d
+		d = v.magnitude
+		print "v   = "; v
+		print "|v| = "; d
 
 	Output:
-		r   = (2, 3, 6)
-		|r| = 7
+		v   = (2, 3, 6)
+		|v| =  7
 
 
-{r}.magnitude2
+{v}.magnitude2
 --------------
 
-	d = | {a} | ^ 2
+	Return the magnitude squared of a vector
 
-	Compute the magnitude of {r} squared
-		d = r.x ^ 2 + r.y ^ 2 + r.z ^ 2
+		d = | {a} | ^ 2
+
+	Compute the magnitude of {v} squared
+		d = v.x ^ 2 + v.y ^ 2 + v.z ^ 2
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (2, 3, 6)
+		dim v as vector3 = (2, 3, 6)
 		dim d as real
-		d = r.magnitude2
-		print "r   = "; r
-		print "|r| = "; d
+		d = v.magnitude2
+		print "v   = "; v
+		print "|v| = "; d
 
 	Output:
-		r   = (2, 3, 6)
-		|r| = 49
+		v   = (2, 3, 6)
+		|v| =  49
 
-{r}.distance
-------------
+{v}.distance( vector3 )
+-----------------------
 
-	d = | {b} - {r} |
+	Return the distance between two vectors
 
-	Compute the scalar distance from {r} to {b}
-		d = sqr( (b.x - r.x) ^ 2 + (b.y - r.y) ^ 2 + (b.z - r.z) ^ 2 )
+		d = | {b} - {v} |
+
+	Compute the scalar distance from {v} to {b}
+		d = sqr( (b.x - v.x) ^ 2 + (b.y - v.y) ^ 2 + (b.z - v.z) ^ 2 )
 
 	Example:
 		#include "vector3.bi"
@@ -286,13 +406,15 @@ Operator /= (scalar multiplication and assignment
 		 13
 
 
-{r}.distance2
--------------
+{v}.distance2( vector3 )
+------------------------
 
-	d = | {b} - {r} |
+	Return the distance squared between two vectors
 
-	Compute the scalar distance from {r} to {b} squared
-		d = (b.x - r.x) ^ 2 + (b.y - r.y) ^ 2 + (b.z - r.z) ^ 2
+		d = | {b} - {v} |
+
+	Compute the scalar distance from {v} to {b} squared
+		d = (b.x - v.x) ^ 2 + (b.y - v.y) ^ 2 + (b.z - v.z) ^ 2
 
 	Example:
 		#include "vector3.bi"
@@ -305,125 +427,162 @@ Operator /= (scalar multiplication and assignment
 		 169
 
 		
-{r}.unit
---------
+{v}.unit( vector3 )
+-------------------
 
-	{r} = {a} / |{a}|
+	Return the unit vector
 
-	Returns the unit vector {a} in {r}.  if {a} is (0, 0, 0) then
+		{v} = {a} / |{a}|
+
+	Returns the unit vector {a} in {v}.  if {a} is (0, 0, 0) then
 	the	zero vector is returned.
 
 	Example:
 		#include "vector3.bi"
 		using vectors
 		dim a as vector3 = (1, 2, 3)
-		dim r as vector3
-		r = a.unit
-		print r
+		dim v as vector3
+		v = a.unit
+		print v
 	
 	Output:
 		(0.2672612, 0.5345225, 0.8017837)
 
 
-{r}.normalize
+{v}.normalize
 -------------
 
-	{r} = {r} / |{r}|
+	Normalize a vector
 
-	Returns the unit vector {r} in {r}.  if {r} is (0, 0, 0) then 
+		{v} = {v} / |{v}|
+
+	Returns the unit vector {v} in {v}.  if {v} is (0, 0, 0) then 
 	the	zero vector is returned.
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (1, 2, 3)
-		r.normalize
-		print r
+		dim v as vector3 = (1, 2, 3)
+		v.normalize
+		print v
 	
 	Output:
 		(0.2672612, 0.5345225, 0.8017837)
 
 
-{r}.selfop_neg
+{v}.selfop_neg
 --------------
 
-	{r} = -{r}
+	Negative of a vector
 
-	Returns negative of vector {r} in {r}
+		{v} = -{v}
+
+	Returns negative of vector {v} in {v}
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (1, 2, 3)
-		r.selfop_neg
-		print r
+		dim v as vector3 = (1, 2, 3)
+		v.selfop_neg
+		print v
 	
 	Output:
 		(-1, -2, -3)
 
 		
-{r}.selfop_zero
+{v}.selfop_zero
 ---------------
 
-	{r} = (0, 0)
+	Zero a vector	
 
-	{r} = -{r}
+		{v} = (0, 0)
 
-	Sets {r} to the zero vector.
+	Sets {v} to the zero vector.
+		v.x = 0
+		v.y = 0
+		v.z = 0
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (1, 2, 3)
-		r.selfop_zero
-		print r
+		dim v as vector3 = (1, 2, 3)
+		v.selfop_zero
+		print v
 	
 	Output:
 		(0, 0, 0)
 
 
-{r}.cast() as string
+{v}.cast() as string
 --------------------
 
-	cstr( {r} )
+	String representation of a vector
 
-	Converts vector {r} to a string.
+		cstr( {v} )
+
+	Converts vector {v} to a string.
 
 	Example:
 		#include "vector3.bi"
 		using vectors
-		dim r as vector3 = (1, 2, 3)
-		dim s as string = r
+		dim v as vector3 = (1, 2, 3)
+		dim s as string = v
 		print s
 
 	Output:
 		(1, 2, 3)
 
 
-Operator - (Negative)
----------------------
+Operator - ( vector3 )
+----------------------
 
-	{r} = -{a}
+	Negative unary operator '-'
 
-	Returns negative of vector {a} in {r}
+		{v} = -{a}
+
+	Returns negative of vector {a} in {v}
 
 	Example:
 		#include "vector3.bi"
 		using vectors
 		dim a as vector3 = (1, 2, 3)
-		dim r as vector3
-		r = -a
-		print r
+		dim v as vector3
+		v = -a
+		print v
 	
 	Output:
 		(-1, -2, -3)
-		
 
 
-Operator * ( vector3, vector3 ) (Dot Product)
----------------------------------------------
+{v}.dot( vector3, vector3 )
+---------------------------
 
-	d = {a} . {b}
+	Dot product of two vectors
+
+		d = {a} . {b}
+
+	Compute the scalar dot product of {a} dot {b}.
+		d = a.x * b.x + a.y * b.y
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (1, 2, 3)
+		dim b as vector3 = (5, 7, 11)
+		dim d as real
+		d = a.dot( b )
+		print d
+	
+	Output:
+		 52
+
+
+Operator * ( vector3, vector3 )
+-------------------------------
+
+	Dot product of two vectors
+
+		d = {a} . {b}
 
 	Compute the scalar dot product of {a} dot {b}.
 		d = a.x * b.x + a.y * b.y
@@ -439,3 +598,52 @@ Operator * ( vector3, vector3 ) (Dot Product)
 	
 	Output:
 		 52
+
+
+{v}.scale( vector3 )
+--------------------
+
+	Entrywise product of vectors
+	
+		{v} = {v} o {a}
+
+	Compute the multiplication for each component
+		v.x *= a.x
+		v.y *= a.y
+		v.z *= a.z
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (1, 2, 3)
+		dim b as vector3 = (5, 7, 11)
+		dim v as vector3
+		v = a.scale( b )
+		print v
+	
+	Output:
+		(5, 14, 33)
+
+
+{v}.scale( scalar )
+-------------------
+
+	Multiply (scale) vector by a scalar
+
+		{v} = {a} * k
+
+	Multiply vector {a} by scalar k and return in {v}
+		v.x = a.x * k
+		v.y = a.y * k
+		v.z = a.z * k
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (1, 2, 3)
+		dim v as vector3
+		v = a.scale( -3 )
+		print v
+
+	Output:
+		(-3, -6, -9)
