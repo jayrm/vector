@@ -15,9 +15,6 @@ SUITE( simple_vector2_api )
 
 	#include once "fbcunit_local.bi"
 
-	const epsilon = test_epsilon_real
-	const PI = test_PI_real
-
 	/'
 		We generally test for exact values because we testing
 		that the semantics of the functions are correct and
@@ -388,7 +385,7 @@ SUITE( simple_vector2_api )
 					CU_ASSERT_REAL_EXACT( r.x, 0 )
 					CU_ASSERT_REAL_EXACT( r.y, 0 )
 				else
-					CU_ASSERT_REAL_EQUAL( sqr( r.x * r.x + r.y * r.y ), 1, epsilon )
+					CU_ASSERT_REAL_EQUAL( sqr( r.x * r.x + r.y * r.y ), 1, test_epsilon_real )
 				end if
 
 			next
@@ -417,7 +414,7 @@ SUITE( simple_vector2_api )
 					CU_ASSERT_REAL_EXACT( a.x, 0 )
 					CU_ASSERT_REAL_EXACT( a.y, 0 )
 				else
-					CU_ASSERT_REAL_EQUAL( sqr( a.x * a.x + a.y * a.y ), 1, epsilon )
+					CU_ASSERT_REAL_EQUAL( sqr( a.x * a.x + a.y * a.y ), 1, test_epsilon_real )
 				end if
 
 			next
@@ -522,7 +519,7 @@ SUITE( simple_vector2_api )
 		dim angle1 as real, angle2 as real
 
 		for angle1 = -360 to 360 step 30
-			ra1 = angle1 * PI / 180
+			ra1 = angle1 * test_PI_real / 180
 
 			VSet( a, 1, 0 )
 			VRotIm( a, ra1 )
@@ -530,11 +527,11 @@ SUITE( simple_vector2_api )
 			x = cos( ra1 )
 			y = sin( ra1 )
 
-			CU_ASSERT_REAL_EQUAL( a.x, x, epsilon )
-			CU_ASSERT_REAL_EQUAL( a.y, y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( a.y, y, test_epsilon_real )
 
 			for angle2 = -360 to 360 step 30
-				ra2 = angle2 * PI / 180
+				ra2 = angle2 * test_PI_real / 180
 
 				b = a
 				VRotIm( b, ra2 )
@@ -542,8 +539,8 @@ SUITE( simple_vector2_api )
 				x = cos( ra1 + ra2 )
 				y = sin( ra1 + ra2 )
 				
-				CU_ASSERT_REAL_EQUAL( b.x, x, epsilon )
-				CU_ASSERT_REAL_EQUAL( b.y, y, epsilon )
+				CU_ASSERT_REAL_EQUAL( b.x, x, test_epsilon_real )
+				CU_ASSERT_REAL_EQUAL( b.y, y, test_epsilon_real )
 			next
 		next
 
@@ -557,7 +554,7 @@ SUITE( simple_vector2_api )
 
 		for angle = -360 to 360 step 30
 
-			ra = angle * PI / 180
+			ra = angle * test_PI_real / 180
 
 			VSet( a, 1, 0 )
 			VRotIm( a, ra )
@@ -565,14 +562,14 @@ SUITE( simple_vector2_api )
 			x = cos( ra )
 			y = sin( ra )
 			
-			CU_ASSERT_REAL_EQUAL( a.x, x, epsilon )
-			CU_ASSERT_REAL_EQUAL( a.y, y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( a.y, y, test_epsilon_real )
 
 			VPerp( b, a )
-			VRotIm( a, 90 * PI / 180 )
+			VRotIm( a, 90 * test_PI_real / 180 )
 
-			CU_ASSERT_REAL_EQUAL( a.x, b.x, epsilon )
-			CU_ASSERT_REAL_EQUAL( a.y, b.y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, b.x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( a.y, b.y, test_epsilon_real )
 
 		next		
 
@@ -586,7 +583,7 @@ SUITE( simple_vector2_api )
 		
 		for angle = -360 to 360 step 30
 
-			ra = angle * PI / 180
+			ra = angle * test_PI_real / 180
 
 			VSet( a, 1, 0 )
 			VRotIm( a, ra )
@@ -594,15 +591,15 @@ SUITE( simple_vector2_api )
 			x = cos( ra )
 			y = sin( ra )
 			
-			CU_ASSERT_REAL_EQUAL( a.x, x, epsilon )
-			CU_ASSERT_REAL_EQUAL( a.y, y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( a.y, y, test_epsilon_real )
 
 			b = a
 			VPerpIm( b )
-			VRotIm( a, 90 * PI / 180 )
+			VRotIm( a, 90 * test_PI_real / 180 )
 
-			CU_ASSERT_REAL_EQUAL( a.x, b.x, epsilon )
-			CU_ASSERT_REAL_EQUAL( a.y, b.y, epsilon )
+			CU_ASSERT_REAL_EQUAL( a.x, b.x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( a.y, b.y, test_epsilon_real )
 
 
 		next		
@@ -643,9 +640,9 @@ SUITE( simple_vector2_api )
 				end if
 
 				'' test that r1 and r2 are coincident (same line)
-				CU_ASSERT_REAL_EQUAL( r1.n.x, r2.n.x, epsilon )
-				CU_ASSERT_REAL_EQUAL( r1.n.y, r2.n.y, epsilon )
-				CU_ASSERT_REAL_EQUAL( r1.d, r2.d, epsilon * 2 )
+				CU_ASSERT_REAL_EQUAL( r1.n.x, r2.n.x, test_epsilon_real )
+				CU_ASSERT_REAL_EQUAL( r1.n.y, r2.n.y, test_epsilon_real )
+				CU_ASSERT_REAL_EQUAL( r1.d, r2.d, test_epsilon_real * 2 )
 				
 			next
 		next
@@ -675,8 +672,8 @@ SUITE( simple_vector2_api )
 
 		dim d as real, d2 as real
 
-		d = epsilon ^ 2
-		CU_ASSERT( d < epsilon )
+		d = test_epsilon_real ^ 2
+		CU_ASSERT( d < test_epsilon_real )
 
 		d2 = d ^ 2
 		CU_ASSERT( d2 < d )
@@ -691,8 +688,8 @@ SUITE( simple_vector2_api )
 	TEST( SubMinimal_ )
 
 		dim d as real, d2 as real
-		d = epsilon ^ 2
-		CU_ASSERT( d < epsilon )
+		d = test_epsilon_real ^ 2
+		CU_ASSERT( d < test_epsilon_real )
 
 		d2 = d ^ 2
 		CU_ASSERT( d2 < d )
