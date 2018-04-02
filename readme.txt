@@ -1,35 +1,108 @@
+	vector - geometric vector library
+	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
 vector library
-==============
-
-Library for working with geometric vectors
-
-Purposes for this library:
-
-- I like vectors, and I think they are handy
-- consolidate my (too) many implementations of vector API's
-- testing for another library: fbcunit
-
-These API's for vectors are typically as they were when they were
-first created.  Each set of API's typically had a specific purpose
-when they were made, so are not wholly consistent with each other.
-
-However, since some API's are variations of other API's, I have 
-wrapped them in a namespace to avoid naming collisions.  The
-coding style and features of the API's tend to follow what was
-available in the FreeBASIC language at the time.  So as work on
-this library progresses, should see the newer features of fbc
-get used.
-
-Originally when the code was written, the only testing/debugging 
-done was by using the code.  
-
-DISCLAIMER: I write this library for my own use and reseve the right
-to change it as I see fit.  If it works for you, that's great, if
-I happen to break an API, you have been warned.
+--------------
+	Library for working with geometric vectors written to be
+	compiled by FreeBASIC compiler.
 
 
-Components
-==========
+Licensing
+---------
+
+	License information is attached to some source files (but not
+	all) of this writing.  Consider the source to be copyrighted
+	unless specified otherwise.  This issue to be addressed in 
+	a future update ... soon.
+
+
+Introducction
+-------------
+
+	I like vectors, and I think they are handy.
+
+	Purpose of this library is to:
+
+		- consolidate my (too) many implementations of vector API's;
+		  many times have I rewritten the same code, and too many
+		  times have I just copied and pasted it to where I needed
+		  it.
+
+		- help with testing of another library: fbcunit, which 
+		  in turn hopefully help improves FreeBASIC test-suite.
+		  Specifically, floating ponit math tests, and since the
+		  tests for vectors are nearly all floating point, I
+		  thought it a good way to work on both.
+
+	These API's for vectors are mostly as they were when they were
+	first created.  Each set of API's typically had a specific purpose
+	when they were made, so are not wholly consistent with each other.
+
+	However, since some API's are variations of other API's, I have 
+	wrapped them in a namespace to avoid naming collisions.  The
+	coding style and features of the API's tend to follow what was
+	available in the FreeBASIC language at the time.  So as work on
+	this library progresses, should see the newer features of fbc
+	get used.
+
+	All of the tests are brand new as of this year.  The original code
+	never had any test-suite.  I should have not been surprised to find
+	some bugs, or behaviour that was unexpected.
+
+	DISCLAIMER: I write this library for my own use and reseve the
+	right to change it as I see fit.  If it works for you, 
+	that's great, if I happen to break an API, you have been warned.
+
+	See documentation section below for more a description on how to
+	use that vector library API's.
+
+
+Compiling
+---------
+	To compile vector library, from top level directory:
+
+		$ make
+
+	To compile everything: the library, the test-suite, and 
+	examples, from top level directory:
+
+		$ make everything
+
+	To list targets and options:
+
+		$ make help
+
+
+Testing
+-------
+	To test the library (with itself), from top level directory:
+
+		$ make tests && tests/tests.exe
+
+	Also see ./examples directory for examples of usage
+
+
+Installing
+----------
+	Copy the following files to the appropriate include and 
+	library directories:
+
+		./inc/*.bi
+		./lib/lib*.a
+
+	Or specify appropriate compiler & linker options to add
+	./inc to the include paths, and .lib to the library search
+	paths.
+
+
+
+Documentation
+=============
+
+	See the ./doc directory for help files on this library,
+	and it's components.  Following is brief information
+	on the major parts.
+
 
 vectors
 -------
@@ -39,7 +112,7 @@ vectors
 	vector2 - 2D vector data type
 	vector3 - 3D vector data type
 
-	Also include some other support functions and constants.
+	Also has some other support functions and constants
 
 	See:
 		doc/vectors.txt
@@ -114,3 +187,20 @@ pointer vector (Vec2_T)
 		src/pointer_vec2.bas
 		inc/pointer_vec2.bi
 		tests/pointer_vec2_api.bas
+
+
+Contact Information
+-------------------
+
+	e-mail:
+		Jeffery R. Marshall (coder[at]execulink[dot]com)
+
+	This project on github.com:
+		https://github.com/jayrm/vector
+
+	As "coderJeff" on FreeBASIC forums:
+		https://www.freebasic.net
+
+	Thanks for reading!
+
+EOF
