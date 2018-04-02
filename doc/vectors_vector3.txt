@@ -1,6 +1,70 @@
 vector3
 =======
 
+	3D geometric vector data type
+
+		Initialize                  {v} = {a}
+		                            dim {v} = ( x, y, z )
+		                            {v}.set( x, y, z )
+
+		Element access              v.x = x
+		                            v.y = y
+		                            v.z = z
+
+		Element access              {v}.e(0) = x
+		                            {v}.e(1) = y
+		                            {v}.e(2) = z
+
+		Add                         {v} = {a} + {b}
+		Subtract                    {v} = {a} - {b}
+
+		Multiply by scalar          {v} = {v} * k
+		Multiply by scalar          {v} = {a}.scale(k)
+		Multiply by scalar          {v} = k * {v}
+		Divide by scalar            {v} = {a} / k
+
+		Add & assign                {v} += {a}
+		Subtract & assign           {v} -= {a}
+		Multiply scalar & assign    {v} *= k
+		Divide by scalar & assign   {v} /= k 
+
+		Negative                    {v} = -{a}
+		Self Negative               {v}.selfop_neg
+		Self Negative equivalent    {v} = -{v}
+
+		Self Zero                   {v}.selfop_zero
+		Self Zero equivalent        {v}.set( 0, 0, 0 )
+
+		Scalar Dot Product           d  = {a}.dot({b})
+		                                = {a} . {b}
+
+		Hadamard Product            {v} = {a}.scale({b})
+		                                = {a} o {b}
+
+		Cross Product               {v} = {a}.cross({b})
+		                                = {a} X {b}
+
+		Magnitude (length)           d  = {a}.magnitude
+		                                = |{a}|
+
+		Magnitude squared            d  = {a}.magnitude2
+		                                = |{a}|^2
+
+		Distance between points      d  = {a}.distance({b})
+		                                = |{a}-{b}|
+
+		Distance squared             d  = {a}.distance2({b})
+		                                = |{a}-{b}|^2
+
+		Unit vector                 {v} = {u}.unit( {a} )
+		                                = {a}/|{a}|
+
+		Normalize                   {v}.normalize
+		Normalize equivalent        {v} = {v}.unit
+
+		Convert to string           var s = cstr( {v} )
+
+
 type vector3
 ------------
 
@@ -603,7 +667,7 @@ Operator * ( vector3, vector3 )
 {v}.scale( vector3 )
 --------------------
 
-	Entrywise product of vectors
+	Entrywise (Hadamard Product) product of vectors
 	
 		{v} = {v} o {a}
 
@@ -647,3 +711,28 @@ Operator * ( vector3, vector3 )
 
 	Output:
 		(-3, -6, -9)
+
+
+{v}.cross( {a} )
+----------------
+
+	Cross product
+
+		{v} = {a}.cross( {b} )
+		    = {a} X {b}
+	
+	Compute the vector cross product of vector {a} and vector {b}
+	and return in {v}
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (1, 2, 3)
+		dim b as vector3 = (-2, -1, -1)
+		dim v as vector3
+		v = a.cross( b )
+		print v
+
+	Output:
+		(1, -5, 3)
+

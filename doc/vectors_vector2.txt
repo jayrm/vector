@@ -1,6 +1,65 @@
 vector2
 =======
 
+	2D geometric vector data type
+
+		Initialize                  {v} = {a}
+		                            dim {v} = ( x, y )
+		                            {v}.set( x, y )
+
+		Element access              v.x = x
+		                            v.y = y
+
+		Element access              {v}.e(0) = x
+		                            {v}.e(1) = y
+
+		Add                         {v} = {a} + {b}
+		Subtract                    {v} = {a} - {b}
+
+		Multiply by scalar          {v} = {v} * k
+		Multiply by scalar          {v} = {a}.scale(k)
+		Multiply by scalar          {v} = k * {v}
+		Divide by scalar            {v} = {a} / k
+
+		Add & assign                {v} += {a}
+		Subtract & assign           {v} -= {a}
+		Multiply scalar & assign    {v} *= k
+		Divide by scalar & assign   {v} /= k 
+
+		Negative                    {v} = -{a}
+		Self Negative               {v}.selfop_neg
+		Self Negative equivalent    {v} = -{v}
+
+		Self Zero                   {v}.selfop_zero
+		Self Zero equivalent        {v}.set( 0, 0, 0 )
+
+		Scalar Dot Product           d  = {a}.dot({b})
+		                                = {a} . {b}
+
+		Hadamard Product            {v} = {a}.scale({b})
+		                                = {a} o {b}
+
+		Magnitude (length)           d  = {a}.magnitude
+		                                = |{a}|
+
+		Magnitude squared            d  = {a}.magnitude2
+		                                = |{a}|^2
+
+		Distance between points      d  = {a}.distance({b})
+		                                = |{a}-{b}|
+
+		Distance squared             d  = {a}.distance2({b})
+		                                = |{a}-{b}|^2
+
+		Unit vector                 {v} = {u}.unit( {a} )
+		                                = {a}/|{a}|
+
+		Normalize                   {v}.normalize
+		Normalize equivalent        {v} = {v}.unit
+
+		Convert to string           var s = cstr( {v} )
+
+
 type vector2
 ------------
 

@@ -1,8 +1,15 @@
 #include once "fbcunit.bi"
 #include once "vectypes.bi"
 
-
 using vectors
+
+/'
+	See:
+		inc/vectypes.bi
+		src/vectypes.bas
+		doc/vectors.txt
+
+'/
 
 SUITE( vectors_vectypes )
 

@@ -3,6 +3,14 @@
 
 using vectors
 
+/'
+	See:
+		inc/vector2.bi
+		src/vector2.bas
+		doc/vectors_vector2.txt
+
+'/
+
 SUITE( vectors_vector2 )
 
 	#include once "fbcunit_local.bi"

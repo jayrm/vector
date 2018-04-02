@@ -3,6 +3,16 @@
 
 using vectors
 
+/'
+	See:
+		inc/vectypes.bi
+		src/vectypes.bas
+		inc/vector3.bi
+		src/vector3.bas
+		doc/vectors_vector3.txt
+
+'/
+
 SUITE( vectors_vector3 )
 
 	#include once "fbcunit_local.bi"
@@ -570,6 +580,62 @@ SUITE( vectors_vector3 )
 			next
 		next
 			
+	END_TEST
+
+	TEST( cross_product )
+
+		dim a as vector3, b as vector3
+		dim c1 as vector3, c2 as vector3
+		dim d as real
+
+		for x1 as real = -2 to 2
+			for y1 as real = -2 to 2
+				for z1 as real = -2 to 2
+					for x2 as real = -2 to 2
+						for y2 as real = -2 to 2
+							for z2 as real = -2 to 2
+								
+								a.set( x1, y1, z1 )
+								b.set( x2, y2, z2 )
+
+								c1 = a.cross( b )
+								c2 = -b.cross( a )
+
+								'' assert {a} X {b} = -( {b} X {a} )
+								check_approx( c1.x, c1.y, c1.z, c2.x, c2.y, c2.z )
+
+								'' use dot products to determine if vectors are parallel
+								d = a.dot(a) * b.dot(b) - a.dot(b) * a.dot(b)
+								
+								'' a is parallel to b if d1 = 0
+								if( abs(d) <= test_epsilon_real ) then
+
+									'' a and b are parallel, assert that the magnitude of the
+									'' cross product is zero
+									CU_ASSERT_REAL_EQUAL( 0, c1.magnitude, test_epsilon_real )
+
+								else
+
+									'' assert that the cross product is orthogonal to both
+									'' a and b; the dot product with each a and b will be
+									'' near zero
+
+									d = c1.dot( a )
+									CU_ASSERT_REAL_EQUAL( 0, d, test_epsilon_real )
+
+									d = c1.dot( b )
+									CU_ASSERT_REAL_EQUAL( 0, d, test_epsilon_real )
+
+
+								end if
+
+							next
+						next
+					next
+				next
+			next
+		next
+
 	END_TEST
 
 	TEST( operator_args )
