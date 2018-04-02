@@ -1,3 +1,3 @@
 [submodule "fbcunit"]
 	path = fbcunit
-	url = file:////repo/fb/fbcunit.git
+	url = https://github.com/jayrm/fbcunit
