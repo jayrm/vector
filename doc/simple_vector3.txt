@@ -5,6 +5,20 @@ simple_vector3 library
 	procedures only.  This one dates from 2006 and was adapted
 	from the 2D version. 
 
+
+Files
+-----
+
+	See:
+		doc/simple_vector3.txt
+		src/simple_vector3.bas
+		inc/simple_vector3.bi
+		tests/simple_vector3_api.bas
+
+
+simple_vector3 API
+==================
+
 Notation
 --------
 
@@ -18,11 +32,7 @@ Notation
 	a.x     x component of {a}, a subscript x
 	a.y     y component of {a}, a subscript y
 	a.z     z component of {a}, a subscript z
-	{a, b}  a line segment from {a} to {b}
 
-
-simple_vector3 API
-==================
 
 type vector
 -----------
@@ -374,4 +384,3 @@ VString( {a} )
 
 	Returns a string representation of vector {a} in the form:
 	"(a.x,a.y,a.z)"
-

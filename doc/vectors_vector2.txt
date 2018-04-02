@@ -46,10 +46,10 @@ vector2
 		                                = |{a}|^2
 
 		Distance between points      d  = {a}.distance({b})
-		                                = |{a}-{b}|
+		                                = |{b}-{a}|
 
 		Distance squared             d  = {a}.distance2({b})
-		                                = |{a}-{b}|^2
+		                                = |{b}-{a}|^2
 
 		Unit vector                 {v} = {u}.unit( {a} )
 		                                = {a}/|{a}|
@@ -137,7 +137,7 @@ Initialization
 		#include "vector2.bi"
 		using vectors
 		dim v as vector2
-		v.set( 1, 2)
+		v.set( 1, 2 )
 		print v
 
 	Output:
@@ -159,7 +159,7 @@ Operator let ( vector2 )
 		#include "vector2.bi"
 		using vectors
 		dim a as vector2, v as vector2
-		a.set( 1, 2)
+		a.set( 1, 2 )
 		v = a
 		print v
 

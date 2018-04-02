@@ -51,10 +51,10 @@ vector3
 		                                = |{a}|^2
 
 		Distance between points      d  = {a}.distance({b})
-		                                = |{a}-{b}|
+		                                = |{b}-{a}|
 
 		Distance squared             d  = {a}.distance2({b})
-		                                = |{a}-{b}|^2
+		                                = |{b}-{a}|^2
 
 		Unit vector                 {v} = {u}.unit( {a} )
 		                                = {a}/|{a}|

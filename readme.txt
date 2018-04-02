@@ -118,15 +118,6 @@ vectors
 		doc/vectors.txt
 		doc/vectors_vector2.txt
 		doc/vectors_vector3.txt
-		src/vectypes.bas
-		src/vector2.bas
-		src/vector3.bas
-		inc/vectypes.bi
-		inc/vector2.bi
-		inc/vector3.bi
-		tests/vectors_vectypes.bas
-		tests/vectors_vector2.bas
-		tests/vectors_vector3.bas
 
 
 simple vector2
@@ -145,9 +136,6 @@ simple vector2
 
 	See:
 		doc/simple_vector2.txt
-		src/simple_vector2.bas
-		inc/simple_vector2.bi
-		tests/simple_vector2_api.bas
 		
 
 simple vector3
@@ -163,9 +151,6 @@ simple vector3
 
 	See:
 		doc/simple_vector3.txt
-		src/simple_vector3.bas
-		inc/simple_vector3.bi
-		tests/simple_vector3_api.bas
 
 
 pointer vector (Vec2_T)
@@ -184,9 +169,6 @@ pointer vector (Vec2_T)
 
 	See:
 		doc/pointer_vec2.txt
-		src/pointer_vec2.bas
-		inc/pointer_vec2.bi
-		tests/pointer_vec2_api.bas
 
 
 Contact Information

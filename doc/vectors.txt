@@ -12,6 +12,31 @@ vectors library
 	versions.
 
 
+Files
+-----
+
+	See:
+		doc/vectors.txt
+		doc/vectors_vector2.txt
+		doc/vectors_vector3.txt
+		src/vectypes.bas
+		src/vector2.bas
+		src/vector3.bas
+		inc/vectypes.bi
+		inc/vector2.bi
+		inc/vector3.bi
+		tests/vectors_vectypes.bas
+		tests/vectors_vector2.bas
+		tests/vectors_vector3.bas
+
+
+Vectors API
+===========
+
+	2D vectors - see vectors_vector2.txt
+	3D vectors - see vectors_vector3.txt
+
+
 Notation
 --------
 
@@ -24,13 +49,6 @@ Notation
 	a.x        x component of {a}, a subscript x
 	a.y        y component of {a}, a subscript y
 	a.z        z component of {a}, a subscript z
-
-
-Vectors API
-===========
-
-	2D vectors - see vectors_vector2.txt
-	3D vectors - see vectors_vector3.txt
 
 
 vectors namespace

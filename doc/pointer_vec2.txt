@@ -7,6 +7,18 @@ pointer_vec2
 	on in 2006 and was adapted from the simple 2D vector API.
 	Was only every used for one (never published) project.
 
+Files
+-----
+
+	See:
+		doc/pointer_vec2.txt
+		src/pointer_vec2.bas
+		inc/pointer_vec2.bi
+		tests/pointer_vec2_api.bas
+
+
+Vector API
+==========
 
 Notation
 --------
@@ -19,9 +31,6 @@ Notation
 	a.x     x component of {a}, a subscript x
 	a.y     y component of {a}, a subscript y
 
-
-Vector API
-==========
 
 type real
 ---------

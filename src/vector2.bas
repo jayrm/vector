@@ -73,14 +73,14 @@ namespace vectors
 	'':::::
 	public function vector2.distance( byref b as const vector2 ) as real EXPORT	
 		'' Distance (length) between two points
-		'' d = |{a}-{b}|
+		'' d = |{b}-{a}|
 		function = sqr( (b.x-x)*(b.x-x) + (b.y-y)*(b.y-y) )
 	end function
 
 	'':::::
 	public function vector2.distance2( byref b as const vector2 ) as real	EXPORT
 		'' Distance (length) between two points squared
-		'' d = |{a}-{b}|^2
+		'' d = |{b}-{a}|^2
 		function = (b.x-x)*(b.x-x) + (b.y-y)*(b.y-y)
 	end function
 

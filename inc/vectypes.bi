@@ -30,7 +30,9 @@
 
 	namespace vectors
 
-		type real as single
+		#ifndef real
+			type real as single
+		#endif
 
 		#define creal( v ) cast( real, (v) )
 

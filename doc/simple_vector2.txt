@@ -9,6 +9,19 @@ simple_vector2 library
 	is the original file name used, should probably rename it
 	so it is noticably different from the overall project.)
 
+
+Files
+-----
+
+	See:
+		doc/simple_vector2.txt
+		src/simple_vector2.bas
+		inc/simple_vector2.bi
+		tests/simple_vector2_api.bas
+
+simple_vector2 API
+==================
+
 Notation
 --------
 
@@ -21,11 +34,7 @@ Notation
 	        or with a arrow line above
 	a.x     x component of {a}, a subscript x
 	a.y     y component of {a}, a subscript y
-	{a, b}  a line segment from {a} to {b}
 
-
-simple_vector2 API
-==================
 
 type real
 ---------
