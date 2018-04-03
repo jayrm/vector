@@ -1,3 +1,6 @@
+''	vector - geometric vector library
+''	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
 #include once "vector2.bi"
 #include once "line2.bi"
 
@@ -60,7 +63,7 @@ function LINE2.DistanceToPoint( p as VECTOR2 ) as REAL
 	function = p.dotproduct( VECTOR2(a,b) ) + c
 end function
 
-function LINE2.IsPlane() as BOOLEAN
+function LINE2.IsPlane() as boolean
 	if a = 0.0 and b = 0.0 and c = 0.0 then
 		function = TRUE
 	else
@@ -68,7 +71,7 @@ function LINE2.IsPlane() as BOOLEAN
 	end if
 end function
 
-function LINE2.IsEmpty() as BOOLEAN
+function LINE2.IsEmpty() as boolean
 	if a = 0.0 and b = 0.0 and c <> 0.0 then
 		function = TRUE
 	else

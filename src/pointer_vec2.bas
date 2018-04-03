@@ -1,3 +1,6 @@
+''	vector - geometric vector library
+''	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
 #include "pointer_vec2.bi"
 
 namespace pointer_vec2

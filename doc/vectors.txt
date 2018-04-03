@@ -1,9 +1,17 @@
+	vector - geometric vector library
+	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
 vectors library 
 ===============
 
 	A general purpose geometric vector library.  Started around
 	2006, and uses (at the time) overloaded operators to create
 	a data type that can be used in expressions.
+
+	vector2 - 2D vector data type
+	vector3 - 3D vector data type
+
+	Also has some other support functions and constants
 
 	Worst thing I ever done was to copy and paste this library
 	code where it was needed.  The result was dozens of copies
@@ -55,6 +63,13 @@ vectors namespace
 -----------------
 	All vectors library functions and types exist in the
 	vectors namespace
+
+
+version
+-------
+
+	#define VECTORS_VERSION_MAJOR 0
+	#define VECTORS_VERSION_MINOR 2
 
 
 type REAL

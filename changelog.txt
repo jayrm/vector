@@ -1,6 +1,29 @@
-[version 0.1]
+version 0.2
+
+[added]
+- simple_vector3 API
+- pointer_vec2 API
+- vectors libray
+- vectors.vectypes module
+- vectors.vector2 data type
+- vectors.vector3 data type
+- vectors.line2 data type
+- vectors.intersection2 data type
+- vectors.plane3 data type
+- vectors.vector2_aabb data type
+- vectors.vector2_array data type
+- vectors.camera3 data type
+
+[changed]
+- rename original simple 2D vector to simple_vector2
+
+
+version 0.1
+
 - add fbcunit as submodule 
 
-[version 0.0]
+
+version 0.0
+
 - added base code (from another project circa 2006)
 - added makefiles

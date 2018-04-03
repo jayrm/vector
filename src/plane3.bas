@@ -1,3 +1,6 @@
+''	vector - geometric vector library
+''	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
 #include once "plane3.bi"
 
 namespace vectors

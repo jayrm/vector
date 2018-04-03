@@ -1,13 +1,22 @@
+	vector - geometric vector library
+	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
 simple_vector2 library
 ======================
+
+	Simple 2D vector API using procedures only
 
 	A very basic 2D vector api using one type (structure) and 
 	procedures only.  This one dates from 2006 and was imported 
 	from a similar looking library written in both QB and C.  
-	Because procedures only	only are used, code was fairly
-	simple to translate between QB and C.  (note: while this
-	is the original file name used, should probably rename it
-	so it is noticably different from the overall project.)
+	Because procedures only	only are used, code was failrly
+	simple to translate between QB and C.  The original C version
+	was for a compiler that did not support inline functions, 
+	so writing an API in this still would allow easy substitution 
+	for macros; an alternative to inline functions.
+
+	Original filenames were vector.bi and vector.bas and
+	no namespace added.
 
 
 Files

@@ -3,6 +3,9 @@
 
 	#inclib "vectors"
 
+	#define VECTORS_VERSION_MAJOR 0
+	#define VECTORS_VERSION_MINOR 2
+
 	#ifndef NULL
 	#define NULL 0
 	#endif

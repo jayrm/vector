@@ -1,9 +1,13 @@
+	vector - geometric vector library
+	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
 simple_vector3 library
 ======================
 
-	A very basic 3D vector API using one type (structure) and 
-	procedures only.  This one dates from 2006 and was adapted
-	from the 2D version. 
+	Simple 3D vector API using procedures only
+
+	A very basic 3D vector api using one type (structure) and 
+	procedures adapted from the Simple 2D vector api.
 
 
 Files
