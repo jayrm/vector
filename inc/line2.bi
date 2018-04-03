@@ -2,7 +2,6 @@
 #define __LINE2_BI_INCLUDE__
 
 	#include once "vector2.bi"
-	#include once "boolean.bi"
 
 	namespace vectors
 
@@ -10,9 +9,16 @@
 
 			'' of the form Ax + By + C = 0
 
-			a as REAL
-			b as REAL
-			c as REAL
+			union
+				type
+					a as REAL
+					b as REAL
+					c as REAL
+				end type
+				type
+					norm as vector2
+				end type
+			end union
 
 			declare constructor()
 			declare constructor( a_ as REAL, b_ as REAL, c_ as REAL )
@@ -32,8 +38,8 @@
 			declare property distance( d as REAL )
 			
 			declare function DistanceToPoint( p as VECTOR2 ) as REAL
-			declare function IsPlane() as BOOLEAN
-			declare function IsEmpty() as BOOLEAN
+			declare function IsPlane() as boolean
+			declare function IsEmpty() as boolean
 
 			declare function Intersection( p1 as VECTOR2, p2 as VECTOR2, byref result as VECTOR2 ) as REAL
 			declare function Intersection( l as LINE2, byref result as VECTOR2 ) as REAL

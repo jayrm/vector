@@ -25,12 +25,18 @@ VECTORS_SRCS    += src/vector2.bas
 VECTORS_SRCS    += src/vector3.bas
 VECTORS_SRCS    += src/camera.bas
 VECTORS_SRCS    += src/plane3.bas
+VECTORS_SRCS    += src/line2.bas
+VECTORS_HDRS    += src/vector2_array.bas
+VECTORS_HDRS    += src/vector2_aabb.bas
 
 VECTORS_HDRS    := inc/vectypes.bi
 VECTORS_HDRS    += inc/vector2.bi
 VECTORS_HDRS    += inc/vector3.bi
 VECTORS_HDRS    += inc/camera.bi
 VECTORS_HDRS    += inc/plane3.bi
+VECTORS_HDRS    += inc/line2.bi
+VECTORS_HDRS    += inc/vector2_array.bi
+VECTORS_HDRS    += inc/vector2_aabb.bi
 
 TEST_SRCS := tests/tests.bas
 TEST_SRCS += tests/simple_vector2_api.bas
@@ -70,7 +76,7 @@ ifeq ($(DEBUG),1)
 	FBCFLAGS += -g -exx
 endif
 
-FBCFLAGS += -mt -g -exx -i ./inc -i ./fbcunit/inc -w pedantic
+FBCFLAGS += -mt -i ./inc -i ./fbcunit/inc -w pendantic
 
 .SUFFIXES: .bas
 
