@@ -44,6 +44,8 @@
 			declare function scale( byref b as const vector3 ) as vector3
 			declare function scale( byval k as real ) as vector3
 
+			declare function isZero() as boolean
+
 		end type
 
 		'' Negative
@@ -64,6 +66,10 @@
 
 		'' Dot product
 		declare operator * ( byref a as const vector3, byref b as const vector3 ) as real
+
+		'' Comparison (exact)
+		declare operator = ( byref a as const vector3, byref b as const vector3 ) as boolean
+		declare operator <> ( byref a as const vector3, byref b as const vector3 ) as boolean
 
 	end namespace
 

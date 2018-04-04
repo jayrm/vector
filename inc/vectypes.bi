@@ -4,7 +4,7 @@
 	#inclib "vectors"
 
 	#define VECTORS_VERSION_MAJOR 0
-	#define VECTORS_VERSION_MINOR 2
+	#define VECTORS_VERSION_MINOR 3
 
 	#ifndef NULL
 	#define NULL 0

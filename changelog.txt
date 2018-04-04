@@ -1,3 +1,10 @@
+version 0.3
+
+[added]
+- vector2, =, <> comparison operators, isZero function, perp vector function, cross product function
+- vector3, =, <> comparison operators, isZero function
+
+
 version 0.2
 
 [added]

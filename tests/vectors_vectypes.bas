@@ -23,6 +23,13 @@ SUITE( vectors_vectypes )
 			CU_FAIL()
 		#endif
 
+		'' test version
+		'' if changed:
+		'    - update readme.txt
+		CU_ASSERT_EQUAL( VECTORS_VERSION_MAJOR, 0 )
+		CU_ASSERT_EQUAL( VECTORS_VERSION_MINOR, 3 )
+
+
 		CU_ASSERT_EQUAL( NULL, 0 )
 		CU_ASSERT_EQUAL( false, 0 )
 		CU_ASSERT_EQUAL( true, not 0 )

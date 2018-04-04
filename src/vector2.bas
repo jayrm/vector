@@ -138,6 +138,16 @@ namespace vectors
 	end function
 
 	'':::::
+	public function vector2.cross( byref b as const vector2 ) as real EXPORT
+		function = x * b.y - y * b.x
+	end function
+
+	'':::::
+	public function vector2.perp() as vector2 EXPORT
+		function = type( -y, x )
+	end function
+
+	'':::::
 	public function vector2.scale( byref b as const vector2 ) as vector2 EXPORT
 		'' entry wise product
 		'' {r} = {v} o {b}
@@ -230,6 +240,21 @@ namespace vectors
 		'' scalar dot product binary operator '*'
 		'' d = {a} . {b}
 		operator = a.x * b.x + a.y * b.y
+	end operator
+
+	'':::::
+	public function vector2.isZero( ) as boolean
+		function = cbool( x = creal(0.0) andalso y = creal(0.0) )
+	end function
+
+	'':::::
+	public operator = ( byref ls as const vector2, byref rs as const vector2 ) as boolean
+		operator = ( ls.x = rs.x ) andalso ( ls.y = rs.y )
+	end operator
+
+	'':::::
+	public operator <> ( byref ls as const vector2, byref rs as const vector2 ) as boolean
+		operator = ( ls.x <> rs.x ) orelse (ls.y <> rs.y )
 	end operator
 
 

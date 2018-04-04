@@ -38,9 +38,13 @@
 			declare operator cast() as string
 
 			declare function dot( byref b as const vector2 ) as real
+			declare function cross( byref b as const vector2 ) as real
+			declare function perp() as vector2
 
 			declare function scale( byref b as const vector2 ) as vector2
 			declare function scale( byval k as real ) as vector2
+
+			declare function isZero() as boolean
 
 		end type
 
@@ -62,6 +66,10 @@
 
 		'' Dot product
 		declare operator * ( byref a as const vector2, byref b as const vector2 ) as real
+
+		'' Comparison (exact)
+		declare operator = ( byref a as const vector2, byref b as const vector2 ) as boolean
+		declare operator <> ( byref a as const vector2, byref b as const vector2 ) as boolean
 
 	end namespace
 

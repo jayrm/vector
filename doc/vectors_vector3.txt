@@ -67,6 +67,10 @@ vector3
 
 		Convert to string           var s = cstr( {v} )
 
+		Compare Equality             t  = {a} = {b}
+		Compare Inequality           t  = {a} <> {b}
+		Compare Zero                 t  = {a}.isZero
+
 
 type vector3
 ------------
@@ -716,8 +720,8 @@ Operator * ( vector3, vector3 )
 		(-3, -6, -9)
 
 
-{v}.cross( {a} )
-----------------
+{v}.cross( vector3 )
+--------------------
 
 	Cross product
 
@@ -738,4 +742,69 @@ Operator * ( vector3, vector3 )
 
 	Output:
 		(1, -5, 3)
+
+
+Operator = ( vector3, vector3 )
+-------------------------------
+
+	Compare two vectors for equality (exact)
+
+		result = {a} = {b}
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (1, 2, 3)
+		dim b as vector3 = (1, 2, 3)
+		dim c as vector3 = (4, 5, 6)
+		print (a = b)
+		print (a = c)
+	
+	Output:
+		true
+		false
+
+
+Operator <> ( vector3, vector3 )
+-------------------------------
+
+	Compare two vectors for inequality
+
+		result = {a} <> {b}
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3 = (1, 2, 3)
+		dim b as vector3 = (1, 2, 3)
+		dim c as vector3 = (4, 5, 6)
+		print (a <> b)
+		print (a <> c)
+	
+	Output:
+		false
+		true
+
+
+{a}.isZero
+----------
+
+	Test for (exact) equality to zero vector (0, 0, 0)
+
+		result = {a}.isZero
+
+	Example:
+		#include "vector3.bi"
+		using vectors
+		dim a as vector3
+		dim b as vector3 = (0, 0)
+		dim c as vector3 = (1, 2)
+		print a.isZero
+		print b.isZero
+		print c.isZero
+	
+	Output:
+		true
+		true
+		false
 

@@ -521,11 +521,179 @@ SUITE( vectors_vector2 )
 			
 	END_TEST
 
+	TEST( cross_product )
+		
+		for angle1 as real = -180 to 179 step 30
+			for angle2 as real = -180 to 179 step 30
+				dim a as vector2 = ( cos(DEGTORAD(angle1)), sin(DEGTORAD(angle1)) )
+				dim b as vector2 = ( cos(DEGTORAD(angle2)), sin(DEGTORAD(angle2)) )
+
+				dim r as real = a.cross(b)
+
+				'' in 2D space, a.cross(b) should have the properties
+				'' 1) if sign of cross product is negative, then smallest
+				''    angle to get from a to b is counter-clockwise
+				'' 2) if sign of cross product is positive, then smallest
+				''    angle to get from a to b is clockwise
+				'' 3) equal to the the area of the parallelogram formed by
+				''    vectors a & b
+
+				'' find the smaller angle
+				dim angle as real = angle2 - angle1
+				if( angle > 180 ) then
+					angle -= 360
+				elseif( angle < -180 ) then
+					angle += 360
+				end if
+
+				'' if a.cross(b)=0 then vectors are parallel
+				if( abs(r) < test_epsilon_real ) then
+					if( angle > test_epsilon_real ) then
+						angle -= 180
+					elseif( angle < test_epsilon_real ) then
+						angle += 180
+					end if
+					CU_ASSERT_REAL_EQUAL( r, 0, test_epsilon_real )
+				else
+					'' sign of angle should equal sign of a.cross(b)
+					CU_ASSERT_EQUAL( sgn(angle), sgn(r) )
+				end if
+				
+				'' using Heron's formula, find the area of the triangle
+				dim s1 as real = a.magnitude
+				dim s2 as real = b.magnitude
+				dim cc as vector2 = b - a
+				dim s3 as real = cc.magnitude
+				dim s as real = ( s1 + s2 + s3 ) / 2
+				dim area as real = sqr( s * ( s - s1 ) * ( s - s2 ) * ( s - s3  ) )
+
+				'' compare the magnitude of the cross product with area of parallelogram
+				CU_ASSERT_REAL_EQUAL( area, abs( r ) / 2, test_epsilon_real )
+
+			next
+		next
+
+	END_TEST
+
+	TEST( perp_ )
+		
+		for m as real = -2 to 2 step 0.5
+			for angle as real = 0 to 359 step 30
+
+				' a is a vector @ angle degrees
+				' b is a vector @ angle+90 degress
+				' c is the perpendicular vector of a
+				
+				dim a as vector2 = ( cos(DEGTORAD(angle)), sin(DEGTORAD(angle)) )
+				dim b as vector2 = ( cos(DEGTORAD(angle+90)), sin(DEGTORAD(angle+90)) )
+				dim c as vector2 = a.perp
+
+				'' test b & c are nearly same
+				CU_ASSERT_REAL_EQUAL( b.x, c.x, test_epsilon_real )
+				CU_ASSERT_REAL_EQUAL( b.y, c.y, test_epsilon_real )
+			next
+		next
+
+	END_TEST
+
+	TEST( equal )
+
+		dim e(0 to 3) as real => { 0, -5, 7 }
+		dim a as vector2 = ( e(1), e(2) )
+
+		check_exact( a.x, a.y, -5, 7 )
+
+		'' iterate through every possible vector,
+		'' only one should match
+
+		for i as integer = 0 to 3 ^ 2 - 1
+			
+			'' decode integer i as base 3 to select components
+
+			dim i1 as integer = i mod 3
+			dim i2 as integer = (i \ 3) mod 3
+
+			dim b as vector2 = ( e(i1), e(i2) )
+			dim t as boolean = a = b
+
+			'' test if i = 21 (in base 3)
+			if( i = 1 + 3 * 2 ) then
+				CU_ASSERT( t )
+				CU_ASSERT_EQUAL( a, b )
+			else
+				dim t as boolean = a = b
+				CU_ASSERT( not t )
+				CU_ASSERT_NOT_EQUAL( a, b )
+			end if
+
+		next
+
+	END_TEST
+
+	TEST( not_equal )
+
+		dim e(0 to 3) as real => { 0, -5, 7 }
+		dim a as vector2 = ( e(1), e(2) )
+
+		check_exact( a.x, a.y, -5, 7 )
+
+		'' iterate through every possible vector,
+		'' all but one is not equal
+
+		for i as integer = 0 to 3 ^ 2 - 1
+			
+			'' decode integer i as base 4 to select components
+
+			dim i1 as integer = i mod 3
+			dim i2 as integer = (i \ 3) mod 3
+
+			dim b as vector2 = ( e(i1), e(i2) )
+			dim t as boolean = a <> b
+
+			'' test if i = 21 (in base 3)
+			if( i = 1 + 3 * 2 ) then
+				CU_ASSERT( not t )
+				CU_ASSERT_EQUAL( a, b )
+			else
+				CU_ASSERT( t )
+				CU_ASSERT_NOT_EQUAL( a, b )
+			end if
+
+		next
+
+	END_TEST
+
+	TEST( isZero_ )
+
+		dim a as vector2
+		CU_ASSERT( a.IsZero )
+
+		dim b as vector2 = (0, 0)
+		CU_ASSERT( b.IsZero )
+
+		dim c as vector2 = (1, 2)
+		c.set( 0, 0 )
+		CU_ASSERT( c.IsZero )
+
+		'' only first iteration isZero
+		dim bFirst as boolean = true
+		for x as real = 0 to 1
+			for y as real = 0 to 1
+				dim d as vector2 = (x, y)
+				CU_ASSERT_EQUAL( d.isZero, bFirst )
+				bFirst = false
+			next
+		next
+
+	END_TEST
+
 	TEST( operator_args )
 		
 		dim a as vector2 = (1, 2)
 		dim b as vector2 = (5, 7)
 		dim c as vector2
+
+		dim t as boolean
 
 		dim F as const vector2 = a
 		dim G as const vector2 = b
@@ -583,6 +751,23 @@ SUITE( vectors_vector2 )
 		c = -a: check_exact( c.x, c.y, -1, -2 )
 		c = -F: check_exact( c.x, c.y, -1, -2 )
 
+		'' operator = (vector2, vector2) as boolean
+		t = a = a : CU_ASSERT( t )
+		t = a = F : CU_ASSERT( t )
+		t = G = b : CU_ASSERT( t )
+		t = a = b : CU_ASSERT( not t )
+		t = F = b : CU_ASSERT( not t )
+		t = a = G : CU_ASSERT( not t )
+
+		'' operator <> (vector2, vector2) as boolean
+		t = a <> a : CU_ASSERT( not t )
+		t = a <> F : CU_ASSERT( not t )
+		t = G <> b : CU_ASSERT( not t )
+		t = a <> b : CU_ASSERT( t )
+		t = F <> b : CU_ASSERT( t )
+		t = a <> G : CU_ASSERT( t )
+
 	END_TEST
+
 
 END_SUITE

@@ -638,11 +638,108 @@ SUITE( vectors_vector3 )
 
 	END_TEST
 
+	TEST( equal )
+
+		dim e(0 to 3) as real => { 0, -5, 7, -11 }
+		dim a as vector3 = ( e(1), e(2), e(3) )
+
+		check_exact( a.x, a.y, a.z, -5, 7, -11 )
+
+		'' iterate through every possible vector,
+		'' only one should match
+
+		for i as integer = 0 to 4 ^ 3 - 1
+			
+			'' decode integer i as base 4 to select components
+
+			dim i1 as integer = i mod 4
+			dim i2 as integer = (i \ 4) mod 4
+			dim i3 as integer = (i \ 4 \ 4) mod 4
+
+			dim b as vector3 = ( e(i1), e(i2), e(i3) )
+			dim t as boolean = a = b
+
+			'' test if i = 321 (in base 4)
+			if( i = 1 + 4 * 2 + 4 * 4 * 3 ) then
+				CU_ASSERT( t )
+				CU_ASSERT_EQUAL( a, b )
+			else
+				dim t as boolean = a = b
+				CU_ASSERT( not t )
+				CU_ASSERT_NOT_EQUAL( a, b )
+			end if
+
+		next
+
+	END_TEST
+
+	TEST( not_equal )
+
+		dim e(0 to 3) as real => { 0, -5, 7, -11 }
+		dim a as vector3 = ( e(1), e(2), e(3) )
+
+		check_exact( a.x, a.y, a.z, -5, 7, -11 )
+
+		'' iterate through every possible vector,
+		'' all but one is not equal
+
+		for i as integer = 0 to 4 ^ 3 - 1
+			
+			'' decode integer i as base 4 to select components
+
+			dim i1 as integer = i mod 4
+			dim i2 as integer = (i \ 4) mod 4
+			dim i3 as integer = (i \ 4 \ 4) mod 4
+
+			dim b as vector3 = ( e(i1), e(i2), e(i3) )
+			dim t as boolean = a <> b
+
+			'' test if i = 321 (in base 4)
+			if( i = 1 + 4 * 2 + 4 * 4 * 3 ) then
+				CU_ASSERT( not t )
+				CU_ASSERT_EQUAL( a, b )
+			else
+				CU_ASSERT( t )
+				CU_ASSERT_NOT_EQUAL( a, b )
+			end if
+
+		next
+
+	END_TEST
+
+	TEST( isZero_ )
+
+		dim a as vector3
+		CU_ASSERT( a.IsZero )
+
+		dim b as vector3 = (0, 0, 0)
+		CU_ASSERT( b.IsZero )
+
+		dim c as vector3 = (1, 2, 3)
+		c.set( 0, 0, 0 )
+		CU_ASSERT( c.IsZero )
+
+		'' only first iteration isZero
+		dim bFirst as boolean = true
+		for x as real = 0 to 1
+			for y as real = 0 to 1
+				for z as real = 0 to 1
+					dim d as vector3 = (x, y, z)
+					CU_ASSERT_EQUAL( d.isZero, bFirst )
+					bFirst = false
+				next
+			next
+		next
+
+	END_TEST
+
 	TEST( operator_args )
 		
 		dim a as vector3 = (1, 2, 3)
 		dim b as vector3 = (5, 7, 11)
 		dim c as vector3
+
+		dim t as boolean
 
 		dim F as const vector3 = a
 		dim G as const vector3 = b
@@ -699,6 +796,22 @@ SUITE( vectors_vector3 )
 		'' operator - (vector3) as vector3
 		c = -a: check_exact( c.x, c.y, c.z, -1, -2, -3 )
 		c = -F: check_exact( c.x, c.y, c.z, -1, -2, -3 )
+
+		'' operator = (vector3, vector3) as boolean
+		t = a = a : CU_ASSERT( t )
+		t = a = F : CU_ASSERT( t )
+		t = G = b : CU_ASSERT( t )
+		t = a = b : CU_ASSERT( not t )
+		t = F = b : CU_ASSERT( not t )
+		t = a = G : CU_ASSERT( not t )
+
+		'' operator <> (vector3, vector3) as boolean
+		t = a <> a : CU_ASSERT( not t )
+		t = a <> F : CU_ASSERT( not t )
+		t = G <> b : CU_ASSERT( not t )
+		t = a <> b : CU_ASSERT( t )
+		t = F <> b : CU_ASSERT( t )
+		t = a <> G : CU_ASSERT( t )
 
 	END_TEST
 

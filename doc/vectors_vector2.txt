@@ -39,6 +39,11 @@ vector2
 		Scalar Dot Product           d  = {a}.dot({b})
 		                                = {a} . {b}
 
+		Cross Product                d  = {a}.cross({b})
+		                                = {a} X {b}
+
+		Perp Vector                 {v} = {a}.perp
+
 		Hadamard Product            {v} = {a}.scale({b})
 		                                = {a} o {b}
 
@@ -61,6 +66,11 @@ vector2
 		Normalize equivalent        {v} = {v}.unit
 
 		Convert to string           var s = cstr( {v} )
+
+		Compare Equality             t  = {a} = {b}
+		Compare Inequality           t  = {a} <> {b}
+		Compare Zero                 t  = {a}.isZero
+		                                = {a} = (0, 0)
 
 
 type vector2
@@ -599,13 +609,14 @@ Operator - ( vector2 )
 		(-1, -2)
 		
 
-{v}.dot( vector3, vector3 )
+{v}.dot( vector2, vector2 )
 ---------------------------
 
 	Dot product of two vectors
 
-		d = {a} . {b}
-
+		d = {a}.dot({b})
+		  = {a} . {b}
+		  
 	Compute the scalar dot product of {a} dot {b}.
 		d = a.x * b.x + a.y * b.y
 
@@ -615,7 +626,7 @@ Operator - ( vector2 )
 		dim a as vector2 = (1, 2)
 		dim b as vector2 = (3, 5)
 		dim d as real
-		d = a * b
+		d = a.dot(b)
 		print d
 	
 	Output:
@@ -643,6 +654,59 @@ Operator * ( vector2, vector2 )
 	
 	Output:
 		 13
+
+
+{v}.perp
+--------
+	
+	Perpendicular of a vector
+
+		{r} = {a}.perp
+
+	Compute perpendicular vector to {a} and return in vector {r}
+	Rotates vector {a} 90 degrees (1/4 turn) counter-clockwise and
+	returns the result in {r}.  
+		r.x = -a.y
+		r.y =  a.x
+
+	Equivalent to rotation transoformation:
+		{r} = [ 0  -1 ] * [ a.x ]
+			  [ 1   0 ]   [ a.y ]
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim v as vector2
+		v = a.perp
+		print v
+	
+	Output:
+		(-2, 1)
+
+
+{v}.cross( vector2 )
+--------------------
+	
+	Cross product of two vectors
+
+		d = {a}.cross({b})
+		  = {a} X {b}
+
+	Compute the cross product {a} X {b} and return in d.
+		d = a.x * b.y - a.y * b.x
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (2, 1)
+		dim d as real
+		d = a.cross(b)
+		print d
+	
+	Output:
+		-3
 
 
 {v}.scale( vector2 )
@@ -690,3 +754,69 @@ Operator * ( vector2, vector2 )
 
 	Output:
 		(-3, -6)
+
+
+Operator = ( vector2, vector2 )
+-------------------------------
+
+	Compare two vectors for equality (exact)
+
+		result = {a} = {b}
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (1, 2)
+		dim c as vector2 = (3, 4)
+		print (a = b)
+		print (a = c)
+	
+	Output:
+		true
+		false
+
+
+Operator <> ( vector2, vector2 )
+-------------------------------
+
+	Compare two vectors for inequality
+
+		result = {a} <> {b}
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2 = (1, 2)
+		dim b as vector2 = (1, 2)
+		dim c as vector2 = (3, 4)
+		print (a <> b)
+		print (a <> c)
+	
+	Output:
+		false
+		true
+
+
+{v}.isZero
+----------
+
+	Test for (exact) equality to zero vector (0, 0)
+
+		result = {a}.isZero
+
+	Example:
+		#include "vector2.bi"
+		using vectors
+		dim a as vector2
+		dim b as vector2 = (0, 0)
+		dim c as vector2 = (1, 2)
+		print a.isZero
+		print b.isZero
+		print c.isZero
+	
+	Output:
+		true
+		true
+		false
+

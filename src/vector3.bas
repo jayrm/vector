@@ -253,4 +253,19 @@ namespace vectors
 		operator = a.x * b.x + a.y * b.y + a.z * b.z
 	end operator
 
+	'':::::
+	public function vector3.isZero( ) as boolean
+		function = cbool( x = creal(0.0) andalso y = creal(0.0) andalso z = creal(0.0) )
+	end function
+
+	'':::::
+	public operator = ( byref ls as const vector3, byref rs as const vector3 ) as boolean
+		operator = ( ls.x = rs.x ) andalso ( ls.y = rs.y ) andalso ( ls.z = rs.z )
+	end operator
+
+	'':::::
+	public operator <> ( byref ls as const vector3, byref rs as const vector3 ) as boolean
+		operator = ( ls.x <> rs.x ) orelse (ls.y <> rs.y ) orelse (ls.z <> rs.z )
+	end operator
+
 end namespace
