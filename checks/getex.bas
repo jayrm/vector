@@ -53,6 +53,28 @@ sub outlog( x as string )
 	print #3, x
 end sub
 
+sub outinclude( includes as string )
+
+	select case includes
+	case "vector2"
+		outprog( !"#include once \"vector2.bi\"" )
+
+	case "vector3"
+		outprog( !"#include once \"vector3.bi\"" )
+
+	case "simple_vector2"
+		outprog( !"#include once \"simple_vector2.bi\"" )
+
+	case "simple_vector3"
+		outprog( !"#include once \"simple_vector3.bi\"" )
+
+	case "pointer_vec2"
+		outprog( !"#include once \"pointer_vec2.bi\"" )
+
+	end select
+
+end sub
+
 sub GetExamples( infile as string, outfile as string, logfile as string, includes as string )
 
 	if( open( infile for input access read as #1 ) <> 0 ) then
@@ -74,24 +96,18 @@ sub GetExamples( infile as string, outfile as string, logfile as string, include
 	dim title as string
 	dim lineno as integer = 0, start_lineno as integer = 0
 
-	select case includes
-	case "vector2"
-		outprog( !"#include once \"vector2.bi\"" )
-
-	case "vector3"
-		outprog( !"#include once \"vector3.bi\"" )
-
-	case "simple_vector2"
-		outprog( !"#include once \"simple_vector2.bi\"" )
-
-	case "simple_vector3"
-		outprog( !"#include once \"simple_vector3.bi\"" )
-
-	case "pointer_vec2"
-		outprog( !"#include once \"pointer_vec2.bi\"" )
-
-
-	end select
+	if( includes > "" ) then
+		outinclude( includes )
+	else
+		while eof(1) = false
+			line input #1, x
+			if( StartsWith( x, chr(9) + chr(9) + "#include" ) ) then
+				outprog( x )
+				exit while
+			end if
+		wend
+		seek #1, 1
+	end if
 
 	while eof(1) = false
 
@@ -106,6 +122,7 @@ sub GetExamples( infile as string, outfile as string, logfile as string, include
 		end if
 
 		if( StartsWith( x, chr(9) + "Example:" ) ) then
+
 			outprog( "scope" )
 			outprog( !"\tprint \"" & infile & !"\" & \"(\" & " & start_lineno ) & !" & \"): \""
 			outprog( !"\tprint \"" & title & !"\"" )
@@ -220,10 +237,3 @@ if( opt_help ) then
 end if
 
 GetExamples opt_doc_file, opt_bas_file, opt_out_file, opt_inc_file
-
-'' GetExamples "doc/vectors_vector2.txt", "checks/chkvv2.bas", "checks/chkvv2.txt", "vector2"
-'' GetExamples "doc/vectors_vector3.txt", "checks/chkvv3.bas", "checks/chkvv3.txt", "vector3"
-'' GetExamples "doc/simple_vector2.txt", "checks/chksv2.bas", "checks/chksv.txt", "simple_vector2"
-'' GetExamples "doc/simple_vector3.txt", "checks/chksv3.bas", "checks/chksv.txt", "simple_vector3"
-'' GetExamples "doc/pointer_vec2.txt", "checks/chkpv2.bas", "checks/chkpv.txt", "pointer_vec2"
-
