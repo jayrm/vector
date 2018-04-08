@@ -20,9 +20,6 @@ Files
 		tests/simple_vector3_api.bas
 
 
-simple_vector3 API
-==================
-
 Notation
 --------
 
@@ -38,6 +35,40 @@ Notation
 	a.z     z component of {a}, a subscript z
 
 
+simple_vector3 API
+==================
+
+	VZero( {r} )
+	VSet( {r}, x, y )
+	VNeg( {r}, {a} )
+	VAdd( {r}, {a}, {b} )
+	VAddComp( {r}, {a}, x, y )
+	VSub( {r}, {a}, {b} )
+	VSubComp( {r}, {a}, x, y )
+	VScale( {r}, {a}, k )
+	VAddMul( {r}, k1, {a}, k2, {b} )
+	VNeg2V( {r} )	
+	VAdd2V( {r}, {a} )
+	VAddComp2V( {r}, x, y, z )
+	VSub2V( {r}, {a} )
+	VSubComp2V( {r}, x, y, z )
+	VScale2V( {r}, k )
+	VUnit( {r}, {a} )
+	VUnit2V( {r} )
+	VLimit2V( {r}, d )
+	VDot( {a}, {b} )
+	VDist( {a}, {b} )
+	VMag( {a} )
+	VRot2Vx( {r}, angle )
+	VRot2Vy( {r}, angle )
+	VRot2Vz( {r}, angle )
+	VRot902Vx( {r} )
+	VRot902Vy( {r} )
+	VRot902Vz( {r} )
+	VString( {a} )
+	VFormat( {a}, format )
+
+
 type vector
 -----------
 
@@ -48,23 +79,6 @@ type vector
 		  y as single
 		  z as single
 		end type
-
-
-type line_t
------------
-
-	Line equation of the form Ax + By + C = 0
-
-		type line_t
-			n as vector
-			d as real
-		end type
-
-	where:
-
-		n.x = A
-		n.y = B
-		d = C
 
 
 VZero( {r} )
@@ -78,12 +92,18 @@ VZero( {r} )
 		r.z = 0
 
 	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
 		dim r as vector
 		VZero( r )
+		print VString( r )
+
+	Output:
+		(0, 0, 0)
 
 
 VSet( {r}, x, y, z )
------------------
+--------------------
 
 	{r} = (x, y, z)
 
@@ -93,8 +113,14 @@ VSet( {r}, x, y, z )
 		t.z = z
 
 	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
 		dim r as vector
 		VSet( r, 1, 2, 3 )
+		print VString( r )
+
+	Output:
+		(1, 2, 3)
 
 
 VNeg( {r}, {a} )
@@ -108,9 +134,15 @@ VNeg( {r}, {a} )
 		r.z = -a.z
 
 	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
 		dim a as vector, r as vector
-		VSet( a, 1, 2, 3 )
+		VSet( a, 1, -2, 3 )
 		VNeg( r, a )
+		print VString( r )
+
+	Output:
+		(-1, 2, -3)
 
 
 VAdd( {r}, {a}, {b} )
@@ -124,10 +156,16 @@ VAdd( {r}, {a}, {b} )
 		r.z = a.z + b.z
 
 	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
 		dim a as vector, b as vector, r as vector
 		VSet( a, 1, 2, 3 )
 		VSet( b, 5, 7, 11 )
 		VAdd( r, a, b )
+		print VString( r )
+
+	Output:
+		(6, 9, 14)
 
 
 VAddComp( {r}, {a}, x, y )
@@ -141,9 +179,15 @@ VAddComp( {r}, {a}, x, y )
 		r.z = a.z + z
 
 	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
 		dim a as vector, r as vector
 		VSet( a, 1, 2, 3 )
-		VAdd( r, a, 5, 7, 11 )
+		VAddComp( r, a, 5, 7, 11 )
+		print VString( r )
+
+	Output:
+		(6, 9, 14)
 
 
 VSub( {r}, {a}, {b} )
@@ -157,10 +201,16 @@ VSub( {r}, {a}, {b} )
 		r.z = a.z - b.z
 
 	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
 		dim a as vector, b as vector, r as vector
 		VSet( a, 1, 2, 3 )
 		VSet( b, 5, 7, 11 )
 		VSub( r, a, b )
+		print VString( r )
+
+	Output:
+		(-4, -5, -8)
 
 
 VSubComp( {r}, {a}, x, y, z )
@@ -174,13 +224,19 @@ VSubComp( {r}, {a}, x, y, z )
 		r.z = a.z - z
 
 	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
 		dim a as vector, r as vector
 		VSet( a, 1, 2, 3 )
-		VSub( r, a, 5, 7, 11 )
+		VSubComp( r, a, 5, 7, 11 )
+		print VString( r )
+
+	Output:
+		(-4, -5, -8)
 
 
 VScale( {r}, {a}, k )
--------------------
+---------------------
 
 	{r} = k * {a}
 
@@ -189,9 +245,15 @@ VScale( {r}, {a}, k )
 		r.y = k * a.y
 
 	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
 		dim a as vector, r as vector
-		VSet( a, 1, 2 )
-		VMul( r, k, a )
+		VSet( a, 1, -2, 3 )
+		VScale( r, a, -2 )
+		print VString( r )
+
+	Output:
+		(-2, 4, -6)
 
 
 VAddMul( {r}, k1, {a}, k2, {b} )
@@ -233,7 +295,7 @@ VAdd2V( {r}, {a} )
 
 
 VAddComp2V( {r}, x, y, z )
------------------------
+--------------------------
 
 	{r} += (x, y, z)
 
@@ -266,7 +328,7 @@ VSubComp2V( {r}, x, y, z )
 
 
 VScale2V( {r}, k )
-----------------
+------------------
 
 	{r} *= k
 
@@ -277,7 +339,7 @@ VScale2V( {r}, k )
 
 
 VUnit( {r}, {a} )
---------------
+-----------------
 
 	{r} = {a} / |{a}|
 
@@ -285,7 +347,7 @@ VUnit( {r}, {a} )
 	the	zero vector is returned.
 
 
-VUnit2v( {r} )
+VUnit2V( {r} )
 --------------
 
 	{r} = {r} / |{r}|
@@ -330,7 +392,7 @@ VMag( {a} )
 
 
 VRot2Vx( {r}, angle )
---------------------
+---------------------
 
 	{r} = [ 1   0           0         ] * [ r.x ]
 	      [ 0  cos(angle)  sin(angle) ]   [ r.y ]
@@ -341,7 +403,7 @@ VRot2Vx( {r}, angle )
 
 
 VRot2Vy( {r}, angle )
---------------------
+---------------------
 
 	{r} = [ cos(angle)  0  -sin(angle) ] * [ r.x ]
 	      [  0          1     0        ]   [ r.y ]
@@ -352,7 +414,7 @@ VRot2Vy( {r}, angle )
 
 
 VRot2Vz( {r}, angle )
---------------------
+---------------------
 
 	{r} = [ cos(angle)  -sin(angle)  0 ] * [ r.x ]
 	      [ sin(angle)   cos(angle)  0 ]   [ r.y ]

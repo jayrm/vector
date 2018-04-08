@@ -659,7 +659,7 @@ SUITE( simple_vector2_api )
 			for x as real = -2 to 2
 
 				VSet( a, x, y )
-				s1 = "(" & x & "," & y & ")"
+				s1 = "(" & x & ", " & y & ")"
 				s2 = VString( a )
 				CU_ASSERT_EQUAL( s1, s2 )
 

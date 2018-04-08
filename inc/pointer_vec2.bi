@@ -47,6 +47,9 @@
 		Declare Function LimitValue( ByVal a As REAL, ByVal lo As REAL, ByVal Hi As REAL ) As REAL
 		Declare Function GetAngleDelta( ByVal a1 As REAL, ByVal a2 As REAL ) As REAL
 
+		Declare Function V2String( ByVal a As Vec2_T Ptr ) as String
+		Declare Function V2Format( ByVal a As Vec2_T Ptr, byref fmt as const string = "" ) as String
+
 	end namespace
 
 #endif

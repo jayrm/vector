@@ -3,6 +3,16 @@ version 0.3
 [added]
 - vector2, =, <> comparison operators, isZero function, perp vector function, cross product function
 - vector3, =, <> comparison operators, isZero function
+- simple_vector2: add VFormat() function
+- simple_vector3: add VFormat() function
+- pointer_vec2: add V2Format() function
+- tool to extract example code from documentation
+- makefile to build and test documenation example code
+
+[changed]
+- simple_vector2: no rounding in VString() function
+- simple_vector3: no rounding in VString() function
+- pointer_vec2: no rounding in V2String() function
 
 
 version 0.2

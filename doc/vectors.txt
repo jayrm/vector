@@ -38,13 +38,6 @@ Files
 		tests/vectors_vector3.bas
 
 
-Vectors API
-===========
-
-	2D vectors - see vectors_vector2.txt
-	3D vectors - see vectors_vector3.txt
-
-
 Notation
 --------
 
@@ -57,6 +50,13 @@ Notation
 	a.x        x component of {a}, a subscript x
 	a.y        y component of {a}, a subscript y
 	a.z        z component of {a}, a subscript z
+
+
+Vectors API
+===========
+
+	2D vectors - see vectors_vector2.txt
+	3D vectors - see vectors_vector3.txt
 
 
 vectors namespace

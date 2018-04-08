@@ -603,7 +603,7 @@ SUITE( simple_vector3_api )
 				for z as real = -2 to 2
 
 					VSet( a, x, y, z )
-					s1 = "(" & x & "," & y & "," & z & ")"
+					s1 = "(" & x & ", " & y & ", " & z & ")"
 					s2 = VString( a )
 					CU_ASSERT_EQUAL( s1, s2 )
 

@@ -50,6 +50,7 @@
 		declare sub VLineEqFromPointNormal( byref r as line_t, byref a as const vector, byref n as const vector )
 
 		declare function VString( byref v as const vector ) as string
+		declare function VFormat( byref v as const vector, byref fmt as const string = "" ) as string
 
 		declare function AddMinimal( byval x as const real, byval d as const real ) as real
 		declare sub VAddImMinimal( byref r as vector, byref a as const vector )

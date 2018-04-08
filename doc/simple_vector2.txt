@@ -28,9 +28,6 @@ Files
 		inc/simple_vector2.bi
 		tests/simple_vector2_api.bas
 
-simple_vector2 API
-==================
-
 Notation
 --------
 
@@ -43,6 +40,44 @@ Notation
 	        or with a arrow line above
 	a.x     x component of {a}, a subscript x
 	a.y     y component of {a}, a subscript y
+
+
+simple_vector2 API
+==================
+
+	VZero( {r} )
+	VSet( {r}, x, y )
+	VNeg( {r}, {a} )
+	VAdd( {r}, {a}, {b} )
+	VAddComp( {r}, {a}, x, y )
+	VSub( {r}, {a}, {b} )
+	VSubComp( {r}, {a}, x, y )
+	VMul( {r}, k, {a} )
+	VAddMul( {r}, k1, {a}, k2, {b} )
+	VNegIm( {r} )
+	VAddIm( {r}, {a} )
+	VAddCompIm( {r}, x, y )
+	VSubIm( {r}, {a} )
+	VSubCompIm( {r}, x, y )
+	VMulIm( {r}, k )
+	VUnit( {r}, {a} )
+	VUnitIm( {r} )
+	VLimitIm( {r}, d )
+	VDot( {a}, {b} )
+	VDist( {a}, {b} )
+	VMag( {a} )
+	VRotIm( {r}, angle )
+	VPerp( {r}, {a} )
+	VPerpIm( {r} )
+	VLineEqFrom2Point( L, {a}, {b} )
+	VLineEqFromPointNormal( L. {a}, {n} )
+	VString( {a} )
+	VFormat( {a}, format )
+	AddMinimal( x, d )
+	AddMinimalDbl( x, d )
+	VAddImMinimal( {r}, {a} )
+	SubMinimal( x, d )
+	VSubImMinimal( {r}, {a} )
 
 
 type real
@@ -93,8 +128,14 @@ VZero( {r} )
 		r.y = 0
 
 	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
 		dim r as vector
 		VZero( r )
+		print VString(r)
+
+	Output:
+		(0, 0)
 
 
 VSet( {r}, x, y )
@@ -107,8 +148,14 @@ VSet( {r}, x, y )
 		r.y = y
 
 	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
 		dim r as vector
 		VSet( r, 1, 2 )
+		print VString(r)
+
+	Output:
+		(1, 2)
 
 
 VNeg( {r}, {a} )
@@ -121,9 +168,15 @@ VNeg( {r}, {a} )
 		r.y = -a.y
 
 	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
 		dim a as vector, r as vector
 		VSet( a, 1, 2 )
 		VNeg( r, a )
+		print VString(r)
+
+	Output:
+		(-1, -2)
 
 
 VAdd( {r}, {a}, {b} )
@@ -136,10 +189,16 @@ VAdd( {r}, {a}, {b} )
 		r.y = a.y + b.y
 
 	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
 		dim a as vector, b as vector, r as vector
 		VSet( a, 1, 2 )
 		VSet( b, 3, 5 )
 		VAdd( r, a, b )
+		print VString(r)
+
+	Output:
+		(4, 7)
 
 
 VAddComp( {r}, {a}, x, y )
@@ -152,9 +211,15 @@ VAddComp( {r}, {a}, x, y )
 		r.y = a.y + y
 
 	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
 		dim a as vector, r as vector
 		VSet( a, 1, 2 )
-		VAdd( r, a, 3, 5 )
+		VAddComp( r, a, 3, 5 )
+		print VString(r)
+
+	Output:
+		(4, 7)
 
 
 VSub( {r}, {a}, {b} )
@@ -167,10 +232,16 @@ VSub( {r}, {a}, {b} )
 		r.y = a.y - b.y
 
 	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
 		dim a as vector, b as vector, r as vector
 		VSet( a, 1, 2 )
 		VSet( b, 3, 5 )
 		VSub( r, a, b )
+		print VString(r)
+
+	Output:
+		(-2, -3)
 
 
 VSubComp( {r}, {a}, x, y )
@@ -183,9 +254,15 @@ VSubComp( {r}, {a}, x, y )
 		r.y = a.y - y
 
 	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
 		dim a as vector, r as vector
 		VSet( a, 1, 2 )
-		VSub( r, a, 3, 5 )
+		VSubComp( r, a, 3, 5 )
+		print VString(r)
+
+	Output:
+		(-2, -3)
 
 
 VMul( {r}, k, {a} )
@@ -198,9 +275,15 @@ VMul( {r}, k, {a} )
 		r.y = k * a.y
 
 	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
 		dim a as vector, r as vector
 		VSet( a, 1, 2 )
-		VMul( r, k, a )
+		VMul( r, 3, a )
+		print VString(r)
+
+	Output:
+		(3, 6)
 
 
 VAddMul( {r}, k1, {a}, k2, {b} )
@@ -217,6 +300,22 @@ VAddMul( {r}, k1, {a}, k2, {b} )
 		r.x = k1 * a.x + k2 * b.x
 		r.y = k1 * a.y + k2 * b.y
 
+	Add vector {a} to vector {b} and return in {r}
+		r.x = a.x + b.x
+		r.y = a.y + b.y
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2 )
+		VSet( b, 3, 5 )
+		VAddMul( r, 5, a, -3, b )
+		print VString(r)
+
+	Output:
+		(-4, -5)
+
 
 VNegIm( {r} )
 -------------
@@ -226,6 +325,17 @@ VNegIm( {r} )
 	Negates vector {r} and returns in {r}
 		r.x = -r.x
 		r.y = -r.y
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim r as vector
+		VSet( r, 1, 2 )
+		VNegIm( r )
+		print VString(r)
+
+	Output:
+		(-1, -2)
 
 
 VAddIm( {r}, {a} )
@@ -237,6 +347,18 @@ VAddIm( {r}, {a} )
 		r.x += a.x
 		r.y += a.y
 
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim a as vector, r as vector
+		VSet( r, 1, 2 )
+		VSet( a, 3, 5 )
+		VAddIm( r, a )
+		print VString(r)
+
+	Output:
+		(4, 7)
+
 
 VAddCompIm( {r}, x, y )
 -----------------------
@@ -246,6 +368,17 @@ VAddCompIm( {r}, x, y )
 	Adds vector (x, y) to {r} and returns in {r}
 		r.x += x
 		r.y += y
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim r as vector
+		VSet( r, 1, 2 )
+		VAddCompIm( r, 3, 5 )
+		print VString(r)
+
+	Output:
+		(4, 7)
 
 
 VSubIm( {r}, {a} )
@@ -257,6 +390,18 @@ VSubIm( {r}, {a} )
 		r.x -= a.x
 		r.y -= a.y
 
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim a as vector, r as vector
+		VSet( r, 1, 2 )
+		VSet( a, 3, 5 )
+		VSubIm( r, a )
+		print VString(r)
+
+	Output:
+		(-2, -3)
+
 
 VSubCompIm( {r}, x, y )
 -----------------------
@@ -266,6 +411,17 @@ VSubCompIm( {r}, x, y )
 	Subtracts vector (x, y) from {r} and returns in {r}
 		r.x -= x
 		r.y -= y
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim a as vector, r as vector
+		VSet( r, 1, 2 )
+		VSubCompIm( r, 3, 5 )
+		print VString(r)
+
+	Output:
+		(-2, -3)
 
 
 VMulIm( {r}, k )
@@ -277,14 +433,36 @@ VMulIm( {r}, k )
 		r.x *= k
 		r.y *= k
 
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim r as vector
+		VSet( r, 1, 2 )
+		VMulIm( r, 3 )
+		print VString(r)
+
+	Output:
+		(3, 6)
+
 
 VUnit( {r}, {a} )
---------------
+-----------------
 
 	{r} = {a} / |{a}|
 
 	Returns the unit vector {a} in {r}.  if {a} is (0, 0) then the
 	zero vector is returned.
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim a as vector, r as vector
+		VSet( a, 8.660254, 5)
+		VUnit( r, a )
+		print VString(r)
+
+	Output:
+		(0.8660254, 0.5)
 
 
 VUnitIm( {r} )
@@ -294,6 +472,17 @@ VUnitIm( {r} )
 
 	Returns the unit vector {r} in {r}.  if {r} is (0, 0) then the
 	zero vector is returned.
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim r as vector
+		VSet( r, 8.660254, 5)
+		VUnitIm( r )
+		print VString(r)
+
+	Output:
+		(0.8660254, 0.5)
 
 
 VLimitIm( {r}, d )
@@ -313,6 +502,19 @@ VDot( {a}, {b} )
 	Compute the scalar dot product of {a} dot {b}.
 		d = a.x * b.x + a.y * b.y
 
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2 )
+		VSet( b, 3, 5 )
+		dim d as real
+		d = VDot( a, b )
+		print d
+	
+	Output:
+		 13
+
 
 VDist( {a}, {b} )
 -----------------
@@ -321,6 +523,18 @@ VDist( {a}, {b} )
 
 	Compute the scalar distance from {a} to {b}
 
+	Example:
+		using simple_vector2
+		dim a as vector, b as vector
+		VSet( a, 1, 2 )
+		VSet( b, 4, 6 )
+		dim d as real
+		d = VDist( a, b )
+		print d
+
+	Output:
+		 5
+
 
 VMag( {a} )
 -----------
@@ -328,6 +542,17 @@ VMag( {a} )
 	d = | {a} |
 
 	Compute the magnitude of {a}
+
+	Example:
+		using simple_vector2
+		dim a as vector
+		VSet( a, 3, 4 )
+		dim d as real
+		d = VMag( a )
+		print d
+
+	Output:
+		 5
 
 
 VRotIm( {r}, angle )
@@ -338,6 +563,7 @@ VRotIm( {r}, angle )
 
 	Rotates vector {r} by angle randians where positive angle is
 	counter clockwise and returns result in {r}
+
 
 VPerp( {r}, {a} )
 ------------------
@@ -351,6 +577,18 @@ VPerp( {r}, {a} )
 		r.x = -a.y
 		r.y =  a.x
 
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim a as vector, r as vector
+		VSet( a, 1, 2 )
+		VPerp( r, a )
+		print VString(r)
+	
+	Output:
+		(-2, 1)
+
+
 VPerpIm( {r} )
 ---------------
 
@@ -360,6 +598,17 @@ VPerpIm( {r} )
 	Compute perpendicular vector to {r} and return in vector {r}
 	Rotates vector {r} 90 degrees (1/4 turn) counter-clockwise and
 	returns the result in {r}
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim r as vector
+		VSet( r, 1, 2 )
+		VPerpIm( r )
+		print VString(r)
+	
+	Output:
+		(-2, 1)
 
 
 VLineEqFrom2Point( L, {a}, {b} )
@@ -378,7 +627,35 @@ VString( {a} )
 --------------
 
 	Returns a string representation of vector {a} in the form:
-	"(a.x,a.y)"
+	"(a.x, a.y)"
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim r as vector
+		VSet( r, 1.1256, 2.0001 )
+		print VString(r)
+	
+	Output:
+		(1.1256, 2.0001)
+
+VFormat( {a}, format )
+----------------------
+
+	Returns a string representation of vector {a} where each
+	component is formated with the format string in the form:
+	"(x, y)"
+
+	Example:
+		#include "simple_vector2.bi"
+		using simple_vector2
+		dim r as vector
+		VSet( r, 0.1258, 2.0001 )
+		print VFormat(r, "0.000")
+	
+	Output:
+		(0.126, 2.000)
+		
 
 
 AddMinimal( x, d ) - EXPERIMENTAL

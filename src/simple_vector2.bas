@@ -12,6 +12,7 @@
 '' ============================================================
 
 #include once "simple_vector2.bi"
+#include once "vbcompat.bi"
 
 #define SNG_MIN_PRECISION 1E-7
 #define DBL_MIN_PRECISION 1E-15
@@ -237,6 +238,7 @@ namespace simple_vector2
 		v = a
 	end sub
 
+	''
 	public sub VLineEqFrom2Point( byref r as line_t, byref a as const vector, byref b as const vector )
 		dim as vector ab
 		VSub ab, a, b
@@ -245,15 +247,19 @@ namespace simple_vector2
 		r.d = -VDot(a, r.n)
 	end sub
 
+	''
 	public sub VLineEqFromPointNormal( byref r as line_t, byref a as const vector, byref n as const vector )
 		VUnit r.n, n
 		r.d = -VDot(a, r.n)
 	end sub
 
-	public function VString( byref v as const vector) as string
-		dim x as string
-		x = "(" & str(int(v.x*1000)/1000) & "," & str(int(v.y*1000)/1000) & ")"
-		function = x
+	''
+	public function VString( byref v as const vector ) as string
+		function = "(" & v.x & ", " & v.y & ")"
+	end function
+
+	public function VFormat( byref v as const vector, byref fmt as const string = "" ) as string
+		function = "(" & format( v.x, fmt ) & ", " & format( v.y, fmt ) & ")"
 	end function
 
 end namespace

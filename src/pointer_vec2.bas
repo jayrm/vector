@@ -1,7 +1,8 @@
 ''	vector - geometric vector library
 ''	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
 
-#include "pointer_vec2.bi"
+#include once "pointer_vec2.bi"
+#include once "vbcompat.bi"
 
 namespace pointer_vec2
 
@@ -195,5 +196,13 @@ namespace pointer_vec2
 		Dim a As REAL = FixAngle180( a2 - a1 )
 		return a
 	End Function
+
+	Function V2String( ByVal a As Vec2_T Ptr ) as String
+		function = "(" & a->x & ", " & a->y & ")"
+	end function
+
+	Function V2Format( ByVal a As Vec2_T Ptr, byref fmt as const string = "" ) as String
+		function = "(" & format( a->x, fmt) & ", " & format( a->y, fmt ) & ")"
+	end function
 
 end namespace

@@ -11,7 +11,8 @@
 ''
 '' ============================================================
 
-#include "simple_vector3.bi"
+#include once "simple_vector3.bi"
+#include once "vbcompat.bi"
 
 namespace simple_vector3
 
@@ -198,13 +199,6 @@ namespace simple_vector3
 	end function
 
 	''
-	public function VString( byref v as const vector ) as string
-		dim s as string
-		s = "(" & str(int(v.x*1000)/1000) & "," & str(int(v.y*1000)/1000) & "," & str(int(v.z*1000)/1000) & ")"
-		function = s
-	end function
-
-	''
 	public sub VUnit( byref v as vector, byref a as const vector )
 		dim d as real = VMag(a)
 		if d > 0 then
@@ -223,5 +217,14 @@ namespace simple_vector3
 			VSet v, 0, 0, 0
 		end if
 	end sub
+
+	''
+	public function VString( byref v as const vector ) as string
+		function = "(" & v.x & ", " & v.y & ", " & v.z & ")"
+	end function
+
+	public function VFormat( byref v as const vector, byref fmt as const string = "" ) as string
+		function = "(" & format( v.x, fmt ) & ", " & format( v.y, fmt ) & ", " & format( v.z, fmt ) & ")"
+	end function
 
 end namespace

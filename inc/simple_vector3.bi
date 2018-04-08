@@ -42,6 +42,7 @@
 		declare sub VRot902Vz( byref v as vector )
 
 		declare function VString( byref v as const vector ) as string
+		declare function VFormat( byref v as const vector, byref fmt as const string = "" ) as string
 
 		declare sub VUnit( byref v as vector, byref a as const vector )
 		declare sub VUnit2V( byref v as vector )

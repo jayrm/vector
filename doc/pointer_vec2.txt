@@ -34,9 +34,6 @@ Files
 		tests/pointer_vec2_api.bas
 
 
-Vector API
-==========
-
 Notation
 --------
 
@@ -47,6 +44,36 @@ Notation
 	        or with a arrow line above
 	a.x     x component of {a}, a subscript x
 	a.y     y component of {a}, a subscript y
+
+
+pointer_vec2 API
+================
+
+	V2Make( {a}, x, y )
+	V2Zero( {a} )
+	V2Split( {a}, x, y )
+	V2Unit( {a} )
+	V2Neg( {a} )
+	V2Add( {a}, {b} )
+	V2Sub( {a}, {b} )
+	V2Mul( {a}, k )
+	V2MulAdd( {a}, k1, {b}, k2 )
+	V2UnitR( {r}, {a} )
+	V2NegR( {r}, {a} )
+	V2AddR( {r}, {a}, {b} )
+	V2SubR( {r}, {a}, {b} )
+	V2MulR( {r}, {a}, k )
+	V2MulAddR( {r}, {a}, k1, {b}, k2 )
+	V2Dist( {a}, {b} )
+	V2Mag( {a} )
+	V2Dot( {a}, {b} )
+	FixAngle360( angle )
+	FixAngle180( angle )
+	V2Angle( {a} )
+	LimitValue( number, min_value, max_value )
+	GetAngleDelta( angle1, angle2 )
+	V2String( {a} )
+	V2Format( {a}, format )
 
 
 type real
@@ -72,7 +99,7 @@ type Vec2_T
 
 
 V2Make( {a}, x, y )
------------------
+-------------------
 
 	Declare Function V2Make( ByVal a As Vec2_T Ptr, ByVal x As REAL, ByVal y As REAL ) As Vec2_T Ptr
 
@@ -85,12 +112,18 @@ V2Make( {a}, x, y )
 	Returns pointer to {a}
 
 	Example:
-		dim a as vector
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T
 		V2Make( @a, 1, 2 )
+		print V2String( @a )
+
+	Output:
+		(1, 2)
 
 
 V2Zero( {a} )
------------------
+-------------
 
 	Declare Function V2Zero( ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
 
@@ -103,12 +136,18 @@ V2Zero( {a} )
 	Returns pointer to {a}
 
 	Example:
-		dim a as vector
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T
 		V2Zero( @a )
+		print V2String( @a )
+
+	Output:
+		(0, 0)
 
 
 V2Split( {a}, x, y )
------------------
+--------------------
 
 	Declare Sub V2Split( ByVal a As Vec2_T Ptr, ByRef x As REAL, ByRef y As REAL )
 
@@ -120,11 +159,20 @@ V2Split( {a}, x, y )
 		y = a.y
 
 	Example:
-		dim a as vector
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T
 		V2Make( @a, 10, 9 )
+		print V2String( @a )
 
 		dim x as real, y as real
 		V2Split( @a, x, y )
+		print x & ", " & y
+		
+
+	Output:
+		(10, 9)
+		10, 9
 
 
 V2Unit( {a} )
@@ -140,13 +188,19 @@ V2Unit( {a} )
 	Returns pointer to {a}
 
 	Example:
-		dim a as vector
-		V2Make( @a, 1, 2 )
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T
+		V2Make( @a, 8.660254, 5)
 		V2Unit( @a )
+		print V2String( @a )
+
+	Output:
+		(0.8660254, 0.5)
 
 
 V2Neg( {a} )
--------------
+------------
 
 	Declare Function V2Neg( ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
 
@@ -159,13 +213,19 @@ V2Neg( {a} )
 	Returns pointer to {a}
 
 	Example:
-		dim a as vector
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T
 		V2Make( @a, 1, 2 )
 		V2Neg( @a )
+		print V2String( @a )
+
+	Output:
+		(-1, -2)
 
 
 V2Add( {a}, {b} )
-------------------
+-----------------
 
 	Declare Function V2Add( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As Vec2_T Ptr
 
@@ -177,9 +237,21 @@ V2Add( {a}, {b} )
 
 	Returns pointer to {a}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, b as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2Make( @b, 3, 5 )
+		V2Add( @a, @b )
+		print V2String( @a )
+
+	Output:
+		(4, 7)
+
 
 V2Sub( {a}, {b} )
-------------------
+-----------------
 
 	Declare Function V2Sub( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As Vec2_T Ptr
 
@@ -191,9 +263,21 @@ V2Sub( {a}, {b} )
 
 	Returns pointer to {a}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, b as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2Make( @b, 3, 5 )
+		V2Sub( @a, @b )
+		print V2String( @a )
+
+	Output:
+		(-2, -3)
+
 
 V2Mul( {a}, k )
-----------------
+---------------
 
 	Declare Function V2Mul( ByVal a As Vec2_T Ptr, byval k As REAL ) As Vec2_T Ptr
 
@@ -205,9 +289,20 @@ V2Mul( {a}, k )
 
 	Returns pointer to {a}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2Mul( @a, -3 )
+		print V2String( @a )
+
+	Output:
+		(-3, -6)
+
 
 V2MulAdd( {a}, k1, {b}, k2 )
---------------------------------
+----------------------------
 
 	Declare Function V2MulAdd( ByVal a As Vec2_T Ptr, byval k1 As REAL, ByVal b As Vec2_T Ptr, byval k2 As REAL ) As Vec2_T Ptr
 
@@ -224,9 +319,21 @@ V2MulAdd( {a}, k1, {b}, k2 )
 
 	Returns pointer to {a}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, b as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2Make( @b, 3, 5 )
+		V2MulAdd( @a, -2, @b, 3 )
+		print V2String( @a )
+
+	Output:
+		(7, 11)
+
 
 V2UnitR( {r}, {a} )
---------------
+-------------------
 
 	Declare Function V2UnitR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
 
@@ -237,9 +344,20 @@ V2UnitR( {r}, {a} )
 
 	Returns pointer to {r}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, r as Vec2_T
+		V2Make( @a, 8.660254, 5)
+		V2UnitR( @r, @a )
+		print V2String( @r )
+
+	Output:
+		(0.8660254, 0.5)
+
 
 V2NegR( {r}, {a} )
--------------
+------------------
 
 	Declare Function V2NegR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
 
@@ -251,9 +369,20 @@ V2NegR( {r}, {a} )
 
 	Returns pointer to {r}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, r as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2NegR( @r, @a )
+		print V2String( @r )
 
-V2Add( {r}, {a}, {b} )
----------------------
+	Output:
+		(-1, -2)
+
+
+V2AddR( {r}, {a}, {b} )
+-----------------------
 
 	Declare Function V2AddR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As Vec2_T Ptr
 	
@@ -266,14 +395,20 @@ V2Add( {r}, {a}, {b} )
 	Returns pointer to {r}
 
 	Example:
-		dim a as vector, b as vector, r as vector
-		VSet( a, 1, 2 )
-		VSet( b, 3, 5 )
-		VAdd( r, a, b )
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, b as Vec2_T, r as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2Make( @b, 3, 5 )
+		V2AddR( @r, @a, @b )
+		print V2String( @r )
+
+	Output:
+		(4, 7)
 
 
-VSub( {r}, {a}, {b} )
----------------------
+V2SubR( {r}, {a}, {b} )
+-----------------------
 
 	Declare Function V2SubR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As Vec2_T Ptr
 	
@@ -286,14 +421,20 @@ VSub( {r}, {a}, {b} )
 	Returns pointer to {r}
 
 	Example:
-		dim a as vector, b as vector, r as vector
-		VSet( a, 1, 2 )
-		VSet( b, 3, 5 )
-		VSub( r, a, b )
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, b as Vec2_T, r as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2Make( @b, 3, 5 )
+		V2SubR( @r, @a, @b )
+		print V2String( @r )
+
+	Output:
+		(-2, -3)
 
 
-V2MulR( {r}, k, {a} )
--------------------
+V2MulR( {r}, {a}, k )
+---------------------
 
 	Declare Function V2MulR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr, byval k As Real) As Vec2_T Ptr
 
@@ -306,13 +447,19 @@ V2MulR( {r}, k, {a} )
 	Returns pointer to {r}
 
 	Example:
-		dim a as vector, r as vector
-		VSet( a, 1, 2 )
-		VMul( r, k, a )
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, r as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2MulR( @r, @a, 3 )
+		print V2String( @r )
+
+	Output:
+		(3, 6)
 
 
-V2MulAddR( {r}, k1, {a}, k2, {b} )
---------------------------------
+V2MulAddR( {r}, {a}, k1, {b}, k2 )
+----------------------------------
 
 	Declare Function V2MulAddR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr, byval k1 As REAL, ByVal b As Vec2_T Ptr, byval k2 As REAL ) As Vec2_T Ptr
 
@@ -329,9 +476,21 @@ V2MulAddR( {r}, k1, {a}, k2, {b} )
 
 	Returns pointer to {r}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, b as Vec2_T, r as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2Make( @b, 3, 5 )
+		V2MulAddR( @r, @a, -2, @b, 3 )
+		print V2String( @r )
+
+	Output:
+		(7, 11)
+
 
 V2Dist( {a}, {b} )
------------------
+------------------
 
 	Declare Function V2Dist( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As REAL
 
@@ -341,9 +500,22 @@ V2Dist( {a}, {b} )
 
 	Returns distance from {a} to {b}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, b as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2make( @b, 4, 6 )
+		dim d as real
+		d = V2Dist( @a, @b )
+		print d
+
+	Output:
+		 5
+
 
 V2Mag( {a} )
------------
+------------
 
 	Declare Function V2Mag( ByVal a As Vec2_T Ptr ) As REAL
 
@@ -353,9 +525,21 @@ V2Mag( {a} )
 
 	Returns magnitude of {a}
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T
+		V2Make( @a, 3, 4 )
+		dim d as real
+		d = V2Mag( @a )
+		print d
+
+	Output:
+		 5
+
 
 V2Dot( {a}, {b} )
-----------------
+-----------------
 
 	Declare Function V2Dot( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) AS REAL
 
@@ -365,6 +549,19 @@ V2Dot( {a}, {b} )
 		d = a.x * b.x + a.y * b.y
 
 	Returns the scalar dot product.
+
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim a as Vec2_T, b as Vec2_T
+		V2Make( @a, 1, 2 )
+		V2Make( @b, 3, 5 )
+		dim d as real
+		d = V2Dot( @a, @b )
+		print d
+	
+	Output:
+		 13
 
 
 FixAngle360( angle )
@@ -380,6 +577,22 @@ FixAngle360( angle )
 
 	Returns the clamped angle.
 
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		for t as real = -1 to 1
+			print "t("; t; "): ";
+			for angle as real = 0 to 359 step 45
+				print " "; FixAngle360( t * 360 + angle );
+			next
+			print
+		next
+
+	Output:
+		t(-1):   0  45  90  135  180  225  270  315
+		t( 0):   0  45  90  135  180  225  270  315
+		t( 1):   0  45  90  135  180  225  270  315
+
 
 FixAngle180( angle )
 --------------------
@@ -393,6 +606,22 @@ FixAngle180( angle )
 	begin with.
 
 	Returns the clamped angle.
+
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2			
+		for t as real = -1 to 1
+			print "t("; t; "): ";
+			for angle as real = -180 to 179 step 45
+				print " "; FixAngle180( t * 360 + angle );
+			next
+			print
+		next
+
+	Output:
+		t(-1):  -180 -135 -90 -45  0  45  90  135
+		t( 0):  -180 -135 -90 -45  0  45  90  135
+		t( 1):  -180 -135 -90 -45  0  45  90  135
 
 
 V2Angle( {a} )
@@ -425,3 +654,37 @@ GetAngleDelta( angle1, angle2 )
 
 	Expects angle1 and angle2 to be in the range -360 to 360.
 
+
+V2String( {a} )
+---------------
+
+	Returns a string representation of vector {a} in the form:
+	"(a.x, a.y)"
+
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim r as Vec2_T
+		V2Make( @r, 1.1256, 2.0001 )
+		print V2String(@r)
+	
+	Output:
+		(1.1256, 2.0001)
+
+
+V2Format( {a}, format )
+-----------------------
+
+	Returns a string representation of vector {a} where each
+	component is formated with the format string in the form:
+	"(x, y)"
+
+	Example:
+		#include "pointer_vec2.bi"
+		using pointer_vec2
+		dim r as Vec2_T
+		V2Make( @r, 0.1258, 2.0001 )
+		print V2Format(@r, "0.000")
+	
+	Output:
+		(0.126, 2.000)

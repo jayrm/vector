@@ -9,8 +9,7 @@ vector library
 
 Licensing
 ---------
-
-	Software is generally licensed under MIT license.  See license.txt
+	Software is licensed with MIT license.  See ./license.txt
 
 	Some portions of the software may be licensed more permissively
 	and will be clearly indicated at the top of the source code
@@ -19,7 +18,6 @@ Licensing
 
 Introduction
 ------------
-
 	I like vectors, and I think they are handy.
 
 	Purpose of this library is to:
