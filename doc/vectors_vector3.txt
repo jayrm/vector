@@ -730,6 +730,9 @@ Operator * ( vector3, vector3 )
 	
 	Compute the vector cross product of vector {a} and vector {b}
 	and return in {v}
+		v.x = a.y * b.z - a.z * b.y
+		v.y = a.z * b.x - a.x * b.z
+		v.z = a.x * b.y - a.y * b.x
 
 	Example:
 		#include "vector3.bi"

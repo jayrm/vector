@@ -547,18 +547,44 @@ SUITE( simple_vector3_api )
 
 	END_TEST
 
-/'
+	TEST( VRot2Vx_ )
 
-		declare sub VRot2Vx( byref v as vector, byval r as real )
-		declare sub VRot902Vx( byref v as vector )
-		declare sub VRot2Vy( byref v as vector, byval r as real )
-		declare sub VRot902Vy( byref v as vector )
-		declare sub VRot2Vz( byref v as vector, byval r as real )
-		declare sub VRot902Vz( byref v as vector )
-'/
+		dim a as vector, b as vector
+		dim ra1 as real, ra2 as real
+		dim x as real, y as real, z as real
+		dim angle1 as real, angle2 as real
 
-/'
-	!!! TODO !!! - verify expected rotations are correct
+		for angle1 = -360 to 360 step 30
+			ra1 = angle1 * test_PI_real / 180
+
+			VSet( a, 100, 1, 0 )
+			VRot2Vx( a, ra1 )
+
+			x = 100
+			y = cos( ra1 )
+			z = sin( ra1 )
+
+			CU_ASSERT_REAL_EQUAL( a.x, x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( a.y, y, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( a.z, z, test_epsilon_real )
+
+			for angle2 = -360 to 360 step 30
+				ra2 = angle2 * test_PI_real / 180
+
+				b = a
+				VRot2Vx( b, ra2 )
+
+				x = 100
+				y = cos( ra1 + ra2 )
+				z = sin( ra1 + ra2 )
+				
+				CU_ASSERT_REAL_EQUAL( b.x, x, test_epsilon_real )
+				CU_ASSERT_REAL_EQUAL( b.y, y, test_epsilon_real )
+				CU_ASSERT_REAL_EQUAL( b.z, z, test_epsilon_real )
+			next
+		next
+
+	END_TEST
 
 	TEST( VRot2Vy_ )
 
@@ -570,8 +596,8 @@ SUITE( simple_vector3_api )
 		for angle1 = -360 to 360 step 30
 			ra1 = angle1 * test_PI_real / 180
 
-			VSet( a, 1, 0, 100 )
-			VRot2Vz( a, ra1 )
+			VSet( a, 0, 100, 1 )
+			VRot2Vy( a, ra1 )
 
 			x = sin( ra1 )
 			y = 100
@@ -598,7 +624,6 @@ SUITE( simple_vector3_api )
 		next
 
 	END_TEST
-'/
 
 	TEST( VRot2Vz_ )
 
@@ -639,6 +664,83 @@ SUITE( simple_vector3_api )
 
 	END_TEST
 
+	TEST( VRot902Vx_ )
+
+		dim a as vector, b as vector
+		dim ra1 as real, ra2 as real
+		dim x as real, y as real, z as real
+		dim angle1 as real
+
+		for angle1 = -360 to 360 step 30
+			ra1 = angle1 * test_PI_real / 180
+			VSet( a, 100, cos( ra1 ), sin( ra1 ) )
+
+			ra2 = 90 * test_PI_real / 180
+			b = a
+			VRot902Vx( b )
+
+			x = 100
+			y = cos( ra1 + ra2 )
+			z = sin( ra1 + ra2 )
+			
+			CU_ASSERT_REAL_EQUAL( b.x, x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( b.y, y, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( b.z, z, test_epsilon_real )
+		next
+
+	END_TEST
+
+	TEST( VRot902Vy_ )
+
+		dim a as vector, b as vector
+		dim ra1 as real, ra2 as real
+		dim x as real, y as real, z as real
+		dim angle1 as real
+
+		for angle1 = -360 to 360 step 30
+			ra1 = angle1 * test_PI_real / 180
+			VSet( a, sin( ra1 ), 100, cos( ra1 ) )
+
+			ra2 = 90 * test_PI_real / 180
+			b = a
+			VRot902Vy( b )
+
+			x = sin( ra1 + ra2 )
+			y = 100
+			z = cos( ra1 + ra2 )
+			
+			CU_ASSERT_REAL_EQUAL( b.x, x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( b.y, y, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( b.z, z, test_epsilon_real )
+		next
+
+	END_TEST
+
+	TEST( VRot902Vz_ )
+
+		dim a as vector, b as vector
+		dim ra1 as real, ra2 as real
+		dim x as real, y as real, z as real
+		dim angle1 as real
+
+		for angle1 = -360 to 360 step 30
+			ra1 = angle1 * test_PI_real / 180
+			VSet( a, cos( ra1 ), sin( ra1 ), 100 )
+
+			ra2 = 90 * test_PI_real / 180
+			b = a
+			VRot902Vz( b )
+
+			x = cos( ra1 + ra2 )
+			y = sin( ra1 + ra2 )
+			z = 100
+				
+			CU_ASSERT_REAL_EQUAL( b.x, x, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( b.y, y, test_epsilon_real )
+			CU_ASSERT_REAL_EQUAL( b.z, z, test_epsilon_real )
+		next
+
+	END_TEST
 
 	TEST( VString_ )
 

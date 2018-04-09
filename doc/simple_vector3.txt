@@ -57,6 +57,7 @@ simple_vector3 API
 	VUnit2V( {r} )
 	VLimit2V( {r}, d )
 	VDot( {a}, {b} )
+	VCross2V( {r}, {a}, {b} )
 	VDist( {a}, {b} )
 	VMag( {a} )
 	VRot2Vx( {r}, angle )
@@ -373,6 +374,30 @@ VDot( {a}, {b} )
 
 	Compute the scalar dot product of {a} dot {b}.
 		d = a.x * b.x + a.y * b.y
+
+
+VCross2V( {a}, {b} )
+----------------
+
+	{r} = {a} X {b}
+
+	Compute the vector cross product of vector {a} and vector {b}
+	and return in {r}
+		r.x = a.y * b.z - a.z * b.y
+		r.y = a.z * b.x - a.x * b.z
+		r.z = a.x * b.y - a.y * b.x
+
+	Example:
+		#include "simple_vector3.bi"
+		using simple_vector3
+		dim a as vector, b as vector, r as vector
+		VSet( a, 1, 2, 3 )
+		VSet( b, -2, -1, -1 )
+		VCross2V( r, a, b )
+		print VString( r )
+
+	Output:
+		(1, -5, 3)
 
 
 VDist( {a}, {b} )

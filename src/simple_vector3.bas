@@ -143,8 +143,8 @@ namespace simple_vector3
 	public sub VRot2Vx( byref v as vector, byval r as const real )
 		dim a as vector
 		a.x = v.x
-		a.y = -v.z * SIN(r) + v.y * COS(r)
-		a.z = v.z * COS(r) + v.y * SIN(r)
+		a.y = v.y * COS(r) - v.z * SIN(r)
+		a.z = v.y * SIN(r) + v.z * COS(r)
 		v = a
 	end sub
 
@@ -153,16 +153,16 @@ namespace simple_vector3
 		dim a as vector
 		a = v
 		v.x = a.x
-		v.y = a.z
-		v.z = -a.y
+		v.y = -a.z
+		v.z = a.y
 	end sub
 
 	''
 	public sub VRot2Vy( byref v as vector, byval r as const real )
 		dim a as vector
-		a.x = v.x * COS(r) - v.z * SIN(r)
+		a.x = v.z * SIN(r) + v.x * COS(r)
 		a.y = v.y
-		a.z = v.x * SIN(r) + v.z * COS(r)
+		a.z = v.z * COS(r) - v.x * SIN(r)
 		v = a
 	end sub
 
@@ -170,9 +170,9 @@ namespace simple_vector3
 	public sub VRot902Vy( byref v as vector )
 		dim a as vector
 		a = v
-		v.x = -a.z
+		v.x = a.z
 		v.y = a.y
-		v.z = a.x
+		v.z = -a.x
 	end sub
 
 	''
@@ -197,6 +197,13 @@ namespace simple_vector3
 	public function VDot( byref v1 as const vector, byref v2 as const vector ) as real
 		function = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
 	end function
+
+	''
+	public sub VCross2V( byref v as vector, byref a as const vector, byref b as const vector )
+		v.x = a.y * b.z - a.z * b.y
+		v.y = a.z * b.x - a.x * b.z
+		v.z = a.x * b.y - a.y * b.x
+	end sub
 
 	''
 	public sub VUnit( byref v as vector, byref a as const vector )

@@ -48,6 +48,7 @@
 		declare sub VUnit2V( byref v as vector )
 
 		declare function VDot( byref v1 as const vector, byref v2 as const vector ) as real
+		declare sub VCross2V( byref v as vector, byref a as const vector, byref b as const vector )
 
 	end namespace
 

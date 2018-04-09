@@ -8,11 +8,15 @@ version 0.3
 - pointer_vec2: add V2Format() function
 - tool to extract example code from documentation
 - makefile to build and test documenation example code
+- simple_vector3: VCross2V corss product
+- hershey font data
+- vectutor program for learning vectors WIP
 
 [changed]
 - simple_vector2: no rounding in VString() function
 - simple_vector3: no rounding in VString() function
 - pointer_vec2: no rounding in V2String() function
+- fix simple_vector3 rotations
 
 
 version 0.2
