@@ -1,7 +1,7 @@
 ''	vector - geometric vector library
 ''	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
 
-#include once "camera.bi"
+#include once "camera3.bi"
 
 namespace vectors
 
