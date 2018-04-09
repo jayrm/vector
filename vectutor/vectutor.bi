@@ -1,5 +1,5 @@
-#ifndef __VEC_TEST_BI_INCLUDE__
-#define __VEC_TEST_BI_INCLUDE__
+#ifndef __VECTUTOR_BI_INCLUDE__
+#define __VECTUTOR_BI_INCLUDE__
 
 #include once "vector2_array.bi"
 

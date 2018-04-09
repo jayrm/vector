@@ -1,8 +1,8 @@
 #include once "ogl_stuff.bi"
 #include once "ogl_font.bi"
 #include once "ogl_draw.bi"
-#include once "vec_test.bi"
-#include once "vec_test_color.bi"
+#include once "vectutor.bi"
+#include once "vectutor_color.bi"
 #include once "timer.bi"
 #include once "GL/gl.bi"
 #include once "fbgfx.bi"
@@ -10,13 +10,13 @@
 
 '' ========================================================
 
-declare function vec_test_misc( m as integer = 0 ) as TEST_CTX
-declare function vec_test_points( m as integer = 0 ) as TEST_CTX
-declare function vec_test_line( m as integer = 0 ) as TEST_CTX
-declare function vec_test_triangle( m as integer = 0 ) as TEST_CTX
-declare function vec_test_hull( m as integer = 0 ) as TEST_CTX
-declare function vec_test_circle( m as integer = 0 ) as TEST_CTX
-declare function vec_test_angle( m as integer = 0 ) as TEST_CTX
+declare function vectutor_misc( m as integer = 0 ) as TEST_CTX
+declare function vectutor_points( m as integer = 0 ) as TEST_CTX
+declare function vectutor_line( m as integer = 0 ) as TEST_CTX
+declare function vectutor_triangle( m as integer = 0 ) as TEST_CTX
+declare function vectutor_hull( m as integer = 0 ) as TEST_CTX
+declare function vectutor_circle( m as integer = 0 ) as TEST_CTX
+declare function vectutor_angle( m as integer = 0 ) as TEST_CTX
 
 type TEST_CTX_CONSTRUCTOR as function( m as integer = 0 ) as TEST_CTX
 
@@ -24,20 +24,20 @@ extern GTIMER as SYSTIMER
 
 dim shared ctx_list( 1 to 7 ) as TEST_CTX_CONSTRUCTOR = _
 { _
-	procptr( vec_test_misc ), _
-	procptr( vec_test_points ), _
-	procptr( vec_test_line ), _
-	procptr( vec_test_triangle ), _
-	procptr( vec_test_hull ), _
-	procptr( vec_test_circle ), _
-	procptr( vec_test_angle ) _
+	procptr( vectutor_misc ), _
+	procptr( vectutor_points ), _
+	procptr( vectutor_line ), _
+	procptr( vectutor_triangle ), _
+	procptr( vectutor_hull ), _
+	procptr( vectutor_circle ), _
+	procptr( vectutor_angle ) _
 } 
 
 dim shared ctx as TEST_CTX
 
 dim shared ctx_index as integer = 0
 
-function vec_test( i as integer = 0, m as integer = 0 ) as TEST_CTX
+function vectutor( i as integer = 0, m as integer = 0 ) as TEST_CTX
 	ctx_index = i
 	if ctx_index < 1 then ctx_index = 1
 	if ctx_index > 7 then ctx_index = 7
@@ -57,7 +57,7 @@ private sub def_HandleInput( ctx as TEST_CTX )
 		if key_space = FALSE then
 			key_space = TRUE
 			if ctx.MaxModes > 1 then
-				ctx = vec_test( ctx_index, (ctx.Mode mod ctx.MaxModes) + 1 )
+				ctx = vectutor( ctx_index, (ctx.Mode mod ctx.MaxModes) + 1 )
 			end if
 		end if		
 	else
@@ -228,18 +228,18 @@ sub menu_input( )
 	next 
 
 	if sel > 0 then
-		ctx = vec_test( sel )			
+		ctx = vectutor( sel )			
 	end if
 
 end sub
 
 '' ========================================================
-'' vec_test.bas
+'' vectutor.bas
 '' ========================================================
 
 gfx_init( )
 
-ctx = vec_test( 0, 0 )
+ctx = vectutor( 0, 0 )
 
 do
 	dim menu_mode as BOOLEAN = FALSE

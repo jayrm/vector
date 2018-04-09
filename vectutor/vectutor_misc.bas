@@ -1,13 +1,13 @@
 '' ========================================================
-'' vec_test_misc.bas
+'' vectutor_misc.bas
 '' ========================================================
 
 #include once "ogl_stuff.bi"
 #include once "ogl_draw.bi"
 #include once "ogl_font.bi"
 #include once "vector2.bi"
-#include once "vec_test.bi"
-#include once "vec_test_color.bi"
+#include once "vectutor.bi"
+#include once "vectutor_color.bi"
 #include once "mouse.bi"
 
 extern GMOUSE as MOUSE
@@ -52,7 +52,7 @@ private sub draw_scene( ctx as TEST_CTX )
 
 end sub
 
-function vec_test_misc( m as integer = 0 ) as TEST_CTX
+function vectutor_misc( m as integer = 0 ) as TEST_CTX
 
 	dim ctx as TEST_CTX
 	

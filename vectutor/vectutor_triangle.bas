@@ -1,5 +1,5 @@
 '' ========================================================
-'' vec_test_triangle.bas
+'' vectutor_triangle.bas
 '' ========================================================
 
 #include once "ogl_stuff.bi"
@@ -7,8 +7,8 @@
 #include once "ogl_font.bi"
 #include once "vector2.bi"
 #include once "vector2_array.bi"
-#include once "vec_test.bi"
-#include once "vec_test_color.bi"
+#include once "vectutor.bi"
+#include once "vectutor_color.bi"
 
 '' --------------------------------------------------------
 dim shared points as VECTOR2_ARRAY
@@ -111,7 +111,7 @@ private sub draw_scene( ctx as TEST_CTX )
 
 end sub
 
-function vec_test_triangle( m as integer = 0 ) as TEST_CTX
+function vectutor_triangle( m as integer = 0 ) as TEST_CTX
 
 	dim ctx as TEST_CTX
 

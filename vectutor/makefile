@@ -1,29 +1,29 @@
 MAIN := vectutor
 
-SRCS := vec_test.bas
+SRCS := $(MAIN).bas
 SRCS += mouse.bas
 SRCS += ogl_draw.bas
 SRCS += ogl_font.bas
 SRCS += ogl_stuff.bas
 SRCS += timer.bas
 SRCS += trig.bas
-SRCS += vec_test_circle.bas
-SRCS += vec_test_angle.bas
-SRCS += vec_test_color.bas
-SRCS += vec_test_hull.bas
-SRCS += vec_test_line.bas
-SRCS += vec_test_misc.bas
-SRCS += vec_test_points.bas
-SRCS += vec_test_triangle.bas
+SRCS += vectutor_circle.bas
+SRCS += vectutor_angle.bas
+SRCS += vectutor_color.bas
+SRCS += vectutor_hull.bas
+SRCS += vectutor_line.bas
+SRCS += vectutor_misc.bas
+SRCS += vectutor_points.bas
+SRCS += vectutor_triangle.bas
 
 HDRS := $(wildcard ../inc/*.bi)
 
 .phony: all
-all: vec_test.exe
+all: $(MAIN).exe
 
-vec_test.exe: $(SRCS) $(HDRS) $(LIBS)
+$(MAIN).exe: $(SRCS) $(HDRS) $(LIBS)
 	fbc -mt -i ../inc -p ../lib -g -exx $(SRCS) -x $@
 
 .phony: clean
 clean:
-	-rm vec_test.exe
+	-rm $(MAIN).exe

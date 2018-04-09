@@ -1,11 +1,11 @@
-#ifndef __VEC_TEST_COLOR_BI_INCLUDE__
-#define __VEC_TEST_COLOR_BI_INCLUDE__
+#ifndef __vectutor_COLOR_BI_INCLUDE__
+#define __vectutor_COLOR_BI_INCLUDE__
 
 #include once "real.bi"
 
 using vectors
 
-enum VEC_TEST_COLOR
+enum vectutor_COLOR
 
   COLOR_TEXT
   COLOR_POINTS
@@ -21,10 +21,10 @@ enum VEC_TEST_COLOR
   COLOR_WHITE
 
   
-  VEC_TEST_COLORS
+  vectutor_COLORS
 
 end enum
 
-declare sub SetColor( index as VEC_TEST_COLOR, intensity as REAL = 1.0 )
+declare sub SetColor( index as vectutor_COLOR, intensity as REAL = 1.0 )
 
 #endif
