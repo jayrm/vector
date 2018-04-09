@@ -1,5 +1,8 @@
 version 0.4
 
+[added]
+- angles component for angle related functions
+
 [changed]
 - type REAL is a global data type
 

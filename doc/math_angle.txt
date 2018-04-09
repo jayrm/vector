@@ -1,0 +1,74 @@
+	vector - geometric vector library
+	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
+angles
+======
+
+	Functions for working with angles
+
+		radians  = Deg2Rad( degrees )
+		gradians = Deg2Grad( degrees )
+		turns    = Deg2Turn( degrees )
+		degrees  = Rad2Deg( radians )
+		gradians = Rad2Grad( radians )
+		turns    = Rad2Turn( radians )
+		degrees  = Grad2Deg( gradians )
+		radians  = Grad2Grad( gradians )
+		turns    = Grad2Turn( gradians )
+		degrees  = Turn2Deg( turns )
+		radians  = Turn2Rad( turns )
+		gradians = Turn2Grad( turns )
+
+
+Files
+-----
+
+	See:
+		doc/math_angle.txt
+		src/angle.bas
+		inc/angle.bi
+		tests/math_angle.bas
+
+
+namespace Angles
+----------------
+
+	Angle related functions and constants are in declared and
+	defined in namespace angle.
+
+
+Angle Types
+-----------
+
+	Type aliases give function declarations clear readability:
+
+		type degrees as real
+		type radians as real
+		type gradians as real
+		type turns as real
+
+
+Angle Conversion
+----------------
+
+	Convert angle from one angular unit to another
+
+	1 turn = 360 degress = 2 * PI radians = 400 gradians
+
+	radians  = Deg2Rad( degrees )
+	gradians = Deg2Grad( degrees )
+	turns    = Deg2Turn( degrees )
+
+	degrees  = Rad2Deg( radians )
+	gradians = Rad2Grad( radians )
+	turns    = Rad2Turn( radians )
+
+	degrees  = Grad2Deg( gradians )
+	radians  = Grad2Grad( gradians )
+	turns    = Grad2Turn( gradians )
+
+	degrees  = Turn2Deg( turns )
+	radians  = Turn2Rad( turns )
+	gradians = Turn2Grad( turns )
+
+

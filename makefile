@@ -28,6 +28,7 @@ VECTORS_SRCS    += src/plane3.bas
 VECTORS_SRCS    += src/line2.bas
 VECTORS_SRCS    += src/vector2_array.bas
 VECTORS_SRCS    += src/vector2_aabb.bas
+VECTORS_SRCS    += src/angle.bas
 
 VECTORS_HDRS    := inc/vectypes.bi
 VECTORS_HDRS    += inc/vector2.bi
@@ -37,6 +38,7 @@ VECTORS_HDRS    += inc/plane3.bi
 VECTORS_HDRS    += inc/line2.bi
 VECTORS_HDRS    += inc/vector2_array.bi
 VECTORS_HDRS    += inc/vector2_aabb.bi
+VECTORS_HDRS    += inc/angle.bi
 
 TEST_SRCS := tests/tests.bas
 TEST_SRCS += tests/simple_vector2_api.bas
@@ -45,6 +47,7 @@ TEST_SRCS += tests/pointer_vec2_api.bas
 TEST_SRCS += tests/vectors_vectypes.bas
 TEST_SRCS += tests/vectors_vector2.bas
 TEST_SRCS += tests/vectors_vector3.bas
+TEST_SRCS += tests/math_angle.bas
 
 TEST_HDRS := tests/fbcunit_local.bi
 
