@@ -26,8 +26,8 @@ VECTORS_SRCS    += src/vector3.bas
 VECTORS_SRCS    += src/camera.bas
 VECTORS_SRCS    += src/plane3.bas
 VECTORS_SRCS    += src/line2.bas
-VECTORS_HDRS    += src/vector2_array.bas
-VECTORS_HDRS    += src/vector2_aabb.bas
+VECTORS_SRCS    += src/vector2_array.bas
+VECTORS_SRCS    += src/vector2_aabb.bas
 
 VECTORS_HDRS    := inc/vectypes.bi
 VECTORS_HDRS    += inc/vector2.bi

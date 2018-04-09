@@ -5,8 +5,6 @@
 
 	namespace vectors
 
-		#define EPSILON 1e-15
-
 		type VECTOR2_ARRAY
 
 		private:

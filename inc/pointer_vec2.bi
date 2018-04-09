@@ -5,7 +5,9 @@
 
 	namespace pointer_vec2
 
-		#define REAL Single
+		#ifndef REAL
+			type REAL as Single
+		#endif
 
 		Type Vec2_T
 		  x As REAL

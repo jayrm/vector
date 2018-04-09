@@ -160,9 +160,9 @@ namespace simple_vector3
 	''
 	public sub VRot2Vy( byref v as vector, byval r as const real )
 		dim a as vector
-		a.x = v.x * COS(r) + v.z * SIN(r)
+		a.x = v.x * COS(r) - v.z * SIN(r)
 		a.y = v.y
-		a.z = -v.x * SIN(r) + v.z * COS(r)
+		a.z = v.x * SIN(r) + v.z * COS(r)
 		v = a
 	end sub
 
@@ -178,8 +178,8 @@ namespace simple_vector3
 	''
 	public sub VRot2Vz( byref v as vector, byval r as const real )
 		dim a as vector
-		a.x = v.x * COS(r) + v.y * SIN(r)
-		a.y = -v.x * SIN(r) + v.y * COS(r)
+		a.x = v.x * COS(r) - v.y * SIN(r)
+		a.y = v.x * SIN(r) + v.y * COS(r)
 		a.z = v.z
 		v = a
 	end sub

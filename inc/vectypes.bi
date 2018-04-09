@@ -31,13 +31,9 @@
 	#define CVNBOOL(x) (iif(x, FALSE, TRUE ))
 	#endif
 
+	#include once "real.bi"
+
 	namespace vectors
-
-		#ifndef real
-			type real as single
-		#endif
-
-		#define creal( v ) cast( real, (v) )
 
 		const pi as double = 3.1415926535897932384626433832795
 		const pi_by_2 as double = pi * 0.5
