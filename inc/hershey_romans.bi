@@ -1,5 +1,8 @@
+'' DO NOT EDIT - automatically generated 2018-04-09 22:42:15
+
 dim shared glyph_vectors_romans(0 to ...) _
-    as Hershey_GlyphVector  = { _
+    as Hershey_GlyphVector = _
+{ _
 (-8, 8), (-5, 5), (0, -12), (0, 2), (-50, 0), (0, 7), (-1, 8), _
 (0, 9), (1, 8), (0, 7), (-8, 8), (-4, -12), (-4, -5), (-50, 0), _
 (4, -12), (4, -5), (-10, 11), (1, -16), (-6, 16), (-50, 0), _

@@ -5,18 +5,9 @@
 #include once "GL/gl.bi"
 #include once "ogl_draw.bi"
 #include once "vector2.bi"
+#include once "hershey.bi"
 
 using vectors
-
-type Hershey_GlyphVector field = 1
-    x as byte
-    y as byte
-end type
-
-type Hershey_GlyphIndex
-    index as integer
-    count as integer
-end type
 
 #include once "hershey_romans.bi"
 
