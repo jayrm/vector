@@ -10,6 +10,7 @@ vectors library
 
 	vector2 - 2D vector data type
 	vector3 - 3D vector data type
+	line2   - 2D line data type
 
 	Also has some other support functions and constants
 
@@ -27,15 +28,19 @@ Files
 		doc/vectors.txt
 		doc/vectors_vector2.txt
 		doc/vectors_vector3.txt
+		doc/vectors_line2.txt
 		src/vectypes.bas
 		src/vector2.bas
 		src/vector3.bas
+		src/line2.bas
 		inc/vectypes.bi
 		inc/vector2.bi
 		inc/vector3.bi
+		inc/line2.bi
 		tests/vectors_vectypes.bas
 		tests/vectors_vector2.bas
 		tests/vectors_vector3.bas
+		tests/vectors_line2.bas
 
 
 Notation
@@ -69,7 +74,7 @@ version
 -------
 
 	#define VECTORS_VERSION_MAJOR 0
-	#define VECTORS_VERSION_MINOR 2
+	#define VECTORS_VERSION_MINOR 4
 
 
 type REAL

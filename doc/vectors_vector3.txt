@@ -1,8 +1,8 @@
 	vector - geometric vector library
 	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
 
-vector3
-=======
+vectors.vector3
+===============
 
 	3D geometric vector data type
 
@@ -70,6 +70,20 @@ vector3
 		Compare Equality             t  = {a} = {b}
 		Compare Inequality           t  = {a} <> {b}
 		Compare Zero                 t  = {a}.isZero
+
+
+Notation
+--------
+
+	The following will be used:
+
+	(x, y)     2D vector with scalar components x & y
+	(x, y, z)  3D vector with scalar components x, y, z
+	{a}        vector 'a', what would normally be written in bold
+	           or with a arrow line above
+	a.x        x component of {a}, a subscript x
+	a.y        y component of {a}, a subscript y
+	a.z        z component of {a}, a subscript z
 
 
 type vector3

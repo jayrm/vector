@@ -1,0 +1,222 @@
+	vector - geometric vector library
+	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
+vectors.line2
+=============
+
+	2D geometric line type
+
+
+Notation
+--------
+
+	The following will be used:
+
+	(x, y)     2D vector with scalar components x & y
+	{a}        vector 'a', what would normally be written in bold
+	           or with a arrow line above
+	a.x        x component of {a}, a subscript x
+	a.y        y component of {a}, a subscript y
+
+	[L]        2D line 'L' of the form Ax + Bx + C = 0
+	[A,B,C]    2D line of the form Ax + Bx + C = 0
+
+
+type line2
+----------
+
+	type LINE2
+		union
+			type
+				a as REAL
+				b as REAL
+				c as REAL
+			end type
+			type
+				norm as vector2
+			end type
+		end union
+	end type
+
+	Line has the form Ax + By + C = 0
+
+
+Construction
+------------
+
+	Create a 2D line, with zero coefficents:
+
+		dim [L] ] = [ 0, 0, 0 ]
+
+
+Initialization
+--------------
+
+	Create a 2D line, with coefficients, which is equivalent to
+	calling SetByCoeff(a,b,c) method.
+
+		dim [L] = [ a, b, c ]
+
+	Create a 2D line, from 2D points 2D vectors {p} and {q}, and
+	if equivalent to call SetByTwoPoints( {p}, {q} ) method.
+
+		dim [L] = ( {p}, {q} )
+
+	Create a 2D line, from normal and distance and is equivalent to
+	calling SetByPointDirection( {p}, {r} ) method.
+		
+		dim [L] = ( {n}, c )
+
+
+[L].SetByCoeff( a, b, c )
+-------------------------
+
+	Initialize line equation by coefficients
+
+		[L] = [ a, b, c ]
+
+	Set the coeffecients of the line equation directly
+		[L].a = a
+		[L].b = b
+		[L].c = c
+
+
+[L].SetByNormalDistance( {n}, c )
+---------------------------------
+
+	Initialize line equation by normal and distance
+
+		[L] = [ {n}, c ]
+
+	Set the coeffecients of the line equation using a normal
+	to the line and perpendicular distance from (0, 0) to the
+	line
+		[L].a = n.x
+		[L].b = n.y
+		[L].c = c
+
+
+[L].SetByPointDirection( {p}, {r} )
+-----------------------------------
+
+	Initialize line equation by point and normal
+
+		[L] = [ {p}, {r} ]
+
+	Set the line equation normal vector using perpendicular 
+	unit vector of vector {r}.  Project vector {p} on to 
+	the normal to get the negative distance.
+
+		[L].{n} = |{r}|.perp
+		[L].c   = - {p} . [L].{n}
+
+
+[L].SetByTwoPoints( {p}, {q} )
+------------------------------
+
+	Initialize line equation by two points
+
+		[L] = [ {p}, {q} ]
+
+	Set the line equation by using {q} - {p} as the direction 
+	vector.
+
+		[L].{n} = |{q}-{p}|.perp
+		[L].c   = - {p} . [L].{n}
+
+
+[L].{normal} property
+---------------------
+
+	Get/Set the normal
+
+		{v} = [L].{n}
+		[L].{n} = {v}
+
+	Get the normal of [L] and return in vector {v}
+		v.x = [L].a
+		v.y = [L].b
+
+	Set the normal of [L] with vector {v}
+		[L].a = v.x
+		[L].b = v.y
+		
+
+[L].distance property
+---------------------
+
+	Get/Set the distance coefficient
+
+		[L].c = d
+
+	Get the distance coefficent of [L]
+		distance = [L].c
+
+	Set the distance coefficent of [L]
+		[L].c = distance
+
+
+[L].DistanceToPoint( {p} )
+--------------------------
+
+	Get the perpendicular distance from point to line.  
+
+		distance = {p} . [L].{n} + [L].c
+
+	Calculate the perpendicular distance by computing the dot product
+	of the point and line's normal plus the line's distance.  The
+	result is a positive value if the point is on the same side as the 
+	normal, and	a negative value indicates the point is on the opposite 
+	side of	the normal.  A result of zero indicates that the point is
+	on the line.
+		
+
+
+[L].IsPlane property
+--------------------
+
+	Tests if line is planar
+
+		result = [L].IsPlane
+
+	The line is planar, all values of x and y satisfy the line equation if
+	all coefficients are zero.
+
+
+[L].IsEmpty property
+--------------------
+
+	Tests if the line is empty
+
+		result = [L].IsPlane
+
+	The line is empty, that is, no values of x and y satisfy the line 
+	equation if normal is zero (coefficents a & b), and distance
+	(coefficient c) is non-zero.
+
+
+ratio = [L].Intersection( {p}, {q}, {r} )
+-----------------------------------------
+
+	Intersection of line, and line formed by points {p} and {q}
+
+	Returns the intersection point in vector {r}
+
+	Return value of the function is the intersection point
+	expressed as a ratio
+
+		{r} = {p} + ratio * ( {q}-{p} )
+
+
+ratio = [L1].Intersection( [L2], {r} )
+--------------------------------------
+
+	Intersection of line [L1] and line [L2]
+
+	Returns the intersection point in vector {r}
+
+	Return value of the function is the intersection point
+	expressed as a ratio where:
+		
+		{p} is the point on the line closest to the origin
+		{r} = {p} + ratio * ( [L].{n}.perp )

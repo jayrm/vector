@@ -1,8 +1,8 @@
 	vector - geometric vector library
 	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
 
-pointer_vec2
-============
+pointer_vec2 library
+====================
 
 	Simple 2D vector API using procedures only
 

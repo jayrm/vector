@@ -62,6 +62,9 @@ sub outinclude( includes as string )
 	case "vector3"
 		outprog( !"#include once \"vector3.bi\"" )
 
+	case "line2"
+		outprog( !"#include once \"line2.bi\"" )
+
 	case "simple_vector2"
 		outprog( !"#include once \"simple_vector2.bi\"" )
 
