@@ -5,6 +5,7 @@ version 0.4
 
 [changed]
 - type REAL is a global data type
+- FixAngle*() functions moved to namespace angles
 
 
 version 0.3

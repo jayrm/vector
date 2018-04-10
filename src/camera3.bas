@@ -2,6 +2,9 @@
 ''	Copyright (C) 2018 Jeffery R. Marshall (coder[at]execulink[dot]com)
 
 #include once "camera3.bi"
+#include once "angle.bi"
+
+using angles
 
 namespace vectors
 

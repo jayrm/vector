@@ -25,18 +25,22 @@ Files
 -----
 
 	See:
+		doc/math_angle.txt
 		doc/vectors.txt
 		doc/vectors_vector2.txt
 		doc/vectors_vector3.txt
 		doc/vectors_line2.txt
+		src/angle.bas
 		src/vectypes.bas
 		src/vector2.bas
 		src/vector3.bas
 		src/line2.bas
+		inc/angle.bi
 		inc/vectypes.bi
 		inc/vector2.bi
 		inc/vector3.bi
 		inc/line2.bi
+		tests/math_angles.bas
 		tests/vectors_vectypes.bas
 		tests/vectors_vector2.bas
 		tests/vectors_vector3.bas
@@ -127,70 +131,5 @@ Boolean, BOOL
 	#endif
 
 	See vectypes.bi
-
-
-FixAngle180( angle )
---------------------
-
-	declare function FixAngle180( byval angle as real ) as real
-
-	Computes equivalent angle between -180 degrees and 180 degrees.
-
-	Uses a simple loop to clamp the angle, so expectation is that
-	the starting angle is somewhat close to the -180 to 180 range to
-	begin with.
-
-	Returns the clamped angle.
-
-	See vectypes.bi
-
-
-FixAngle360( angle )
---------------------
-
-	declare function FixAngle360( byval angle as real ) as real
-
-	Computes equivalent angle between 0 degrees and 360 degrees.
-
-	Uses a simple loop to clamp the angle, so expectation is that
-	the starting angle is somewhat close to the 0 to 360 range to
-	begin with.
-
-	Returns the clamped angle.
-
-	See vectypes.bi
-
-
-FixAnglePI( angle )
---------------------
-
-	declare function FixAnglePI( byval angle as real ) as real
-
-	Computes equivalent angle between -PI radians and PI radians.
-
-	Uses a simple loop to clamp the angle, so expectation is that
-	the starting angle is somewhat close to the -PI to PI range to
-	begin with.
-
-	Returns the clamped angle.
-
-	See vectypes.bi
-
-
-FixAnglePI2( angle )
---------------------
-
-	declare function FixAnglePI2( byval angle as real ) as real
-
-	Computes equivalent angle between 0 radians and 2*PI radians
-
-	Uses a simple loop to clamp the angle, so expectation is that
-	the starting angle is somewhat close to the 0 to 2*PI range to
-	begin with.
-
-	Returns the clamped angle.
-
-	See vectypes.bi
-
 
 

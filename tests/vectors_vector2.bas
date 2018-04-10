@@ -1,5 +1,6 @@
 #include once "fbcunit.bi"
 #include once "vector2.bi"
+#include once "angle.bi"
 
 using vectors
 

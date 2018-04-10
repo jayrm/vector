@@ -13,6 +13,7 @@ DOCFILES += doc/vectors.txt
 DOCFILES += doc/vectors_vector2.txt
 DOCFILES += doc/vectors_vector3.txt
 DOCFILES += doc/vectors_line2.txt
+DOCFILES += doc/math_angle.txt
 
 BASFILES := $(patsubst %.txt,checks/chk-%.bas,$(notdir $(DOCFILES)))
 TXTFILES := $(BASFILES:.bas=.txt)

@@ -32,29 +32,17 @@
 	#endif
 
 	#include once "real.bi"
+	#include once "angle.bi"
 
 	namespace vectors
 
-		const pi as double = 3.1415926535897932384626433832795
-		const pi_by_2 as double = pi * 0.5
-		const two_pi as double = pi * 2.0
-
-		const deg_per_rad as double = 180.0 / pi
-		const rad_per_deg as double = pi / 180.0
+		const PI as real = 3.14159265358979323846#
 
 		const EPSILON as real = 1e-14
-
-		#define DEGTORAD(d)		((d) * rad_per_deg)
-		#define RADTODEG(r)		((r) * deg_per_rad)
 
 		#define min(a,b)		(iif((a)<(b),(a),(b)))
 		#define max(a,b)		(iif((a)>(b),(a),(b)))
 		#define clamp(v,a,b)	(min((a),max((b),(v))))
-
-		declare function FixAngle180( byval a as real ) as real
-		declare function FixAngle360( byval a as real ) as real
-		declare function FixAnglePI( byval a as real ) as real
-		declare function FixAnglePI2( byval a as real ) as real
 
 	end namespace
 
