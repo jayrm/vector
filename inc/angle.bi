@@ -1,6 +1,10 @@
 #ifndef __MATH_ANGLE_BI_INCLUDE__
 #define __MATH_ANGLE_BI_INCLUDE__
 
+'' ------------------------------------
+'' ANGLE
+'' ------------------------------------
+
 	#include once "real.bi"
 
 	namespace angles

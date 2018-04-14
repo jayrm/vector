@@ -20,7 +20,6 @@ POINTER_VEC2_HDRS    := inc/pointer_vec2.bi
 
 VECTORS_LIBRARY := lib/libvectors.a
 
-VECTORS_SRCS    := src/vectypes.bas
 VECTORS_SRCS    += src/vector2.bas
 VECTORS_SRCS    += src/vector3.bas
 VECTORS_SRCS    += src/camera3.bas

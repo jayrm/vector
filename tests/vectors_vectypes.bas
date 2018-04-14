@@ -6,7 +6,6 @@ using vectors
 /'
 	See:
 		inc/vectypes.bi
-		src/vectypes.bas
 		doc/vectors.txt
 
 '/

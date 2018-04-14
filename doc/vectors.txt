@@ -31,7 +31,6 @@ Files
 		doc/vectors_vector3.txt
 		doc/vectors_line2.txt
 		src/angle.bas
-		src/vectypes.bas
 		src/vector2.bas
 		src/vector3.bas
 		src/line2.bas
