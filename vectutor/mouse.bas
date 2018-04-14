@@ -1,9 +1,13 @@
 #include once "vector2.bi"
-#include once "ogl_stuff.bi"
+#include once "glscreen.bi"
 #include once "mouse.bi"
 
+'' ------------------------------------
+'' MOUSE
+'' ------------------------------------
 
 extern GMOUSE as MOUSE
+extern gls as GLSCREEN
 
 dim shared GMOUSE as MOUSE
 
@@ -28,7 +32,7 @@ sub MOUSE.Update( )
 		curr_screen.x = mx
 		curr_screen.y = my
 		
-		curr_world = gfx_mapscreenXYtoworldXY( curr_screen )
+		curr_world = gls.MapDisplayXYtoWorldXY( curr_screen )
 		
 		curr_button = mb
 

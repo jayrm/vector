@@ -2,7 +2,6 @@
 '' vectutor_circle.bas
 '' ========================================================
 
-#include once "ogl_stuff.bi"
 #include once "ogl_draw.bi"
 #include once "ogl_font.bi"
 #include once "vector2.bi"

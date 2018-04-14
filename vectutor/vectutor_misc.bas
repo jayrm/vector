@@ -2,7 +2,6 @@
 '' vectutor_misc.bas
 '' ========================================================
 
-#include once "ogl_stuff.bi"
 #include once "ogl_draw.bi"
 #include once "ogl_font.bi"
 #include once "vector2.bi"
@@ -38,7 +37,7 @@ private sub draw_scene( ctx as TEST_CTX )
 
     ogl_font_set_height( 4 )
     ogl_draw_string( "Hello", type<vector2>( 50, 50 ) )
-	ogl_draw_string( "PRESS <CTRL> FOR MENU", type<vector2>( 0, -10 ) )
+	ogl_draw_string( "PRESS ESCAPE FOR MENU", type<vector2>( 0, -10 ) )
 
     ogl_draw_string( "m: " & gmouse.curr_screen.x & ", " & gmouse.curr_screen.y, type<vector2>( -80, 0 ) )
 	ogl_draw_string( "p: " & gmouse.curr_world.x & ", " & gmouse.curr_world.y, type<vector2>( -80, -20 ) )

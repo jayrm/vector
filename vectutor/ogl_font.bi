@@ -1,6 +1,9 @@
 #ifndef __OGL_FONT_BI_INCLUDE__
 #define __OGL_FONT_BI_INCLUDE__
 
+#include once "vector2.bi"
+using vectors
+
 declare sub ogl_draw_char _
     ( _
         ch as integer, _

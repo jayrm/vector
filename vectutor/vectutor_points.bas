@@ -2,7 +2,6 @@
 '' vectutor_points.bas
 '' ========================================================
 
-#include once "ogl_stuff.bi"
 #include once "ogl_draw.bi"
 #include once "ogl_font.bi"
 #include once "vector2.bi"
@@ -31,7 +30,7 @@ private sub draw_scene( ctx as TEST_CTX )
 	ogl_draw_string( "click left mouse button to add points" )
 	ogl_draw_string( "click right mouse button to remove points" )
 	ogl_draw_string( "click left+drag to move points" )
-	ogl_draw_string( "hold CTRL key for MENU" )
+	ogl_draw_string( "press ESCAPE key for MENU" )
 
 end sub
 

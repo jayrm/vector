@@ -3,8 +3,10 @@
 '' ========================================================
 
 #include once "GL/gl.bi"
-#include once "ogl_stuff.bi"
+#include once "glscreen.bi"
 #include once "ogl_draw.bi"
+
+extern gls as GLSCREEN
 
 #ifndef PI
 #define PI 3.1415926535897932384626433832795#
@@ -213,10 +215,10 @@ sub draw_line_eq _
 	dim p1 as VECTOR2 = l.normal * -l.distance
 	dim p2 as VECTOR2 = l.normal * 20 + p1
 
-	dim x1 as REAL = gfx_world_left()
-	dim y1 as REAL = gfx_world_bottom()
-	dim x2 as REAL = gfx_world_right()
-	dim y2 as REAL = gfx_world_top()
+	dim x1 as REAL = gls.GetLeft()
+	dim y1 as REAL = gls.GetBottom()
+	dim x2 as REAL = gls.GetRight()
+	dim y2 as REAL = gls.GetTop()
 
 	dim BL as VECTOR2 = (x1,y1)
 	dim TL as VECTOR2 = (x1,y2)
