@@ -4,6 +4,10 @@
 #include once "camera3.bi"
 #include once "angle.bi"
 
+'' ------------------------------------
+'' CAMERA3
+'' ------------------------------------
+
 using angles
 
 namespace vectors

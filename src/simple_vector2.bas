@@ -25,6 +25,10 @@
 	#error type "real" not defined
 #endif
 
+'' ------------------------------------
+'' SIMPLE_VECTOR2
+'' ------------------------------------
+
 namespace simple_vector2
 
 	''

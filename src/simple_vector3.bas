@@ -14,6 +14,10 @@
 #include once "simple_vector3.bi"
 #include once "vbcompat.bi"
 
+'' ------------------------------------
+'' SIMPLE_VECTOR3
+'' ------------------------------------
+
 namespace simple_vector3
 
 	''

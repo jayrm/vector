@@ -4,6 +4,10 @@
 #include once "vector2.bi"
 #include once "vector2_aabb.bi"
 
+'' ------------------------------------
+'' VECTOR2_AABB
+'' ------------------------------------
+
 	/'
       W---X
       |          Dx---------- 

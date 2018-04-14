@@ -4,11 +4,15 @@
 #include once "pointer_vec2.bi"
 #include once "vbcompat.bi"
 
+'' ------------------------------------
+'' POINTER_VEC2
+'' ------------------------------------
+
 namespace pointer_vec2
 
-	'' --------------------------------------------------------------------------
+	'' ----------------------------------------------------
 	'' Basic Vector Functions
-	'' --------------------------------------------------------------------------
+	'' ----------------------------------------------------
 
 	Function V2Make( ByVal a As Vec2_T Ptr, ByVal x As REAL, ByVal y As REAL ) As Vec2_T Ptr
 		a->x = x
@@ -27,9 +31,9 @@ namespace pointer_vec2
 		y = a->y
 	End Sub
 
-	'' --------------------------------------------------------------------------
+	'' ----------------------------------------------------
 	'' Vector functions that modify passed vector(s)
-	'' --------------------------------------------------------------------------
+	'' ----------------------------------------------------
 
 	Function V2Unit( ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
 		Dim k As REAL = V2Mag(a)
@@ -71,9 +75,9 @@ namespace pointer_vec2
 		return a
 	End Function
 
-	'' --------------------------------------------------------------------------
-	'' Vector functions that return results in a seperate Vector
-	'' --------------------------------------------------------------------------
+	'' ----------------------------------------------------
+	'' Vector functions that return Vector
+	'' ----------------------------------------------------
 
 	Function V2UnitR( ByVal r As Vec2_T Ptr, ByVal a As Vec2_T Ptr ) As Vec2_T Ptr
 		Dim k As REAL = V2Mag(a)
@@ -115,9 +119,9 @@ namespace pointer_vec2
 		return r
 	End Function
 
-	'' --------------------------------------------------------------------------
+	'' ----------------------------------------------------
 	'' Vector functions that return a scalr result
-	'' --------------------------------------------------------------------------
+	'' ----------------------------------------------------
 
 	Function V2Dist( ByVal a As Vec2_T Ptr, ByVal b As Vec2_T Ptr ) As REAL
 		return sqr((b->x - a->x) * (b->x - a->x) + (b->y - a->y) * (b->y - a->y))

@@ -4,6 +4,10 @@
 #include once "vector2.bi"
 #include once "line2.bi"
 
+'' ------------------------------------
+'' LINE2
+'' ------------------------------------
+
 namespace vectors
 
 	constructor LINE2()

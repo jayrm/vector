@@ -4,6 +4,10 @@
 #include once "vector2.bi"
 #include once "vector2_array.bi"
 
+'' ------------------------------------
+'' VECTOR2_ARRAY
+'' ------------------------------------
+
 #define NULL 0
 
 namespace vectors
