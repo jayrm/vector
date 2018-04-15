@@ -10,7 +10,7 @@
 namespace vectors
 
 	'':::::
-	public sub vector2.set( byval _x as real, byval _y as real ) EXPORT
+	public sub vector2.set( byval _x as const real, byval _y as const real ) EXPORT
 		'' assign components
 		'' {v}.set( x, y ) 
 		x = _x
@@ -48,7 +48,7 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator vector2.*= ( byval k as real ) EXPORT
+	public operator vector2.*= ( byval k as const real ) EXPORT
 		'' Multiply vector by scalar and assignment operator *=
 		'' {v} *= k
 		x *= k
@@ -56,7 +56,7 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator vector2./= ( byval k as real ) EXPORT
+	public operator vector2./= ( byval k as const real ) EXPORT
 		'' Multiply vector by scalar and assignment operator *=
 		'' {v} *= k
 		x /= k
@@ -162,7 +162,7 @@ namespace vectors
 	end function
 
 	'':::::
-	public function vector2.scale( byval k as real ) as vector2 EXPORT
+	public const function vector2.scale( byval k as const real ) as vector2 EXPORT
 		'' multiply vector by scalar
 		'' {r} = {v} * k
 		function = type( _

@@ -17,7 +17,7 @@ namespace vectors
 		n = 0
 	end constructor
 
-	constructor VECTOR2_ARRAY( varray as VECTOR2_ARRAY )
+	constructor VECTOR2_ARRAY( byref varray as const VECTOR2_ARRAY )
 		list = NULL
 		n = 0
 		Assign( varray )
@@ -33,7 +33,7 @@ namespace vectors
 		property = n
 	end property
 
-	property VECTOR2_ARRAY.v( index as integer ) as VECTOR2
+	const property VECTOR2_ARRAY.v( byval index as const integer ) as VECTOR2
 		if( index >= 1 ) and ( index <= n ) then
 			property = list[index-1]
 		else
@@ -41,7 +41,7 @@ namespace vectors
 		end if
 	end property
 
-	property VECTOR2_ARRAY.v( index as integer, p as VECTOR2 )
+	property VECTOR2_ARRAY.v( byval index as const integer, byref p as const VECTOR2 )
 		if( index >= 1 ) and ( index <= n ) then
 			list[index-1] = p
 		end if
@@ -55,7 +55,7 @@ namespace vectors
 		end if
 	end sub
 
-	sub VECTOR2_ARRAY.Assign( varray as VECTOR2_ARRAY )
+	sub VECTOR2_ARRAY.Assign( byref varray as const VECTOR2_ARRAY )
 
 		Clear()
 
@@ -70,12 +70,12 @@ namespace vectors
 		end if 
 	end sub
 
-	operator VECTOR2_ARRAY.let( varray as VECTOR2_ARRAY )
+	operator VECTOR2_ARRAY.let( byref varray as const VECTOR2_ARRAY )
 		Assign( varray )
 	end operator
 
 
-	function VECTOR2_ARRAY.Add( p as VECTOR2 ) as integer
+	function VECTOR2_ARRAY.Add( byref p as const VECTOR2 ) as integer
 
 		dim newlist as VECTOR2 PTR = reallocate( list, sizeof(VECTOR2) * (n + 1) )
 		if( newlist <> NULL ) then
@@ -89,7 +89,7 @@ namespace vectors
 
 	end function
 
-	function VECTOR2_ARRAY.AddUnique( p as VECTOR2, e as REAL = EPSILON ) as integer
+	function VECTOR2_ARRAY.AddUnique( byref p as const VECTOR2, byval e as const REAL = EPSILON ) as integer
 		dim i as integer = Near( p, e )
 		if( i > 0 ) then
 			function = i
@@ -98,7 +98,7 @@ namespace vectors
 		end if
 	end function
 
-	function VECTOR2_ARRAY.Insert( p as VECTOR2, index as integer = 0 ) as integer
+	function VECTOR2_ARRAY.Insert( byref p as const VECTOR2, byval index as const integer = 0 ) as integer
 		if( index <= 0 or index > n ) then
 			function = Add( p )
 		else
@@ -118,7 +118,7 @@ namespace vectors
 
 	end function
 
-	sub VECTOR2_ARRAY.Remove( index as integer )
+	sub VECTOR2_ARRAY.Remove( byval index as const integer )
 
 		if ( index >= 1 ) and ( index <= n ) then
 			for i as integer = index to n - 1
@@ -145,7 +145,7 @@ namespace vectors
 
 	end sub
 
-	function VECTOR2_ARRAY.Near( p as VECTOR2, e as REAL = EPSILON ) as integer
+	const function VECTOR2_ARRAY.Near( byref p as const VECTOR2, byval e as const REAL = EPSILON ) as integer
 		
 		function = 0
 
@@ -179,7 +179,7 @@ namespace vectors
 
 	end sub
 
-	function VECTOR2_ARRAY.compareXY( v1 as VECTOR2, v2 as VECTOR2 ) as integer
+	const function VECTOR2_ARRAY.compareXY( byref v1 as const VECTOR2, byref v2 as const VECTOR2 ) as integer
 
 		if( v1.x < v2.x ) then
 			function = -1
@@ -195,7 +195,7 @@ namespace vectors
 
 	end function
 
-	sub VECTOR2_ARRAY.quicksortXY( lidx as integer, ridx as integer )
+	sub VECTOR2_ARRAY.quicksortXY( byval lidx as const integer, byval ridx as const integer )
 
 		dim pidx as integer		'' pivot index
 		dim sidx as integer		'' "store to" index
@@ -221,7 +221,7 @@ namespace vectors
 		
 	end sub
 
-	function VECTOR2_ARRAY.ConvexHull( ) as VECTOR2_ARRAY
+	const function VECTOR2_ARRAY.ConvexHull( ) as VECTOR2_ARRAY
 
 		dim hull as VECTOR2_ARRAY
 		

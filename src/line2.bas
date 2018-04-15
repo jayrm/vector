@@ -13,38 +13,38 @@ namespace vectors
 	constructor LINE2()
 	end constructor
 
-	constructor LINE2( a_ as REAL, b_ as REAL, c_ as REAL )
+	constructor LINE2( byval a_ as const REAL, byval b_ as const REAL, byval c_ as const REAL )
 		SetByCoeff( a_, b_, c_ )
 	end constructor
 
-	constructor LINE2( n as VECTOR2, c_ as REAL )
+	constructor LINE2( byref n as const VECTOR2, byval c_ as const REAL )
 		SetByNormalDistance( n, c_ )
 	end constructor
 
-	constructor LINE2( p1 as VECTOR2, p2 as VECTOR2 )
+	constructor LINE2( byref p1 as const VECTOR2, byref p2 as const VECTOR2 )
 		SetByTwoPoints( p1, p2 )
 	end constructor
 
 	destructor LINE2()
 	end destructor
 
-	sub LINE2.SetByCoeff( a_ as REAL, b_ as REAL, c_ as REAL )
+	sub LINE2.SetByCoeff( byval a_ as const REAL, byval b_ as const REAL, byval c_ as const REAL )
 		a = a_
 		b = b_
 		c = c_
 	end sub
 
-	sub LINE2.SetByNormalDistance( n as VECTOR2, c_ as REAL )
+	sub LINE2.SetByNormalDistance( byref n as const VECTOR2, byval c_ as const REAL )
 		SetByCoeff( n.x, n.y, c_ )
 	end sub
 
-	sub LINE2.SetByPointDirection( p as VECTOR2, r as VECTOR2 )
+	sub LINE2.SetByPointDirection( byref p as const VECTOR2, byref r as const VECTOR2 )
 		dim n as VECTOR2 = r.unit.perp
 		dim c_ as REAL = -p.dot( n )
 		SetByNormalDistance( n, c_ )
 	end sub
 
-	sub LINE2.SetByTwoPoints( p1 as VECTOR2, p2 as VECTOR2 )
+	sub LINE2.SetByTwoPoints( byref p1 as const VECTOR2, byref p2 as const VECTOR2 )
 		SetByPointDirection( p1, p2-p1 )
 	end sub
 
@@ -52,7 +52,7 @@ namespace vectors
 		property = norm
 	end property
 
-	property LINE2.normal( n as VECTOR2 )
+	property LINE2.normal( byref n as const VECTOR2 )
 		a = n.x
 		b = n.y
 	end property
@@ -61,15 +61,15 @@ namespace vectors
 		property = c		
 	end property
 
-	property LINE2.distance( d as REAL )
+	property LINE2.distance( byval d as const REAL )
 		c = d
 	end property
 
-	function LINE2.DistanceToPoint( p as VECTOR2 ) as REAL
+	function LINE2.DistanceToPoint( byref p as const VECTOR2 ) as REAL
 		function = p.dot( type<VECTOR2>(a,b) ) + c
 	end function
 
-	function LINE2.IsPlane() as boolean
+	const function LINE2.IsPlane() as boolean
 		if a = 0.0 and b = 0.0 and c = 0.0 then
 			function = TRUE
 		else
@@ -77,7 +77,7 @@ namespace vectors
 		end if
 	end function
 
-	function LINE2.IsEmpty() as boolean
+	const function LINE2.IsEmpty() as boolean
 		if a = 0.0 and b = 0.0 and c <> 0.0 then
 			function = TRUE
 		else
@@ -85,7 +85,7 @@ namespace vectors
 		end if
 	end function
 
-	function LINE2.Intersection( p1 as VECTOR2, p2 as VECTOR2, byref result as VECTOR2 ) as REAL
+	const function LINE2.Intersection( byref p1 as const VECTOR2, byref p2 as const VECTOR2, byref result as VECTOR2 ) as REAL
 
 		dim d1 as REAL = DistanceToPoint( p1 )
 		dim d2 as REAL = DistanceToPoint( p2 )
@@ -99,7 +99,7 @@ namespace vectors
 
 	end function
 
-	function LINE2.Intersection( l as LINE2, byref result as VECTOR2 ) as REAL
+	const function LINE2.Intersection( byref l as const LINE2, byref result as VECTOR2 ) as REAL
 
 		dim p1 as VECTOR2 = -l.distance * l.normal
 		dim p2 as VECTOR2 = p1 + l.normal.perp
@@ -110,9 +110,9 @@ namespace vectors
 
 	function INTERSECTION2.Calculate _
 		( _
-			l as LINE2, _
-			p1 as VECTOR2, _
-			p2 as VECTOR2 _
+			byref l as const LINE2, _
+			byref p1 as const VECTOR2, _
+			byref p2 as const VECTOR2 _
 		) as INTERSECTION2_TYPE
 
 		dim d1 as REAL = l.DistanceToPoint( p1 )
@@ -150,8 +150,8 @@ namespace vectors
 
 	function INTERSECTION2.Calculate _
 		( _
-			l1 as LINE2, _
-			l2 as LINE2 _
+			byref l1 as const LINE2, _
+			byref l2 as const LINE2 _
 		) as INTERSECTION2_TYPE
 
 		dim p1 as VECTOR2 = -l1.distance * l1.normal
@@ -163,10 +163,10 @@ namespace vectors
 
 	function INTERSECTION2.Calculate _
 		( _
-			p1 as VECTOR2, _
-			p2 as VECTOR2, _
-			p3 as VECTOR2, _
-			p4 as VECTOR2 _
+			byref p1 as const VECTOR2, _
+			byref p2 as const VECTOR2, _
+			byref p3 as const VECTOR2, _
+			byref p4 as const VECTOR2 _
 		) as INTERSECTION2_TYPE
 
 		function = typ

@@ -17,17 +17,17 @@
 
 			declare constructor()
 			declare destructor()
-			declare sub SetPosition
-			declare sub SetSize
+			declare sub SetPosition()
+			declare sub SetSize()
 			declare sub SetFromImage( byval img as fb.image ptr )
 
-			declare function PointCollision _
+			declare const function PointCollision _
 				( _
 					byref this_pnt as const vector2, _
 					byref other_pnt as const vector2 _
 				) as boolean
 			
-			declare function AABBCollision _
+			declare const function AABBCollision _
 				( _
 					byref this_pnt as const vector2, _
 					byref other_box as const AABB, _

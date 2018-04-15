@@ -10,7 +10,7 @@
 namespace vectors
 
 	'':::::
-	public sub vector3.set( byval _x as real, byval _y as real, byval _z as real ) EXPORT
+	public sub vector3.set( byval _x as const real, byval _y as const real, byval _z as const real ) EXPORT
 		'' assign components
 		'' {v}.set( x, y, z ) 
 		x = _x
@@ -52,7 +52,7 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator vector3.*= ( byval k as real ) EXPORT
+	public operator vector3.*= ( byval k as const real ) EXPORT
 		'' Multiply vector by scalar and assignment operator *=
 		'' {v} *= k
 		x *= k
@@ -61,7 +61,7 @@ namespace vectors
 	end operator
 
 	'':::::
-	public operator vector3./= ( byval k as real ) EXPORT
+	public operator vector3./= ( byval k as const real ) EXPORT
 		'' Divide vector by scalar and assignment operator /=
 		'' {v} /= k
 		x /= k
@@ -70,35 +70,35 @@ namespace vectors
 	end operator
 
 	'':::::
-	public function vector3.magnitude() as real	EXPORT
+	public const function vector3.magnitude() as real	EXPORT
 		'' Magnitude (length) of vector
 		'' d = |{v}|
 		function = sqr( x * x + y * y + z * z ) 
 	end function
 
 	'':::::
-	public function vector3.magnitude2() as real EXPORT
+	public const function vector3.magnitude2() as real EXPORT
 		'' Magnitude (length) of vector squared
 		'' d = |{v}|^2
 		function = x * x + y * y + z * z
 	end function
 
 	'':::::
-	public function vector3.distance( byref b as const vector3 ) as real EXPORT
+	public const function vector3.distance( byref b as const vector3 ) as real EXPORT
 		'' Distance (length) between two points
 		'' d = |{b}-{a}|
 		function = sqr( (b.x-x)*(b.x-x) + (b.y-y)*(b.y-y) + (b.z-z)*(b.z-z) )
 	end function
 
 	'':::::
-	public function vector3.distance2( byref b as const vector3 ) as real	EXPORT
+	public const function vector3.distance2( byref b as const vector3 ) as real	EXPORT
 		'' Distance (length) between two points squared
 		'' d = |{b}-{a}|^2
 		function = (b.x-x)*(b.x-x) + (b.y-y)*(b.y-y) + (b.z-z)*(b.z-z)
 	end function
 
 	'':::::
-	public function vector3.unit() as vector3 EXPORT
+	public const function vector3.unit() as vector3 EXPORT
 		'' unit vector
 		'' {r} = {v}/|{v}|
 		dim ret as vector3 = this
@@ -145,14 +145,14 @@ namespace vectors
 	end operator
 
 	'':::::
-	public function vector3.dot( byref b as const vector3 ) as real EXPORT
+	public const function vector3.dot( byref b as const vector3 ) as real EXPORT
 		'' scalar dot product
 		'' d = {v} . {b}
 		function = x * b.x + y * b.y + z * b.z
 	end function
 
 	'':::::
-	public function vector3.cross( byref b as const vector3 ) as vector3 EXPORT
+	public const function vector3.cross( byref b as const vector3 ) as vector3 EXPORT
 		'' cross product
 		'' {r} = {v} X {b}
 		function = type( _
@@ -163,7 +163,7 @@ namespace vectors
 	end function
 
 	'':::::
-	public function vector3.scale( byref b as const vector3 ) as vector3 EXPORT
+	public const function vector3.scale( byref b as const vector3 ) as vector3 EXPORT
 		'' entry wise product
 		'' {r} = {v} o {b}
 		function = type( _
@@ -174,7 +174,7 @@ namespace vectors
 	end function
 
 	'':::::
-	public function vector3.scale( byval k as real ) as vector3 EXPORT
+	public const function vector3.scale( byval k as const real ) as vector3 EXPORT
 		'' multiply vector by scalar
 		'' {r} = {v} * k
 		function = type( _

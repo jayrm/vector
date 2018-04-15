@@ -150,7 +150,7 @@ namespace vectors
 	'/
 
 	''
-	public function AABB.PointCollision _
+	public const function AABB.PointCollision _
 		( _
 			byref this_pnt as const vector2, _
 			byref other_pnt as const vector2 _
@@ -158,7 +158,7 @@ namespace vectors
 
 		function = false
 
-		dim byref this_box as AABB = this
+		dim byref this_box as const AABB = this
 
 		if( other_pnt.x >= this_pnt.x - this_box.c.x ) then
 			if( other_pnt.x <= this_pnt.x - this_box.c.x + this_box.s.x ) then
@@ -173,7 +173,7 @@ namespace vectors
 	end function
 
 	''
-	public function AABB.AABBCollision _
+	public const function AABB.AABBCollision _
 		( _
 			byref this_pnt as const vector2, _
 			byref other_box as const AABB, _
@@ -182,7 +182,7 @@ namespace vectors
 
 		function = false
 
-		dim byref this_box as AABB = this
+		dim byref this_box as const AABB = this
 
 		dim a1 as vector2 = this_pnt - this_box.c
 		dim a2 as vector2 = a1 + this_box.s

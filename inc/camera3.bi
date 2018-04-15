@@ -23,19 +23,19 @@
 				end type
 			end union
 
-			declare sub MoveDelta( byref d as vector3 )
+			declare sub MoveDelta( byref d as const vector3 )
 
-			declare sub MoveForward( byval d as real )
-			declare sub MoveBackward( byval d as real )
-			declare sub MoveRight( byval d as real )
-			declare sub MoveLeft( byval d as real )
-			declare sub MoveUp( byval d as real )
-			declare sub MoveDown( byval d as real ) 
+			declare sub MoveForward( byval d as const real )
+			declare sub MoveBackward( byval d as const real )
+			declare sub MoveRight( byval d as const real )
+			declare sub MoveLeft( byval d as const real )
+			declare sub MoveUp( byval d as const real )
+			declare sub MoveDown( byval d as const real ) 
 
-			declare sub TurnLeft( byval d as real )
-			declare sub TurnRight( byval d as real )
-			declare sub PitchUp( byval d as real )
-			declare sub PitchDown( byval d as real )
+			declare sub TurnLeft( byval d as const real )
+			declare sub TurnRight( byval d as const real )
+			declare sub PitchUp( byval d as const real )
+			declare sub PitchDown( byval d as const real )
 
 			declare sub refresh ()
 

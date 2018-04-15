@@ -13,57 +13,57 @@ using angles
 namespace vectors
 
 	'':::::
-	public sub camera3.MoveDelta( byref delta as vector3 ) EXPORT
+	public sub camera3.MoveDelta( byref delta as const vector3 ) EXPORT
 		p += delta
 	end sub
 
 	'':::::
-	public sub camera3.MoveForward( byval d as real ) EXPORT
+	public sub camera3.MoveForward( byval d as const real ) EXPORT
 		p += v * d
 	end sub
 
 	'':::::
-	public sub camera3.MoveBackward( byval d as real ) EXPORT
+	public sub camera3.MoveBackward( byval d as const real ) EXPORT
 		p -= v * d
 	end sub
 
 	'':::::
-	public sub camera3.MoveRight( byval d as real ) EXPORT
+	public sub camera3.MoveRight( byval d as const real ) EXPORT
 		p += r * d
 	end sub
 
 	'':::::
-	public sub camera3.MoveLeft( byval d as real ) EXPORT
+	public sub camera3.MoveLeft( byval d as const real ) EXPORT
 		p -= r * d
 	end sub
 
 	'':::::
-	public sub camera3.MoveUp( byval d as real ) EXPORT
+	public sub camera3.MoveUp( byval d as const real ) EXPORT
 		p += u * d
 	end sub
 
 	'':::::
-	public sub camera3.MoveDown( byval d as real ) EXPORT
+	public sub camera3.MoveDown( byval d as const real ) EXPORT
 		p -= u * d
 	end sub
 
 	'':::::
-	public sub camera3.TurnLeft( byval d as real ) EXPORT
+	public sub camera3.TurnLeft( byval d as const real ) EXPORT
 		heading = FixAngle360( heading + d )
 	end sub
 
 	'':::::
-	public sub camera3.TurnRight( byval d as real ) EXPORT
+	public sub camera3.TurnRight( byval d as const real ) EXPORT
 		heading = FixAngle360( heading - d )
 	end sub
 
 	'':::::
-	public sub camera3.PitchUp( byval d as real ) EXPORT
+	public sub camera3.PitchUp( byval d as const real ) EXPORT
 		pitch = FixAngle180( pitch + d )
 	end sub
 
 	'':::::
-	public sub camera3.PitchDown( byval d as real ) EXPORT
+	public sub camera3.PitchDown( byval d as const real ) EXPORT
 		pitch = FixAngle180( pitch - d )
 	end sub
 

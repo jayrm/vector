@@ -11,35 +11,35 @@
 			list as VECTOR2 ptr
 			n as integer
 			
-			declare function compareXY( v1 as VECTOR2, v2 as VECTOR2 ) as integer
-			declare sub quicksortXY( lidx as integer, ridx as integer )
+			declare const function compareXY( byref v1 as const VECTOR2, byref v2 as const VECTOR2 ) as integer
+			declare sub quicksortXY( byval lidx as const integer, byval ridx as const integer )
 			
 		public:
 
 			declare constructor()
-			declare constructor( varray as VECTOR2_ARRAY )
+			declare constructor( byref varray as const VECTOR2_ARRAY )
 			declare destructor()
 
-			declare property Count() as integer
+			declare const property Count() as integer
 			
-			declare property v( index as integer ) as VECTOR2
-			declare property v( index as integer, p as VECTOR2 )
+			declare const property v( byval index as const integer ) as VECTOR2
+			declare property v( byval index as const integer, byref p as const VECTOR2 )
 			 
 			declare sub Clear() 
 
-			declare sub Assign( varray as VECTOR2_ARRAY )
-			declare operator let( varray as VECTOR2_ARRAY )
+			declare sub Assign( byref varray as const VECTOR2_ARRAY )
+			declare operator let( byref varray as const VECTOR2_ARRAY )
 
-			declare function Add( p as VECTOR2 ) as integer
-			declare function AddUnique( p as VECTOR2, e as REAL = EPSILON ) as integer
+			declare function Add( byref p as const VECTOR2 ) as integer
+			declare function AddUnique( byref p as const VECTOR2, byval e as const REAL = EPSILON ) as integer
 
-			declare function Insert( p as VECTOR2, index as integer = 0 ) as integer
+			declare function Insert( byref p as const VECTOR2, byval index as const integer = 0 ) as integer
 
-			declare sub Remove( index as integer )
+			declare sub Remove( byval index as const integer )
 			
-			declare function Near( p as VECTOR2, e as REAL = EPSILON ) as integer
+			declare const function Near( byref p as const VECTOR2, byval e as const REAL = EPSILON ) as integer
 			
-			declare function ConvexHull( ) as VECTOR2_ARRAY
+			declare const function ConvexHull( ) as VECTOR2_ARRAY
 			
 			declare sub SortXY()
 			
