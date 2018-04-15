@@ -40,18 +40,14 @@ sub MOUSE.Update( )
 	
 end sub
 
-function MOUSE.ButtonState( b as integer ) as integer
-	function = (( curr_button and b ) <> 0 )
+function MOUSE.ButtonState( byval b as const MOUSE_BUTTONS ) as boolean
+	function = cbool(( curr_button and b ) <> 0 )
 end function
 
-function MOUSE.ButtonPressed( b as integer ) as integer
-	if ( ((last_button and b) = 0) and ((curr_button and b) <> 0) ) then
-		function = not 0
-	end if
+function MOUSE.ButtonPressed( byval b as const MOUSE_BUTTONS ) as boolean
+	function = cbool(((last_button and b) = 0) and ((curr_button and b) <> 0))
 end function
 
-function MOUSE.ButtonReleased( b as integer ) as integer
-	if ( ((last_button and b) <> 0) and ((curr_button and b) = 0) ) then
-		function = not 0
-	end if
+function MOUSE.ButtonReleased( byval b as const MOUSE_BUTTONS ) as boolean
+	function = cbool(((last_button and b) <> 0) and ((curr_button and b) = 0))
 end function

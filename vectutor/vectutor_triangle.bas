@@ -8,11 +8,12 @@
 #include once "vector2_array.bi"
 #include once "vectutor.bi"
 #include once "vectutor_color.bi"
+#include once "sheet.bi"
 
 '' --------------------------------------------------------
 dim shared points as VECTOR2_ARRAY
 
-private sub draw_incircle( ctx as TEST_CTX )
+private sub draw_incircle( byref ctx as SHEET )
 
 	if points.count < 3 then
 		exit sub
@@ -44,7 +45,7 @@ private sub draw_incircle( ctx as TEST_CTX )
 
 end sub
 
-private sub draw_circumcircle( ctx as TEST_CTX )
+private sub draw_circumcircle( byref ctx as SHEET )
 
 	if points.count < 3 then
 		exit sub
@@ -90,7 +91,7 @@ private sub draw_circumcircle( ctx as TEST_CTX )
 
 end sub
 
-private sub draw_scene( ctx as TEST_CTX )
+private sub draw_scene( byref ctx as SHEET )
 
 	SetColor( COLOR_POINTS, 0.5 )
 	if points.count >= 2 then draw_line( points.v(1), points.v(2) )	
@@ -110,9 +111,9 @@ private sub draw_scene( ctx as TEST_CTX )
 
 end sub
 
-function vectutor_triangle( m as integer = 0 ) as TEST_CTX
+function vectutor_triangle( byval m as const integer = 0 ) as SHEET
 
-	dim ctx as TEST_CTX
+	dim ctx as SHEET
 
 	ctx.Title = "TRIANGLE"
 	ctx.DrawScene = procptr( draw_scene )

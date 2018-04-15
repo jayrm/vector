@@ -20,71 +20,71 @@ end enum
 
 declare sub draw_triangle _
     ( _
-        a as VECTOR2, _
-        b as VECTOR2, _
-        c as VECTOR2 _
+        byref a as const VECTOR2, _
+        byref b as const VECTOR2, _
+        byref c as const VECTOR2 _
     )
 
 declare sub draw_rectangle _
     ( _
-        a as VECTOR2, _
-        b as VECTOR2 _
+        byref a as const VECTOR2, _
+        byref b as const VECTOR2 _
 	)	
 
 declare sub draw_disc _
 	( _
-		c as VECTOR2, _
-		r as REAL _
+		byref c as const VECTOR2, _
+		byval r as const REAL _
 	)
 
 declare sub draw_donut _
 	( _
-		c as VECTOR2, _
-		r1 as REAL, _
-		r2 as REAL _
+		byref c as const VECTOR2, _
+		byval r1 as const REAL, _
+		byval r2 as const REAL _
 	)
 
 declare sub draw_point _
     ( _
-        p as VECTOR2, _
-        size as REAL = 2.5 _
+        byref p as const VECTOR2, _
+        byval size as const REAL = 2.5 _
     )
 
 declare sub draw_arrow_head _
     ( _
-        p as VECTOR2, _
-        d as VECTOR2, _
-        headlength as REAL = 10.0, _
-        headwidth as REAL = 5.0 _
+        byref p as const VECTOR2, _
+        byref d as const VECTOR2, _
+        byval headlength as const REAL = 10.0, _
+        byval headwidth as const REAL = 5.0 _
     )
 
 declare sub draw_line _
     ( _
-        p1 as VECTOR2, _
-        p2 as VECTOR2, _
-        linewidth as REAL = 1.0 _
+        byref p1 as const VECTOR2, _
+        byref p2 as const VECTOR2, _
+        byval linewidth as const REAL = 1.0 _
     )
 
 declare sub draw_arrow _
     ( _
-        p1 as VECTOR2, _
-        p2 as VECTOR2, _
-        style as LINE_ARROW_STYLE = LINE_ARROW_TO, _
-        linewidth as REAL = 1.0, _
-        headlength as REAL = 10.0, _
-        headwidth as REAL = 5.0 _
+        byref p1 as const VECTOR2, _
+        byref p2 as const VECTOR2, _
+        byval style as const LINE_ARROW_STYLE = LINE_ARROW_TO, _
+        byval linewidth as const REAL = 1.0, _
+        byval headlength as const REAL = 10.0, _
+        byval headwidth as const REAL = 5.0 _
     )
 
 declare sub draw_circle _
 	( _
-		c as VECTOR2, _
-		r as REAL, _
-        linewidth as REAL = 1.0 _
+		byref c as const VECTOR2, _
+		byval r as const REAL, _
+        byval linewidth as const REAL = 1.0 _
 	)
 
 declare sub draw_line_eq _
 	( _
-		l as LINE2 _
+		byref l as const LINE2 _
 	)
 
 

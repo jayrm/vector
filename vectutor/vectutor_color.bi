@@ -23,6 +23,6 @@
 
 	end enum
 
-	declare sub SetColor( index as vectutor_COLOR, intensity as REAL = 1.0 )
+	declare sub SetColor( byval index as const vectutor_COLOR, byval intensity as const REAL = 1.0 )
 
 #endif

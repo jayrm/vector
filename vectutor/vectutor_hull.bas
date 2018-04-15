@@ -9,11 +9,12 @@
 #include once "vector2_array.bi"
 #include once "vectutor.bi"
 #include once "vectutor_color.bi"
+#include once "sheet.bi"
 
 '' --------------------------------------------------------
 dim shared points as VECTOR2_ARRAY
 
-private sub draw_scene( ctx as TEST_CTX )
+private sub draw_scene( byref ctx as SHEET )
 
 	'' Draw all the points
 
@@ -37,9 +38,9 @@ private sub draw_scene( ctx as TEST_CTX )
 
 end sub
 
-function vectutor_hull( m as integer = 0 ) as TEST_CTX
+function vectutor_hull( byval m as const integer = 0 ) as SHEET
 	
-	dim ctx as TEST_CTX
+	dim ctx as SHEET
 	
 	ctx.Title = "BOUNDING CONVEX HULL"
 	ctx.DrawScene = procptr( draw_scene )

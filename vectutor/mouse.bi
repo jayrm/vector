@@ -9,9 +9,11 @@
 
 	using vectors
 
-	#define MOUSE_BUTTON_LEFT 1
-	#define MOUSE_BUTTON_RIGHT 2
-	#define MOUSE_BUTTON_MIDDLE 4
+	enum MOUSE_BUTTONS
+		MOUSE_BUTTON_LEFT = 1
+		MOUSE_BUTTON_RIGHT = 2
+		MOUSE_BUTTON_MIDDLE = 4
+	end enum
 
 	type MOUSE
 
@@ -28,9 +30,9 @@
 			
 		declare sub Update( )
 
-		declare function ButtonState( b as integer ) as integer
-		declare function ButtonPressed( b as integer ) as integer
-		declare function ButtonReleased( b as integer ) as integer
+		declare function ButtonState( byval b as const MOUSE_BUTTONS ) as boolean
+		declare function ButtonPressed( byval b as const MOUSE_BUTTONS ) as boolean
+		declare function ButtonReleased( byval b as const MOUSE_BUTTONS ) as boolean
 		
 	end type
 

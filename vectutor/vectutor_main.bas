@@ -7,159 +7,22 @@
 #include once "fbgfx.bi"
 #include once "mouse.bi"
 #include once "glscreen.bi"
+#include once "sheet.bi"
 
 extern gls as GLSCREEN
-
-'' ========================================================
-
-declare function vectutor_basic( m as integer = 0 ) as TEST_CTX
-declare function vectutor_misc( m as integer = 0 ) as TEST_CTX
-declare function vectutor_points( m as integer = 0 ) as TEST_CTX
-declare function vectutor_line( m as integer = 0 ) as TEST_CTX
-declare function vectutor_triangle( m as integer = 0 ) as TEST_CTX
-declare function vectutor_hull( m as integer = 0 ) as TEST_CTX
-declare function vectutor_circle( m as integer = 0 ) as TEST_CTX
-declare function vectutor_angle( m as integer = 0 ) as TEST_CTX
-
-type TEST_CTX_CONSTRUCTOR as function( m as integer = 0 ) as TEST_CTX
-
+extern GMOUSE as MOUSE
 extern GTIMER as SYSTIMER
 
-dim shared ctx_list( 1 to 8 ) as TEST_CTX_CONSTRUCTOR = _
-{ _
-	procptr( vectutor_basic ), _
-	procptr( vectutor_misc ), _
-	procptr( vectutor_points ), _
-	procptr( vectutor_line ), _
-	procptr( vectutor_triangle ), _
-	procptr( vectutor_hull ), _
-	procptr( vectutor_circle ), _
-	procptr( vectutor_angle ) _
-} 
-
-dim shared ctx as TEST_CTX
-
+dim shared ctx as SHEET
 dim shared ctx_index as integer = 0
-
-function vectutor( i as integer = 0, m as integer = 0 ) as TEST_CTX
-	ctx_index = i
-	if ctx_index < 1 then ctx_index = 1
-	if ctx_index > 8 then ctx_index = 8
-	function = ctx_list(ctx_index)(m)
-end function 
 
 '' ========================================================
 
-extern GMOUSE as MOUSE 
-
-dim shared captured_idx as integer = 0
-dim shared key_space as BOOLEAN
-
-private sub def_HandleInput( ctx as TEST_CTX )
-
-	if multikey(fb.SC_SPACE) then
-		if key_space = FALSE then
-			key_space = TRUE
-			if ctx.MaxModes > 1 then
-				ctx = vectutor( ctx_index, (ctx.Mode mod ctx.MaxModes) + 1 )
-			end if
-		end if		
-	else
-		key_space = FALSE 
-	end if
-	
-	dim n as integer = 0
-	if ctx.points <> NULL then
-		n = ctx.points->near( GMOUSE.curr_world, 2 )
-	end if
-	
-	if( captured_idx > 0 ) then
-
-		if ctx.MovePoint <> NULL then
-			ctx.MovePoint( ctx, captured_idx, GMOUSE.curr_world )
-		end if
-		'' ctx.points->v( captured_idx ) = GMOUSE.curr_world
-	
-		if GMOUSE.ButtonReleased( MOUSE_BUTTON_LEFT ) then
-			captured_idx = 0
-		end if
-	else
-	
-		if GMOUSE.ButtonPressed( MOUSE_BUTTON_LEFT ) then
-			if( n > 0 ) then
-				captured_idx = n
-			else
-				if ctx.AddPoint <> NULL then
-					ctx.AddPoint( ctx, GMOUSE.curr_world )
-				end if
-				'' ctx.points->add( GMOUSE.curr_world )
-			end if		
-		end if
-		
-		if GMOUSE.ButtonPressed( MOUSE_BUTTON_RIGHT ) then
-			if( n > 0 ) then
-				if ctx.DeletePoint <> NULL then
-					ctx.DeletePoint( ctx, n )
-				end if 
-				'' ctx.points->remove( n )
-			end if
-		end if
-	
-	end if
-	
-end sub
-
-private function def_AddPoint( ctx as TEST_CTX, p as VECTOR2 ) as BOOLEAN
-	function = FALSE
-	if ctx.points <> NULL then
-		if ctx.maxpoints = -1 or ctx.points->count < ctx.maxpoints then
-			ctx.points->add( p )
-			function = TRUE
-		end if
-	end if
-end function
-
-private function def_DeletePoint( ctx as TEST_CTX, index as integer ) as BOOLEAN
-	function = FALSE
-	if ctx.points <> NULL then
-		ctx.points->remove( index )
-		function = TRUE
-	end if
-end function
-
-private function def_MovePoint( ctx as TEST_CTX, index as integer, p as VECTOR2 ) as BOOLEAN
-	function = FALSE
-	if ctx.points <> NULL then
-		ctx.points->v(index) = p
-		function = TRUE
-	end if
-end function
-
-constructor TEST_CTX( )
-
-	Title = ""
-	
-	HandleInput = procptr( def_HandleInput )
-	DrawScene = NULL
-
-	AddPoint = procptr( def_AddPoint )
-	DeletePoint = procptr( def_DeletePoint )
-	MovePoint = procptr( def_MovePoint )
-
-	MaxPoints = 0
-	Points = NULL
-	
-	MaxModes = 0
-
-end constructor
-
-destructor TEST_CTX( )
-	Title = ""
-end destructor
-
-private sub draw_menu( idx as integer, p as VECTOR2 )
+private sub draw_menu( byval idx as const integer, byref p as const VECTOR2 )
 
 	dim sel as integer = 0
+
+	'' !!! TODO !!! - get titles from SHEET
 
 	dim a( 1 to 8 ) as string = _
 		{ _
@@ -230,7 +93,7 @@ function menu_input( ) as boolean
 	next 
 
 	if sel > 0 then
-		ctx = vectutor( sel )
+		ctx = GetSheetInterface( sel )
 		function = true		
 	end if
 
@@ -244,6 +107,15 @@ function EscapeKeyPressed() as boolean
 	last = curr
 end function
 
+function SpaceKeyPressed() as boolean
+	static last as boolean = false
+	static curr as boolean = false
+	curr = MultiKey(fb.SC_SPACE)
+	function = cbool( curr andalso not last )
+	last = curr
+end function
+
+
 '' ========================================================
 '' vectutor_main.bas
 '' ========================================================
@@ -252,7 +124,7 @@ public sub MainLoop()
 
 	dim menu_mode as BOOLEAN = FALSE
 
-	ctx = vectutor( 0, 0 )
+	ctx = GetSheetInterface( 0, 0 )
 
 	do
 
@@ -269,7 +141,13 @@ public sub MainLoop()
 		end if
     
 		if menu_mode = FALSE then
-			ctx.HandleInput( ctx )
+			if( SpaceKeyPressed() ) then
+				if ctx.MaxModes > 1 then
+					ctx = GetSheetInterface( ctx_index, (ctx.Mode mod ctx.MaxModes) + 1 )
+				end if
+			else
+				ctx.HandleInput( ctx )
+			end if
 		end if
 
 		gls.BeginFrame()
@@ -291,7 +169,7 @@ public sub MainLoop()
 
 		SetColor( COLOR_TEXT )
 		ogl_draw_string( ctx.title, type<vector2>(10, 15) )
-		ogl_draw_string( "fps: " & cint(GTIMER.fps), type<vector2>(580, 15) )
+		ogl_draw_string( "fps: " & cint(GTIMER.fps), type<vector2>(gls.GetDisplayWidth()-ogl_font_get_width("fps: XXXX"), 15) )
 
 		if menu_mode = TRUE then
 

@@ -8,13 +8,14 @@
 #include once "vector2_array.bi"
 #include once "vectutor.bi"
 #include once "vectutor_color.bi"
+#include once "sheet.bi"
 
 using vectors
 
 '' --------------------------------------------------------
 dim shared points as VECTOR2_ARRAY
 
-private function MovePoint( ctx as TEST_CTX, index as integer, p as VECTOR2 ) as BOOLEAN
+private function MovePoint( byref ctx as SHEET, byval index as const integer, byref p as const VECTOR2 ) as BOOLEAN
 
 	dim calc as BOOLEAN = FALSE
 
@@ -36,7 +37,7 @@ private function MovePoint( ctx as TEST_CTX, index as integer, p as VECTOR2 ) as
 
 end function
 
-private sub draw_common( ctx as TEST_CTX )
+private sub draw_common( byref ctx as SHEET )
 
 	'' Draw all the points
 	SetColor( COLOR_POINTS )
@@ -50,7 +51,7 @@ private sub draw_common( ctx as TEST_CTX )
 
 end sub
 
-private sub draw_scene_circle_circle( ctx as TEST_CTX )
+private sub draw_scene_circle_circle( byref ctx as SHEET )
 
 	if points.count >= 2 then
 
@@ -105,7 +106,7 @@ private sub draw_scene_circle_circle( ctx as TEST_CTX )
 
 end sub
 
-private sub draw_scene_circle_line( ctx as TEST_CTX )
+private sub draw_scene_circle_line( byref ctx as SHEET )
 
 	if points.count >= 2 then
 	
@@ -150,7 +151,7 @@ private sub draw_scene_circle_line( ctx as TEST_CTX )
 
 end sub
 
-private sub draw_scene_circle_2line_tangent( ctx as TEST_CTX )
+private sub draw_scene_circle_2line_tangent( byref ctx as SHEET )
 
 	if points.count >= 2 then
 	
@@ -191,9 +192,9 @@ private sub draw_scene_circle_2line_tangent( ctx as TEST_CTX )
 
 end sub
 
-function vectutor_circle( m as integer = 0 ) as TEST_CTX
+function vectutor_circle( byval m as const integer = 0 ) as SHEET
 
-	dim ctx as TEST_CTX
+	dim ctx as SHEET
 
 	ctx.MaxModes = 3
 	ctx.Points = @points

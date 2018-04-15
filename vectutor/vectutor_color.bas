@@ -1,7 +1,7 @@
 #include once "GL/gl.bi"
 #include once "vectutor_color.bi"
 
-sub SetColor( index as VECTUTOR_COLOR, intensity as REAL = 1.0 )
+sub SetColor( byval index as const VECTUTOR_COLOR, byval intensity as const REAL = 1.0 )
 
 	static clrs( 0 to (VECTUTOR_COLORS * 3) - 1 ) as single = _
 	{ _

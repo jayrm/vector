@@ -65,10 +65,10 @@ IMPL_REFCOUNTER( GLSCREEN )
 ''
 sub GLSCREEN.SetDisplayOrtho _
 	( _
-		byval _left as real, _
-		byval _right as real, _
-		byval _bottom as real, _
-		byval _top as real _
+		byval _left as const real, _
+		byval _right as const real, _
+		byval _bottom as const real, _
+		byval _top as const real _
 	)
 
 	_ctx->_display_left = _left
@@ -105,10 +105,10 @@ end function
 ''
 sub GLSCREEN.SetWorldOrtho _
 	( _
-		byval _left as real, _
-		byval _right as real, _
-		byval _bottom as real, _
-		byval _top as real _
+		byval _left as const real, _
+		byval _right as const real, _
+		byval _bottom as const real, _
+		byval _top as const real _
 	)
 
 	_ctx->_left = _left
@@ -165,10 +165,10 @@ end function
 ''
 sub GLSCREEN.SetPerspective _
 	( _
-		byval fov as real, _
-		byval aspect as real, _
-		byval znear as real, _
-		byval zfar as real _
+		byval fov as const real, _
+		byval aspect as const real, _
+		byval znear as const real, _
+		byval zfar as const real _
 	)
 
 	glMatrixMode( GL_PROJECTION )
@@ -197,9 +197,9 @@ end sub
 ''
 sub GLSCREEN.SetCamera _
 	( _
-		byref p as vector3, _
-		byref v as vector3, _
-		byref u as vector3 _
+		byref p as const vector3, _
+		byref v as const vector3, _
+		byref u as const vector3 _
 	)
 
 	'' equivelent to gluLookAt()
@@ -230,9 +230,9 @@ end sub
 ''
 function GLSCREEN.SetMode _
 	( _
-		byval w as integer, _
-		byval h as integer, _
-		byval d as integer _
+		byval w as const integer, _
+		byval h as const integer, _
+		byval d as const integer _
 	) as integer
 
 	_ctx->_display_width = w
@@ -354,39 +354,39 @@ sub GLSCREEN.Perspective _
 
 end sub
 
-function GLSCREEN.MapDisplayWtoWorldW( byval w as real ) as real
+function GLSCREEN.MapDisplayWtoWorldW( byval w as const real ) as real
 	function = w / _ctx->_display_width * _ctx->_width
 end function
 
-function GLSCREEN.MapDisplayHtoWorldH( byval h as real ) as real
+function GLSCREEN.MapDisplayHtoWorldH( byval h as const real ) as real
 	function = h / _ctx->_display_height * _ctx->_height
 end function
 
-function GLSCREEN.MapWorldWtoDisplayW( byval w as real ) as real
+function GLSCREEN.MapWorldWtoDisplayW( byval w as const real ) as real
 	function = w / _ctx->_width * _ctx->_display_width
 end function
 
-function GLSCREEN.MapWorldHtoDisplayH( byval h as real ) as real
+function GLSCREEN.MapWorldHtoDisplayH( byval h as const real ) as real
 	function = h / _ctx->_height * _ctx->_display_height
 end function
 
-function GLSCREEN.MapDisplayXtoWorldX( byval x as real ) as real
+function GLSCREEN.MapDisplayXtoWorldX( byval x as const real ) as real
 	function = (x - _ctx->_display_left) / _ctx->_display_width * _ctx->_width + _ctx->_left
 end function
 
-function GLSCREEN.MapDisplayYtoWorldY( byval y as real ) as real
+function GLSCREEN.MapDisplayYtoWorldY( byval y as const real ) as real
 	function = (y - _ctx->_display_bottom) / _ctx->_display_height * _ctx->_height + _ctx->_bottom
 end function
 
-function GLSCREEN.MapWorldXtoDisplayX( byval x as real ) as real
+function GLSCREEN.MapWorldXtoDisplayX( byval x as const real ) as real
 	function = (x - _ctx->_left) / _ctx->_width * _ctx->_display_width + _ctx->_display_left
 end function
 
-function GLSCREEN.MapWorldYtoDisplayY( byval y as real ) as real
+function GLSCREEN.MapWorldYtoDisplayY( byval y as const real ) as real
 	function = (y - _ctx->_bottom) / _ctx->_height * _ctx->_display_width + _ctx->_display_bottom
 end function
 
-function GLSCREEN.MapDisplayXYtoWorldXY( a as VECTOR2 ) as VECTOR2
+function GLSCREEN.MapDisplayXYtoWorldXY( byref a as const VECTOR2 ) as VECTOR2
 	function = type _
 		( _
 			MapDisplayXtoWorldX( a.x ), _
@@ -394,7 +394,7 @@ function GLSCREEN.MapDisplayXYtoWorldXY( a as VECTOR2 ) as VECTOR2
 		)
 end function
 
-function GLSCREEN.MapWorldXYtoDisplayXY( a as VECTOR2 ) as VECTOR2
+function GLSCREEN.MapWorldXYtoDisplayXY( byref a as const VECTOR2 ) as VECTOR2
 	function = type _
 		( _
 			MapWorldXtoDisplayX( a.x ), _
@@ -405,8 +405,8 @@ end function
 ''
 function GetPickVector _
 	( _
-		byval x as single, _
-		byval y as single _
+		byval x as const single, _
+		byval y as const single _
 	) as vector3
 
 	'' map window coords to a pick vector relative to camera position

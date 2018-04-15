@@ -8,12 +8,13 @@
 #include once "vectutor.bi"
 #include once "vectutor_color.bi"
 #include once "mouse.bi"
+#include once "sheet.bi"
 
 extern GMOUSE as MOUSE
 
 '' --------------------------------------------------------
 
-private sub draw_scene( ctx as TEST_CTX )
+private sub draw_scene( byref ctx as SHEET )
 	
 	SetColor( COLOR_RED )
 
@@ -51,9 +52,9 @@ private sub draw_scene( ctx as TEST_CTX )
 
 end sub
 
-function vectutor_misc( m as integer = 0 ) as TEST_CTX
+function vectutor_misc( byval m as const integer = 0 ) as SHEET
 
-	dim ctx as TEST_CTX
+	dim ctx as SHEET
 	
 	ctx.Title = "MISC"
 	ctx.DrawScene = procptr( draw_scene )

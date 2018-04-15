@@ -22,7 +22,7 @@ dim shared glyph_spacing_y as REAL = BASE_GLYPH_SCALE * 2
 
 sub ogl_font_set_scaling _
     ( _
-        s as VECTOR2 _
+        byref s as const VECTOR2 _
     )
 
     glyph_scale = s * BASE_GLYPH_SCALE
@@ -31,7 +31,7 @@ end sub
 
 sub ogl_font_set_height _
     ( _
-        h as REAL _
+        byval h as const REAL _
     )
     
     glyph_scale.x = abs(h) * BASE_GLYPH_SCALE
@@ -41,7 +41,7 @@ end sub
 
 sub ogl_font_set_spacing _
     ( _
-        h as REAL _
+        byval h as const REAL _
     )
     
     glyph_spacing_y = h
@@ -50,7 +50,7 @@ end sub
 
 sub ogl_font_set_current_pos _
 	( _
-		p as VECTOR2 _
+		byref p as const VECTOR2 _
 	)
 	
 	current_pos = p
@@ -59,8 +59,8 @@ end sub
 
 sub ogl_draw_char _
     ( _
-        ch as integer, _
-        p as VECTOR2 _
+        byval ch as const integer, _
+        byref p as const VECTOR2 _
     )
 
     dim x1 as integer
@@ -110,7 +110,7 @@ end sub
 
 sub ogl_draw_string overload _
 	( _
-        txt as string _
+        byref txt as const string _
 	)
 
     dim t as VECTOR2 = current_pos
@@ -132,11 +132,41 @@ end sub
 
 sub ogl_draw_string _
     ( _
-        txt as string, _
-        p as VECTOR2 _
+        byref txt as const string, _
+        byref p as const VECTOR2 _
     )
 
 	current_pos = p
 	ogl_draw_string( txt )
 
 end sub
+
+function ogl_font_get_height _
+	( _
+		byref txt as const string _
+	) as REAL
+
+	function = glyph_spacing_y
+
+end function
+
+function ogl_font_get_width _
+	( _
+		byref txt as const string _
+	) as REAL
+
+	dim w as real = 0
+
+	for i as integer = 1 to len(txt)
+		dim ch as integer = asc(mid(txt,i,1))
+		select case ch
+		case 32 to 127
+			dim x1 as integer = glyph_vectors_romans( glyph_index_romans( ch ).index + 0 ).x
+			dim x2 as integer = glyph_vectors_romans( glyph_index_romans( ch ).index + 0 ).y
+			w += creal(x2 - x1) * glyph_scale.x
+		end select
+	next
+
+	function = w
+
+end function
